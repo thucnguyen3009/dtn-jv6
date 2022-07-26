@@ -1,48 +1,50 @@
 package dtn.asm.controller.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import dtn.asm.service.SessionService;
 
 @Controller
 @RequestMapping("/DTNsBike")
 public class HomeController {
-
+	@Autowired
+	SessionService session;
+	
+//	Index Page :))
 	@RequestMapping("/index.html")
 	public String index() {
 		
 		return "/user/home/index";
 	}
-	@RequestMapping("/shop.html")
-	public String shopPage() {
-		return "/user/home/shop";
-	}
+//	About page
 	@RequestMapping("/about.html")
-	public String about() {
+	public String about(Model m) {
+		
+		m.addAttribute("ab","active");
 		return "/user/home/about";
 	}
+//	Contact page
 	@RequestMapping("/contact.html")
-	public String contact() {
+	public String contact(Model m) {
+		
+		m.addAttribute("ct","active");
 		return "/user/home/contact";
 	}
+//	Product page
+	@RequestMapping("/shop.html")
+	public String shopPage(Model m) {
+		
+		m.addAttribute("sp","active");
+		return "/user/home/shop";
+	}
+//	Product details page
 	@RequestMapping("/product.html")
 	public String product() {
 		return "/user/home/product";
 	}
-	@RequestMapping("/login.html")
-	public String login() {
-		return "user/home/login";
-	}
-	@RequestMapping("/register.html")
-	public String register() {
-		return "user/home/register";
-	}
-	@RequestMapping("/changepass.html")
-	public String changepass() {
-		return "user/home/changepass";
-	}
-	@RequestMapping("/forgot-password.html")
-	public String forgot_password() {
-		return "user/home/forgot-password";
-	}
+	
 
 }

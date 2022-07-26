@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout::dynamic(~{::title},~{::header},~{::.content})}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTNsBike | Giỏ hàng của bạn</title>
+</head>
+<body>
+    <header th:insert="~{/user/common/header::header}"></header>
+    <div class="content">
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-area mt-30">
+            <div class="container">
+                <div class="breadcrumb">
+                    <ul class="d-flex align-items-center">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li class="active"><a href="cart.html">Giỏ hàng</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- Breadcrumb End -->
+        <!-- Cart Main Area Start -->
+        <div class="cart-main-area ptb-20 ptb-sm-60 mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-sm-9">
+                        <!-- Form Start -->
+                        <form action="#">
+                            <!-- Table Content Start -->
+                            <div class="table-content table-responsive mb-45">
+                                <table class="table table-hover">
+                                    <thead style="background-color:orangered;">
+                                        <tr class="text-white">
+                                            <th class="product-thumbnail">Hình ảnh</th>
+                                            <th class="product-name">Sản phẩm</th>
+                                            <th class="product-price">Đơn giá</th>
+                                            <th class="product-quantity">Số lượng</th>
+                                            <th class="product-subtotal">Thành tiền</th>
+                                            <th class="product-remove">
+                                                <a class="text-white" href="#">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                <a href="#"><img th:src="@{../user/img/products/13.jpg}" alt="cart-image"></a>
+                                            </td>
+                                            <td class="product-name"><a href="#">Xe đạp gì gì đó :))</a></td>
+                                            <td class="product-price"><span class="amount">1,265,000 đ</span></td>
+                                            <td class="product-quantity"><input type="number" value="1"></td>
+                                            <td class="product-subtotal">1,265,000 đ</td>
+                                            <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                <a href="#"><img th:src="@{../user/img/products/23.jpg}" alt="cart-image"></a>
+                                            </td>
+                                            <td class="product-name"><a href="#">Không phải xe đạp âu bạn gì ơi :V</a></td>
+                                            <td class="product-price"><span class="amount">5,900,000 đ</span></td>
+                                            <td class="product-quantity"><input type="number" value="1"></td>
+                                            <td class="product-subtotal">5,900,000 đ</td>
+                                            <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Table Content Start -->
+                            <div class="row">
+                               <!-- Cart Button Start -->
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="buttons-cart">
+                                        <input type="submit" value="Cập nhật giỏ hàng">
+                                        <a href="#">Tiếp tục mua hàng</a>
+                                    </div>
+                                </div>
+                                <!-- Cart Button Start -->
+                            </div>
+                            <!-- Row End -->
+                        </form>
+                        <!-- Form End -->
+                    </div>
+                    <!-- Cart Totals Start -->
+                    <div class="col-md-3 col-sm-3">
+                                    <div class="cart_totals float-md-left text-md-left">
+                                        <div class="row">
+                                            <div class="col-12 border-bottom p-2">
+                                                <h5><strong>CỘNG GIỎ HÀNG</strong></h5>
+                                            </div>
+                                            <div class="col-12 border-bottom">
+                                               <div class="row p-2">
+                                                    <h6>Tạm tính:</h6> 
+                                                    <div class="col-3"></div>
+                                                    <strong class="col-6">5,000,000 đ</strong>
+                                               </div>
+                                            </div>
+                                            <div class="col-12 mt-2">
+                                                <div class="row border-bottom p-2">
+                                                    <h6>Tổng tiền:</h6> <div class="col-3"></div> <strong class="col-6">5,000,000 đ</strong>
+                                               </div>
+                                            </div>
+                                            <div class="col-12 wc-proceed-to-checkout text-center">
+                                                <a href="checkout.html" class="w-100">THANH TOÁN</a>
+                                            </div>
+                                            <div class="col-12 mt-2">
+                                                <div class="row p-2">
+                                                    <h6><i class="fa fa-tags" aria-hidden="true"></i> <strong>Phiếu giảm giá</strong></h6>
+
+                                                    <input class="mt-2 form-control" type="text" placeholder="Mã giảm giá...">
+
+                                                    <a href="#" class="w-100 mt-2 btn btn-secondary">ÁP DỤNG</a>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                    <!-- Cart Totals End -->
+                </div>
+                 <!-- Row End -->
+            </div>
+        </div>
+        <!-- Cart Main Area End -->
+    </div>
+</body>
+</html>
