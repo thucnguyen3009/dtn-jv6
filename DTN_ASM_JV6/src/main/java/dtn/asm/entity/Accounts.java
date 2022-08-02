@@ -19,27 +19,26 @@ public class Accounts implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "[username]")
-	private Integer username;
+	 String username;
 
 	@Column(name = "[password]")
-	private String password;
+	 String password;
 
 	@Column(name = "[fullname]")
-	private String Fullname;
+	 String Fullname;
 
 	@Column(name = "[email]")
-	private String Email;
+	 String email;
 
 	@Column(name = "[photo]")
-	private String photo;
+	 String photo;
 
 	@Column(name = "[phone]")
-	private String phone;
+	 String phone;
 
-	@Column(name = "[active]")
-	private Boolean active = true;
+	@Column(name = "[acitve]")
+	 Boolean active = true;
 
 	@OneToMany(mappedBy = "userAuthor")
 	List<Authorities> authorities;
