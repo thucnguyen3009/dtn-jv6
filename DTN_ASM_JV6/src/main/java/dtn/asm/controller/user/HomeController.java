@@ -36,7 +36,6 @@ public class HomeController {
 //	Product page
 	@RequestMapping("/shop.html")
 	public String shopPage(Model m) {
-		
 		m.addAttribute("sp","active");
 		return "/user/home/shop";
 	}
