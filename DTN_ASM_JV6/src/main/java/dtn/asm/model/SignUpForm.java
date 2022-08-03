@@ -17,6 +17,8 @@ public class SignUpForm {
 	@NotBlank
 	String password;
 	@NotBlank
+	String password2;
+	@NotBlank
 	String fullname;
 	@NotBlank
 	@Email

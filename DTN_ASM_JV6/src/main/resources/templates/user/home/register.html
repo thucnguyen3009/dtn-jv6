@@ -42,29 +42,33 @@
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="f-name"><span class="require">*</span>Tên đăng nhập</label>
                                     <div class="col-md-10">
-                                        <input th:field="*{username}" type="text" class="form-control" id="f-name" placeholder="Tên đăng nhập...">
+                                        <input th:field="*{username}" name="username" type="text" class="form-control" id="f-name" placeholder="Tên đăng nhập...">
                                         <i class="erros_mess" th:errors="*{username}"></i>
+                                        <p class="erros_mess">[[${mess1}]]</p>
                                     </div>
                                 </div>
                                 <div class="form-group d-md-flex align-items-md-center">
-                                    <label class="control-label col-md-2" for="email"><span class="require">*</span>Họ và Tên</label>
+                                    <label class="control-label col-md-2" for="fullname"><span class="require">*</span>Họ và Tên</label>
                                     <div class="col-md-10">
-                                        <input th:field="*{fullname}" type="email" class="form-control" id="email" placeholder="Họ và tên...">
+                                        <input th:field="*{fullname}" name="fullname" type="text" class="form-control" id="fullname" placeholder="Họ và tên...">
                                         <i class="erros_mess" th:errors="*{fullname}"></i>
                                     </div>
                                 </div>
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="email"><span class="require">*</span>Email</label>
                                     <div class="col-md-10">
-                                        <input th:field="*{email}" type="email" class="form-control" id="email" placeholder="Email...">
+                                        <input th:field="*{email}" name="email" type="email" class="form-control" id="email" placeholder="Email...">
                                         <i class="erros_mess" th:errors="*{email}"></i>
+                                        <p class="erros_mess">[[${mess2}]]</p>
                                     </div>
                                 </div>
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="number"><span class="require">*</span>Số điện thoại</label>
                                     <div class="col-md-10">
-                                        <input th:field="*{phone}" type="text" class="form-control" id="number" placeholder="Số điện thoại...">
+                                        <input th:field="*{phone}" name="phone" type="text" class="form-control" id="number" placeholder="Số điện thoại...">
                                         <i class="erros_mess" th:errors="*{phone}"></i>
+                                        <p class="erros_mess">[[${mess3}]]</p>
+                                        <p class="erros_mess">[[${mess5}]]</p>
                                     </div>
                                 </div>
                             </fieldset>
@@ -73,15 +77,16 @@
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Mật khẩu:</label>
                                     <div class="col-md-10">
-                                        <input th:field="*{password}" type="password" class="form-control" id="pwd" placeholder="Mật khẩu...">
+                                        <input th:field="*{password}" name="pass" type="password" class="form-control" id="pwd" placeholder="Mật khẩu...">
                                         <i class="erros_mess" th:errors="*{password}"></i>
                                     </div>
                                 </div>
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Xác nhận mật khẩu</label>
                                     <div class="col-md-10">
-                                        <input type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu...">
+                                        <input th:field="*{password2}" name="pass2" type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu...">
                                         <i class="erros_mess" th:errors="*{password}"></i>
+                                        <p class="erros_mess">[[${mess4}]]</p>
                                     </div>
                                 </div>
                             </fieldset>
@@ -93,65 +98,7 @@
                                 </div>
                             </div>
                         </form>
-
-
-
-
-                        <!-- <form class="form-register" action="/DTNsBike/register.html" method="post" >         
-                            <fieldset>
-                                <legend>Thông tin cá nhân của bạn</legend>
-                                <div class="form-group d-md-flex align-items-md-center">
-                                    <label class="control-label col-md-2" for="f-name"><span class="require">*</span>Tên đăng nhập</label>
-                                    <div class="col-md-10">
-                                        <input name="username"  type="text" class="form-control" id="f-name" placeholder="Tên đăng nhập...">
-                                    </div>
-                                </div>
-                                <div class="form-group d-md-flex align-items-md-center">
-                                    <label class="control-label col-md-2" for="fullname"><span class="require">*</span>Họ và Tên</label>
-                                    <div class="col-md-10">
-                                        <input name="fullname" type="text" class="form-control" id="fullname" placeholder="Họ và tên...">
-                                    </div>
-                                </div>
-                                <div class="form-group d-md-flex align-items-md-center">
-                                    <label class="control-label col-md-2" for="email"><span class="require">*</span>Email</label>
-                                    <div class="col-md-10">
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Email...">
-                                    </div>
-                                </div>
-                                <div class="form-group d-md-flex align-items-md-center">
-                                    <label class="control-label col-md-2" for="number"><span class="require">*</span>Số điện thoại</label>
-                                    <div class="col-md-10">
-                                        <input name="phone" type="text" class="form-control" id="number" placeholder="Số điện thoại...">
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend>Mật khẩu của bạn</legend>
-                                <div class="form-group d-md-flex align-items-md-center">
-                                    <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Mật khẩu:</label>
-                                    <div class="col-md-10">
-                                        <input name="pass" type="password" class="form-control" id="pwd" placeholder="Mật khẩu...">
-                                    </div>
-                                </div>
-                                <div class="form-group d-md-flex align-items-md-center">
-                                    <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Xác nhận mật khẩu</label>
-                                    <div class="col-md-10">
-                                        <input name="pass2" type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu">
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <div class="terms">
-                                <div class="float-md-right">
-                                    <span>Tôi đã đọc và đồng ý với <a href="#" class="agree"><b>Chính sách bảo mật</b></a></span>
-                                    <input type="checkbox" name="agree" value="1"> &nbsp;
-                                    <input type="submit" value="Tiếp tục" class="return-customer-btn">
-                                </div>
-                            </div>
-                        </form>
-                        <p>[[${mess1}]]</p>
-                        <p>[[${mess2}]]</p> -->
-
-
+                        <p>[[${mess6}]]</p>
                     </div>
                 </div>
                 <!-- Row End -->

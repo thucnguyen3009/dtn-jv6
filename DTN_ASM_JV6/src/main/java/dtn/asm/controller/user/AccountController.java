@@ -2,7 +2,18 @@ package dtn.asm.controller.user;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -58,43 +69,47 @@ public class AccountController {
 
 	@PostMapping("/register.html")
 	public String regiterUpdate(Model m, @Valid @ModelAttribute("signUpForm") SignUpForm signUp, Errors errors) {
-//		String usernameR = req.getParameter("username");
-//		String passwordR = req.getParameter("pass");
-//		String passwordR2 = req.getParameter("pass2");
-//		String fullname = req.getParameter("fullname");
-//		String phone = req.getParameter("phone");
-//		String email = req.getParameter("email");
-//		Optional<Accounts> account = accountdao.findById(usernameR);
-//		String account_email = accountdao.findEmail(email);
-//		String account_phone = accountdao.findPhone(phone);
-//		int loi = 0;
+
+		Optional<Accounts> account = accountdao.findById(signUp.getUsername());
+		String account_email = accountdao.findEmail(signUp.getEmail());
+		String account_phone = accountdao.findPhone(signUp.getPhone());
+		int loi = 0;
 		if (errors.hasErrors()) {
-//			if (account != null) {
-//				loi++;
-//				m.addAttribute("mess1", "Tên đăng nhập đã được sử dụng");
-//			}
-//			if (account_email != null) {
-//				m.addAttribute("mess2", "Email trùng");
-//				loi++;
-//			}
-//			if (account_phone != null) {
-//				m.addAttribute("mess2", "Phone trùng");
-//			} else if (!passwordR.equalsIgnoreCase(passwordR2)) {
-//				m.addAttribute("mess2", "Vui lòng kiểm tra lại mật khẩu");
-//				loi++;
-//			}
+			loi++;
 		}
-//		if (loi == 0) {
-//			Accounts acc = new Accounts();
-//			acc.setUsername(usernameR);
-//			acc.setFullname(fullname);
-//			acc.setPhone(phone);
-//			acc.setPassword(passwordR2);
-//			acc.setPhoto("abc.jpg");
-//			acc.setEmail(email);
-//			accountdao.save(acc);
-//			m.addAttribute("mess2", "Đăng ký thành công");
-//		}
+		if (account != null) {
+			loi++;
+			m.addAttribute("mess1", "Tên đăng nhập đã được sử dụng");
+		}
+		if (account_email != null) {
+			m.addAttribute("mess2", "Email đã được sử dụng");
+			loi++;
+		}
+		if (account_phone != null) {
+			m.addAttribute("mess3", "Số điện thoại đã được sử dụng");
+		}
+		String sdt = signUp.getPhone();
+		String reg = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
+		boolean kt;
+		if (!sdt.matches(reg)) {
+			m.addAttribute("mess5", "Số điện thoại không hợp lệ");
+			loi++;
+		}
+		if (signUp.getPassword().equalsIgnoreCase(signUp.getPassword2())) {
+			m.addAttribute("mess4", "Vui lòng kiểm tra lại mật khẩu");
+			loi++;
+		}
+		if (loi == 0) {
+			Accounts acc = new Accounts();
+			acc.setUsername(signUp.getUsername());
+			acc.setFullname(signUp.getFullname());
+			acc.setPhone(signUp.getPhone());
+			acc.setPassword(signUp.getPassword());
+			acc.setPhoto("abc.jpg");
+			acc.setEmail(signUp.getEmail());
+			accountdao.save(acc);
+			m.addAttribute("mess6", "Đăng ký thành công");
+		}
 		return "user/home/register";
 	}
 
@@ -105,10 +120,57 @@ public class AccountController {
 	}
 
 //	Forgot password page
-	@RequestMapping("/forgot-password.html")
+	@GetMapping("/forgot-password.html")
 	public String forgot_password() {
 		return "user/home/forgot-password";
 	}
+	
+	@PostMapping("/forgot-password.html")
+	public String forgot_password_post(Model m) {
+		String username=req.getParameter("username");
+		String email=req.getParameter("email");
+		Accounts account=accountdao.getById(username);
+		if(account.getUsername().equals(username) && account.getEmail().equals(email)) {
+			String pass=account.getPassword();			
+			//Gửi mật khẩu qua mail
+			Properties pros=new Properties();
+			pros.setProperty("mail.smtp.auth", "true");
+			pros.setProperty("mail.smtp.starttls.enable","true");
+			pros.setProperty("mail.smtp.host","smtp.gmail.com");
+			pros.setProperty("mail.smtp.ssl.trust","smtp.gmail.com");
+			pros.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+			pros.setProperty("mail.smtp.port", "587");		
+			//Kết nối
+			Session session=Session.getInstance(pros, new Authenticator() {
+				protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
+					String username="phuchtpc01818@fpt.edu.vn";
+					String password="aorpgikdpdaojcfk";
+					return new javax.mail.PasswordAuthentication(username, password);
+				}
+			});
+			try {
+				Multipart multipart = new MimeMultipart();
+				MimeBodyPart bodytext = new MimeBodyPart();
+				bodytext.setText("Mật khẩu của bạn là: "+pass,"utf-8");
+				multipart.addBodyPart(bodytext);
+				
+				MimeMessage mess =new MimeMessage(session);
+				mess.setFrom(new InternetAddress("phuchtpc01818@fpt.edu.vn"));
+				mess.setRecipients(Message.RecipientType.TO, req.getParameter("email"));
+				mess.setSubject("PASSWORD RETRIEVAL","utf-8");
+				mess.setReplyTo(mess.getFrom());
+				mess.setContent(multipart);
+				Transport.send(mess);
+				m.addAttribute("mess", "Mật khẩu đã được gửi đến email của bạn");
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return "user/home/forgot-password";	
+	}
+	
+	
 
 //	Update account page
 	@RequestMapping("/update_account.html")
@@ -116,17 +178,5 @@ public class AccountController {
 
 		return "user/home/update-account";
 	}
-
-//	@GetMapping("/DTNsBike/register.html")
-//	public String dangky(Model m, @ModelAttribute ("acc") Accounts account) {
-//		
-//		return "user/home/register";
-//	}
-//	
-//	@PostMapping("/DTNsBike/register.html")
-//	public String dangky(Model m, @Valid @ModelAttribute Accounts account, Error errors) {
-//		
-//		return "user/home/register";
-//	}
 
 }
