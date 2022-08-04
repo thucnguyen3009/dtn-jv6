@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dtn.asm.dao.CategoriesDAO;
+import dtn.asm.dao.ProductsDAO;
 import dtn.asm.entity.Categories;
 import dtn.asm.service.CategoriesService;
 
@@ -14,6 +15,8 @@ public class CategoryServiceImp implements CategoriesService {
 
 	@Autowired
 	CategoriesDAO dao;
+	@Autowired
+	ProductsDAO daoProduct;
 	
 	@Override
 	public List<Categories> findAll() {
@@ -27,11 +30,13 @@ public class CategoryServiceImp implements CategoriesService {
 	
 	@Override
 	public void create(Categories entity) {
+		entity.setName(entity.getName());
 		dao.save(entity);
 	}
 	
 	@Override
 	public void update(Categories entity) {
+		entity.setName(entity.getName());
 		dao.save(entity);
 	}
 	
@@ -40,4 +45,8 @@ public class CategoryServiceImp implements CategoriesService {
 		dao.deleteById(id);
 	}
 
+	@Override
+	public Boolean checkProduct(Integer id) {
+		return daoProduct.findByCatePro(dao.getById(id)).isEmpty();
+	}
 }
