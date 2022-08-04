@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.OrderDetails;
 
 public interface OrderDetailsService {
@@ -9,9 +11,9 @@ public interface OrderDetailsService {
 
 	OrderDetails findById(Integer id);
 
-	void create();
+	void create(OrderDetails entity);
 
-	void update();
+	void update(OrderDetails entity);
 
 	void delete(Integer id);
 }

@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.Cart;
 
 public interface CartService {
@@ -9,9 +11,9 @@ public interface CartService {
 
 	Cart findById(String id);
 
-	void create();
+	void create(Cart entity);
 
-	void update();
+	void update(Cart entity);
 
 	void delete(String id);
 }

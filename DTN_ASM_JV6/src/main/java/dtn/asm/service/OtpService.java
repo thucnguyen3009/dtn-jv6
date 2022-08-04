@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.Otp;
 
 public interface OtpService {
@@ -9,9 +11,9 @@ public interface OtpService {
 
 	Otp findById(Integer id);
 
-	void create();
+	void create(Otp entity);
 
-	void update();
+	void update(Otp entity);
 
 	void delete(Integer id);
 }

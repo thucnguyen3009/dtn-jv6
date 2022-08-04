@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.Products;
 
 public interface ProductsService {
@@ -9,9 +11,9 @@ public interface ProductsService {
 
 	Products findById(Integer id);
 
-	void create();
+	void create(Products entity);
 
-	void update();
+	void update(Products entity);
 
 	void delete(Integer id);
 }

@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.Status;
 
 public interface StatusService {
@@ -9,9 +11,9 @@ public interface StatusService {
 
 	Status findById(Integer id);
 
-	void create();
+	void create(Status entity);
 
-	void update();
+	void update(Status entity);
 
 	void delete(Integer id);
 }

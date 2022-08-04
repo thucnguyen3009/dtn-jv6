@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.Accounts;
 
 public interface AccountsService {
@@ -9,9 +11,9 @@ public interface AccountsService {
 
 	Accounts findById(String id);
 
-	void create();
+	void create(Accounts entity);
 
-	void update();
+	void update(Accounts entity);
 
 	void delete(String id);
 }

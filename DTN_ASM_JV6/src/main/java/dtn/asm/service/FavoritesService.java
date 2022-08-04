@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.Favorites;
 
 public interface FavoritesService {
@@ -9,9 +11,9 @@ public interface FavoritesService {
 
 	Favorites findById(Integer id);
 
-	void create();
+	void create(Favorites entity);
 
-	void update();
+	void update(Favorites entity);
 
 	void delete(Integer id);
 }

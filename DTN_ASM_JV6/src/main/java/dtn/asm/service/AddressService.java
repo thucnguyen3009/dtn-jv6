@@ -2,6 +2,8 @@ package dtn.asm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dtn.asm.entity.Address;
 
 public interface AddressService {
@@ -9,9 +11,9 @@ public interface AddressService {
 
 	Address findById(Integer id);
 
-	void create();
+	void create(Address entity);
 
-	void update();
+	void update(Address entity);
 
 	void delete(Integer id);
 }
