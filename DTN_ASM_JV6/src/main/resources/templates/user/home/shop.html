@@ -239,13 +239,13 @@
                                 <div id="grid-view" class="tab-pane fade show active">
                                     <div class="row">
                                         <!-- Single Product Start -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6" th:each="p:${product}">
                                             <div class="single-product">
                                                 <!-- Product Image Start -->
                                                 <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
+                                                    <a th:href="@{|/DTNsBike/product.html?id=${p.id}|}">
+                                                        <img class="primary-img" th:src="@{|/assets/admin/asset/images/images_xedap/${p.img}|}" alt="single-product">
+                                                        <!-- <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product"> -->
                                                     </a>
                                                     <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
                                                 </div>
@@ -253,9 +253,9 @@
                                                 <!-- Product Content Start -->
                                                 <div class="pro-content">
                                                     <div class="pro-info">
-                                                        <h4><a href="product.html">Xe đạp trẻ em không dành cho người lớn :0</a></h4>
-                                                        <p><span class="price">1,350,000 vnđ</span></p>
-                                                        <div class="label-product l_sale">10<span class="symbol-percent">%</span></div>
+                                                        <h4><a th:utext="${p.name}" href="#"></a></h4>
+                                                        <p><span th:utext="${p.price}" class="price"></span></p>
+                                                        <div th:utext="${p.sale}" class="label-product l_sale"><span class="symbol-percent">%</span></div>
                                                     </div>
                                                     <div class="pro-actions">
                                                         <div class="actions-primary">
@@ -271,171 +271,11 @@
                                             </div>
                                         </div>
                                         <!-- Single Product End -->
-                                        <!-- Single Product Start -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                            <div class="single-product">
-                                                <!-- Product Image Start -->
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                </div>
-                                                <!-- Product Image End -->
-                                                <!-- Product Content Start -->
-                                                <div class="pro-content">
-                                                    <div class="pro-info">
-                                                        <h4><a href="product.html">Xe đạp trẻ em không dành cho người lớn :0</a></h4>
-                                                        <p><span class="price">1,350,000 vnđ</span></p>
-                                                        <div class="label-product l_sale">10<span class="symbol-percent">%</span></div>
-                                                    </div>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Product Content End -->
-                                                <span class="sticker-new">new</span>
-                                            </div>
-                                        </div>
-                                        <!-- Single Product End -->
-                                         <!-- Single Product Start -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                            <div class="single-product">
-                                                <!-- Product Image Start -->
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                </div>
-                                                <!-- Product Image End -->
-                                                <!-- Product Content Start -->
-                                                <div class="pro-content">
-                                                    <div class="pro-info">
-                                                        <h4><a href="product.html">Xe đạp trẻ em không dành cho người lớn :0</a></h4>
-                                                        <p><span class="price">1,350,000 vnđ</span></p>
-                                                        <div class="label-product l_sale">10<span class="symbol-percent">%</span></div>
-                                                    </div>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Product Content End -->
-                                                <span class="sticker-new">new</span>
-                                            </div>
-                                        </div>
-                                        <!-- Single Product End -->
-                                         <!-- Single Product Start -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                            <div class="single-product">
-                                                <!-- Product Image Start -->
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                </div>
-                                                <!-- Product Image End -->
-                                                <!-- Product Content Start -->
-                                                <div class="pro-content">
-                                                    <div class="pro-info">
-                                                        <h4><a href="product.html">Xe đạp trẻ em không dành cho người lớn :0</a></h4>
-                                                        <p><span class="price">1,350,000 vnđ</span></p>
-                                                        <div class="label-product l_sale">10<span class="symbol-percent">%</span></div>
-                                                    </div>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Product Content End -->
-                                                <span class="sticker-new">new</span>
-                                            </div>
-                                        </div>
-                                        <!-- Single Product End -->
-                                         <!-- Single Product Start -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                            <div class="single-product">
-                                                <!-- Product Image Start -->
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                </div>
-                                                <!-- Product Image End -->
-                                                <!-- Product Content Start -->
-                                                <div class="pro-content">
-                                                    <div class="pro-info">
-                                                        <h4><a href="product.html">Xe đạp trẻ em không dành cho người lớn :0</a></h4>
-                                                        <p><span class="price">1,350,000 vnđ</span></p>
-                                                        <div class="label-product l_sale">10<span class="symbol-percent">%</span></div>
-                                                    </div>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Product Content End -->
-                                                <span class="sticker-new">new</span>
-                                            </div>
-                                        </div>
-                                        <!-- Single Product End -->
-                                         <!-- Single Product Start -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                            <div class="single-product">
-                                                <!-- Product Image Start -->
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                </div>
-                                                <!-- Product Image End -->
-                                                <!-- Product Content Start -->
-                                                <div class="pro-content">
-                                                    <div class="pro-info">
-                                                        <h4><a href="product.html">Xe đạp trẻ em không dành cho người lớn :0</a></h4>
-                                                        <p><span class="price">1,350,000 vnđ</span></p>
-                                                        <div class="label-product l_sale">10<span class="symbol-percent">%</span></div>
-                                                    </div>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Product Content End -->
-                                                <span class="sticker-new">new</span>
-                                            </div>
-                                        </div>
-                                        <!-- Single Product End -->
+                                     
+                                      
+                                   
+                                  
+                                   
                                     </div>
                                     <!-- Row End -->
                                 </div>
@@ -476,111 +316,9 @@
                                         </div>
                                     </div>
                                     <!-- Single Product End -->
-                                     <!-- Single Product Start -->
-                                    <div class="single-product"> 
-                                        <div class="row">        
-                                            <!-- Product Image Start -->
-                                            <div class="col-lg-4 col-md-5 col-sm-12">
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                     <span class="sticker-new">new</span>
-                                                </div>
-                                            </div>
-                                            <!-- Product Image End -->
-                                            <!-- Product Content Start -->
-                                            <div class="col-lg-8 col-md-7 col-sm-12">
-                                                <div class="pro-content hot-product2">
-                                                    <h4><a href="product.html">Xe đạp ko dành cho trẻ em :))</a></h4>
-                                                    <p><span class="price">1,530,000 vnđ</span></p>
-                                                    <p>Xe đạp dành cho người lớn với kích thước mà trẻ con éo thể leo lên để chạy được.</p>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="" data-original-title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="" data-original-title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Product Content End -->
-                                        </div>
-                                    </div>
-                                    <!-- Single Product End -->
-                                     <!-- Single Product Start -->
-                                    <div class="single-product"> 
-                                        <div class="row">        
-                                            <!-- Product Image Start -->
-                                            <div class="col-lg-4 col-md-5 col-sm-12">
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                     <span class="sticker-new">new</span>
-                                                </div>
-                                            </div>
-                                            <!-- Product Image End -->
-                                            <!-- Product Content Start -->
-                                            <div class="col-lg-8 col-md-7 col-sm-12">
-                                                <div class="pro-content hot-product2">
-                                                    <h4><a href="product.html">Xe đạp ko dành cho trẻ em :))</a></h4>
-                                                    <p><span class="price">1,530,000 vnđ</span></p>
-                                                    <p>Xe đạp dành cho người lớn với kích thước mà trẻ con éo thể leo lên để chạy được.</p>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="" data-original-title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="" data-original-title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Product Content End -->
-                                        </div>
-                                    </div>
-                                    <!-- Single Product End -->
-                                     <!-- Single Product Start -->
-                                    <div class="single-product"> 
-                                        <div class="row">        
-                                            <!-- Product Image Start -->
-                                            <div class="col-lg-4 col-md-5 col-sm-12">
-                                                <div class="pro-img">
-                                                    <a href="product.html">
-                                                        <img class="primary-img" th:src="@{../user/img/products/44.jpg}" alt="single-product">
-                                                        <img class="secondary-img" th:src="@{../user/img/products/45.jpg}" alt="single-product">
-                                                    </a>
-                                                    <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                                                     <span class="sticker-new">new</span>
-                                                </div>
-                                            </div>
-                                            <!-- Product Image End -->
-                                            <!-- Product Content Start -->
-                                            <div class="col-lg-8 col-md-7 col-sm-12">
-                                                <div class="pro-content hot-product2">
-                                                    <h4><a href="product.html">Xe đạp ko dành cho trẻ em :))</a></h4>
-                                                    <p><span class="price">1,530,000 vnđ</span></p>
-                                                    <p>Xe đạp dành cho người lớn với kích thước mà trẻ con éo thể leo lên để chạy được.</p>
-                                                    <div class="pro-actions">
-                                                        <div class="actions-primary">
-                                                            <a href="cart.html" title="" data-original-title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                        <div class="actions-secondary">
-                                                            <a href="#" title="" data-original-title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Product Content End -->
-                                        </div>
-                                    </div>
-                                    <!-- Single Product End -->
+                        
+                             
+                                
                                 </div>
                                 <!-- #list view End -->
                                 <div class="pro-pagination">

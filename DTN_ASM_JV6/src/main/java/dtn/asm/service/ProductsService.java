@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import dtn.asm.entity.Products;
 
+@Service
 public interface ProductsService {
 	List<Products> findAll();
 

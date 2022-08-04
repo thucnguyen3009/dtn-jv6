@@ -32,7 +32,7 @@ public class Products implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date = new Date();
 	
-	@Column(name = "[avaliable]")
+	@Column(name = "[available]")
 	private Boolean avaliable;
 	
 	@Column(name = "[sale]")
@@ -45,7 +45,7 @@ public class Products implements Serializable {
 	@Column(name = "[description]")
 	private String description;
 	
-	@Column(name = "[quantyti]")
+	@Column(name = "[quantity]")
 	private Integer qty;
 	
 	@ManyToOne
