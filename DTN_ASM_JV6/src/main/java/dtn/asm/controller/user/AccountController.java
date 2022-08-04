@@ -64,12 +64,12 @@ public class AccountController {
 			Accounts acc = accountsService.findById(user);
 			if (acc != null && pass.equals(acc.getPassword())) {
 				session.set("account", acc);
-				m.addAttribute("message","Đăng nhập thành công.");				
+				m.addAttribute("message", "Đăng nhập thành công.");
 				return "redirect:/DTNsBike/index.html";
 //				return "/user/home/index";
 			}
 		}
-		m.addAttribute("message","Đăng nhập thất bại.");
+		m.addAttribute("message", "Đăng nhập thất bại.");
 		return "user/home/login";
 	}
 
@@ -78,6 +78,12 @@ public class AccountController {
 	public String register(Model m, @ModelAttribute("signUpForm") SignUpForm signUp) {
 		signUp = new SignUpForm();
 		return "user/home/register";
+	}
+
+	@RequestMapping("/logout.html")
+	public String logout() {
+		session.remove("account");
+		return "redirect:/DTNsBike/index.html";
 	}
 
 	@PostMapping("/register.html")
