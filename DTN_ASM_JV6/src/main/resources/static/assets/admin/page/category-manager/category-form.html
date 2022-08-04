@@ -27,7 +27,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">CẬP NHẬT DANH MỤC SẢN PHẨM</h4>
-                  <form class="form-sample" name="form">
+                  <form class="form-sample" name="myForm">
                     <p class="card-description">
                       Lưu ý: Những trường (*) là bắt buộc.
                     </p>
@@ -36,21 +36,21 @@
                         <div class="form-group row">
                           <label class="col-12">(<strong class="text-danger">*</strong>) Tên danh mục:</label>
                           <div class="col-12">
-                            <input type="text" class="form-control" placeholder="Nhập tên danh mục...." / ng-model="name" name="name" required>
-                            <h1>{{form.name.$invalid}}</h1>
+                            <input type="text" class="form-control" placeholder="Nhập tên danh mục...."  ng-model="form.name" id="myName"/>
+                            <h6 class="mt-2 text-danger" style="color: rgb(247, 55, 55);">{{loi}}</h6>
                           </div>
                         </div>
                       </div>
                     </div>
 
                    <div class="text-end" ng-init="showButton">
-                    <button ng-show="showButton" class="btn btn-inverse-success btn-fw" id="btnThem">
+                    <button type="submit" ng-show="showButton" class="btn btn-inverse-success btn-fw" id="btnThem" ng-click="create()">
                         <div class="d-flex">
                           <i class="mdi mdi-plus-circle"></i>
                           <strong class="mt-1 ms-1 h6">Thêm mới</strong>
                         </div>
                     </button>
-                    <button ng-hide="showButton" class="btn btn-inverse-primary btn-fw">
+                    <button ng-hide="showButton" class="btn btn-inverse-primary btn-fw" ng-click="update()">
                       <div class="d-flex">
                         <i class="mdi mdi-content-save"></i>
                         <strong class="mt-1 ms-1 h6">Cập nhật</strong>

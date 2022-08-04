@@ -38,30 +38,35 @@ public class CategoryRestController {
 		return ResponseEntity.ok(category.findById(id));
 	}
 	
-//	@PostMapping("/rest/categories")
-//	public ResponseEntity<Categories> post(@RequestBody Categories cate){
-//		if(category.findById(cate.getId()) == null) {
+	@GetMapping("/rest/categories/check/{id}")
+	public Boolean checkProduct(@PathVariable("id") Integer id){
+		return category.checkProduct(id);
+	}
+	
+	@PostMapping("/rest/categories")
+	public ResponseEntity<Categories> post(@RequestBody Categories cate){
+//		if(category.findById(cate.getId()) != null) {
 //			return ResponseEntity.badRequest().build();
 //		}
-//		category.create(cate);
-//		return ResponseEntity.ok(category.findById(cate.getId()));
-//	}
-//	
-//	@PutMapping("/rest/categories/{id}")
-//	public ResponseEntity<Categories> put(@PathVariable("id") Integer id,@RequestBody Categories cate){
-//		if(category.findById(cate.getId()) == null) {
-//			return ResponseEntity.notFound().build();
-//		}
-//		category.update(cate);
-//		return ResponseEntity.ok(cate);
-//	}
-//	@DeleteMapping("/rest/categories/{id}")
-//	public ResponseEntity<Void> delete(@PathVariable("id") Integer id){
-//		if(category.findById(id) == null) {
-//			return ResponseEntity.notFound().build();
-//		}
-//		category.delete(id);
-//		return ResponseEntity.ok().build();
-//	}
+		category.create(cate);
+		return ResponseEntity.ok(category.findById(cate.getId()));
+	}
+	
+	@PutMapping("/rest/categories/{id}")
+	public ResponseEntity<Categories> put(@PathVariable("id") Integer id,@RequestBody Categories cate){
+		if(category.findById(cate.getId()) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		category.update(cate);
+		return ResponseEntity.ok(cate);
+	}
+	@DeleteMapping("/rest/categories/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") Integer id){
+		if(category.findById(id) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		category.delete(id);
+		return ResponseEntity.ok().build();
+	}
 
 }

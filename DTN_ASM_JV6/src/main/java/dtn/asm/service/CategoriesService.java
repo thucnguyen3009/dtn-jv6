@@ -16,4 +16,6 @@ public interface CategoriesService {
 	void update(Categories entity);
 
 	void delete(Integer id);
+	
+	Boolean checkProduct(Integer id);
 }
