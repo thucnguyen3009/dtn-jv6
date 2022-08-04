@@ -259,6 +259,7 @@ app.controller("category-form", function ($scope, $http) {
             loi++;
         } else {
             $scope.loi = '';
+            loi= 0;
         }
 
         if (loi > 0) {
