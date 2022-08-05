@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dtn.asm.dao.CategoriesDAO;
 import dtn.asm.dao.ProductsDAO;
 import dtn.asm.entity.Categories;
 import dtn.asm.entity.ProductColor;
@@ -28,47 +29,53 @@ public class HomeController {
 	ProductsService productservice;
 	@Autowired
 	CategoryServiceImp categoriesservice;
-	
-	
+	@Autowired
+	CategoriesDAO cateDAO;
+
 //	Index Page :))
 	@RequestMapping("/index.html")
 	public String index(Model m) {
-		List<Categories> categories= categoriesservice.findAll();
-		 m.addAttribute("cate", categories);
-		  categories.get(0).getName();
+		List<Categories> categories = cateDAO.listCateInProduct();
+		if (!categories.isEmpty()) {
+			m.addAttribute("cate", categories);
+		}
+
 		return "/user/home/index";
 	}
+
 //	About page
 	@RequestMapping("/about.html")
 	public String about(Model m) {
-		
-		m.addAttribute("ab","active");
+
+		m.addAttribute("ab", "active");
 		return "/user/home/about";
 	}
+
 //	Contact page
 	@RequestMapping("/contact.html")
 	public String contact(Model m) {
-		
-		m.addAttribute("ct","active");
+
+		m.addAttribute("ct", "active");
 		return "/user/home/contact";
 	}
+
 //	Product page
 	@RequestMapping("/shop.html")
 	public String shopPage(Model m) {
-		 List<Products> product =productservice.findAll();
-		 m.addAttribute("product", product);
-	 
+		List<Products> product = productservice.findAll();
+		m.addAttribute("product", product);
+
 //		m.addAttribute("sp","active");		
 		return "/user/home/shop";
 	}
+
 //	Product details page
 	@RequestMapping("/product.html")
 	public String product(Model m, @RequestParam("id") Integer id) {
-		Products product =productservice.findById(id);
-		 m.addAttribute("item", product);
-		 
+		Products product = productservice.findById(id);
+		m.addAttribute("item", product);
+
 		return "/user/home/product";
 	}
-	
 
 }
