@@ -16,7 +16,6 @@ import dtn.asm.service.ProductsService;
 import dtn.asm.service.SessionService;
 
 @Controller
-@RequestMapping("/DTNsBike")
 public class HomeController {
 	@Autowired
 	SessionService session;

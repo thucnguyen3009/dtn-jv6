@@ -31,7 +31,6 @@ import dtn.asm.service.SessionService;
 import dtn.asm.service.impl.AccountServiceImpl;
 
 @Controller
-@RequestMapping("/DTNsBike")
 public class AccountController {
 
 	@Autowired

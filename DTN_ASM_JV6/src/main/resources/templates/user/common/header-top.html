@@ -31,12 +31,12 @@
 	    </ul>
 	    <ul>                                          
 	        <li>
-	            <img th:src="@{'../user/img/header/'+ #{header.lang}}" alt="language-selector" width="24px">
+	            <img th:src="@{|/user/img/header/#{header.lang}|}" alt="language-selector" width="24px">
 	            <a href="#" th:text="#{header.language}"><i class="lnr lnr-chevron-down"></i></a>
 	            <!-- Dropdown Start -->
 	            <ul class="ht-dropdown">
-	                <li><a href="?lang=vi"><img th:src="@{../user/img/header/vietnam.png}" alt="language-selector" width="24px">Tiếng Việt</a></li>
-	                <li><a href="?lang=en"><img th:src="@{../user/img/header/english.jpg}" alt="language-selector" width="24px">English</a></li>
+	                <li><a href="?lang=vi"><img th:src="@{/user/img/header/vietnam.png}" alt="language-selector" width="24px">Tiếng Việt</a></li>
+	                <li><a href="?lang=en"><img th:src="@{/user/img/header/english.jpg}" alt="language-selector" width="24px">English</a></li>
 	            </ul>
 	            <!-- Dropdown End -->
 	        </li>

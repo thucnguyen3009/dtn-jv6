@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dtn.asm.service.SessionService;
 
 @Controller
-@RequestMapping("/DTNsBike")
 public class FavoritesController {
 	@Autowired
 	SessionService session;
