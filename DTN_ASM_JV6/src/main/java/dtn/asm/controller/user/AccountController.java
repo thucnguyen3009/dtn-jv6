@@ -69,6 +69,7 @@ public class AccountController {
 			if (acc instanceof Accounts) {
 				if (pass.equals(acc.getPassword()) && acc.getActive()) {
 					session.set("account", acc);
+					
 					m.addAttribute("message", "Đăng nhập thành công.");
 					return "redirect:/DTNsBike/index.html";
 //				return "/user/home/index";
