@@ -2,7 +2,7 @@
     <header th:fragment="header">
                <!-- Banner Popup Start -->
        <div class="popup_banner">
-        <span class="popup_off_banner text-danger">×</span>
+        <!--<span class="popup_off_banner text-danger">×</span>-->
         <div class="banner_popup_area">
                 <img th:src="@{../user/img/banner/pop-banner.jpg}" alt="">
         </div>
@@ -64,12 +64,16 @@
                             </a>
                             <!-- Dropdown Start -->
                             <ul class="ht-dropdown">
-                                <li><a href="login.html" th:text="#{header.login}">Đăng nhập</a></li>
-                                <li><a href="register.html" th:text="#{header.register}">Đăng ký</a></li>
-                                <li><a href="changepass.html" th:text="#{header.changepass}">Đổi mật khẩu</a></li>
-                                <li><a href="forgot-password.html" th:text="#{header.forgotpass}">Quên mật khẩu</a></li>
-                                <li><a href="update_account.html"th:text="#{header.updateaccount}">Cập nhật tài khoản</a></li>
-                                <li><a href="#" th:text="#{header.logout}">Đăng xuất</a></li>
+                            	<th:block th:if="${session.account == null}">
+	                                <li><a href="login.html" th:text="#{header.login}">Đăng nhập</a></li>
+	                                <li><a href="register.html" th:text="#{header.register}">Đăng ký</a></li>
+                                </th:block>
+                                <th:block th:unless="${session.account == null}">
+	                                <li><a href="changepass.html" th:text="#{header.changepass}">Đổi mật khẩu</a></li>
+	                                <li><a href="forgot-password.html" th:text="#{header.forgotpass}">Quên mật khẩu</a></li>
+	                                <li><a href="update_account.html"th:text="#{header.updateaccount}">Cập nhật tài khoản</a></li>
+	                                <li><a href="logout.html" th:text="#{header.logout}">Đăng xuất</a></li>
+                                </th:block>
                             </ul>
                             <!-- Dropdown End -->
                         </li> 

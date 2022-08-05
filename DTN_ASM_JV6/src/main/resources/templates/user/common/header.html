@@ -1,5 +1,5 @@
 <!-- Header :)) -->
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
     <header th:fragment="header">
         <header>
             <!-- Header Top Start Here -->
@@ -56,7 +56,7 @@
                                 </a>
                                 <!-- Dropdown Start -->
                                 <ul class="ht-dropdown">
-                                    <li><a href="login.html" th:text="#{header.login}">Đăng nhập</a></li>
+                                	<li><a href="login.html" th:text="#{header.login}">Đăng nhập</a></li>
                                     <li><a href="register.html" th:text="#{header.register}">Đăng ký</a></li>
                                     <li><a href="changepass.html" th:text="#{header.changepass}">Đổi mật khẩu</a></li>
                                     <li><a href="forgot-password.html" th:text="#{header.forgotpass}">Quên mật khẩu</a></li>

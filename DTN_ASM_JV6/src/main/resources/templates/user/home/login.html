@@ -45,12 +45,14 @@
                                 <h3 class="mb-10 custom-title">đăng nhập</h3>
                                 <form th:action="@{/DTNsBike/login.html}" method="post" th:object="${loginForm}">
                                     <div class="form-group">
-                                        <label>Tên đăng nhập</label>
+                                        <label th:text="|${#fields.hasErrors('pass')?'Mật khẩu: ':'Mật khẩu'}|">Tên đăng nhập: </label>
+										<span th:errors="*{username}"></span>
                                         <input th:field="*{username}" placeholder="Tên đăng nhập" id="input-email" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Mật khẩu</label>
-                                        <input th:field="*{pass}" placeholder="Mật khẩu" id="input-passwords" class="form-control">
+                                        <label th:text="|${#fields.hasErrors('pass')?'Mật khẩu: ':'Mật khẩu'}|">Mật khẩu: </label>
+                                        <span th:errors="*{pass}"></span>
+                                        <input th:field="*{pass}" type="password" placeholder="Mật khẩu" id="input-passwords" class="form-control">
                                     </div>
                                     <p class="lost-password"><a href="forgot-password.html">Quên mật khẩu?</a></p>
                                     <button th:formaction="@{/DTNsBike/login.html}" class="return-customer-btn">Đăng nhập</button>

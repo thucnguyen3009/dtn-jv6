@@ -1,6 +1,5 @@
 package dtn.asm.controller.user;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -28,7 +27,6 @@ import dtn.asm.dao.AccountDAO;
 import dtn.asm.entity.Accounts;
 import dtn.asm.model.LoginForm;
 import dtn.asm.model.SignUpForm;
-import dtn.asm.service.AccountsService;
 import dtn.asm.service.SessionService;
 import dtn.asm.service.impl.AccountServiceImpl;
 
@@ -64,12 +62,12 @@ public class AccountController {
 		if (!errors.hasErrors()) {
 			String user = login.getUsername();
 			String pass = login.getPass();
-			
+
 			Accounts acc = new Accounts();
 			acc = accountsService.findById(user);
 
 			if (acc instanceof Accounts) {
-				if (pass.equals(acc.getPassword())) {
+				if (pass.equals(acc.getPassword()) && acc.getActive()) {
 					session.set("account", acc);
 					m.addAttribute("message", "Đăng nhập thành công.");
 					return "redirect:/DTNsBike/index.html";
