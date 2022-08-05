@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dtn.asm.dao.ProductsDAO;
+import dtn.asm.entity.Categories;
 import dtn.asm.entity.ProductColor;
 import dtn.asm.entity.Products;
+import dtn.asm.service.CategoriesService;
 import dtn.asm.service.ProductsService;
 import dtn.asm.service.SessionService;
+import dtn.asm.service.impl.CategoryServiceImp;
 
 @Controller
 @RequestMapping("/DTNsBike")
@@ -24,12 +27,16 @@ public class HomeController {
 	ProductsDAO productdao;
 	@Autowired
 	ProductsService productservice;
+	@Autowired
+	CategoryServiceImp categoriesservice;
 	
 	
 //	Index Page :))
 	@RequestMapping("/index.html")
-	public String index() {
-		
+	public String index(Model m) {
+		List<Categories> categories= categoriesservice.findAll();
+		 m.addAttribute("cate", categories);
+		  categories.get(0).getName();
 		return "/user/home/index";
 	}
 //	About page
@@ -51,10 +58,8 @@ public class HomeController {
 	public String shopPage(Model m) {
 		 List<Products> product =productservice.findAll();
 		 m.addAttribute("product", product);
-		 
-		 
-		m.addAttribute("sp","active");
-		
+	 
+//		m.addAttribute("sp","active");		
 		return "/user/home/shop";
 	}
 //	Product details page

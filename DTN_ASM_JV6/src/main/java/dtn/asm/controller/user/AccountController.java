@@ -102,7 +102,7 @@ public class AccountController {
 		if (errors.hasErrors()) {
 			loi++;
 		}
-		if (account != null) {
+		if (account.isPresent()) {
 			loi++;
 			m.addAttribute("mess1", "Tên đăng nhập đã được sử dụng");
 		}
@@ -119,7 +119,7 @@ public class AccountController {
 			m.addAttribute("mess5", "Số điện thoại không hợp lệ");
 			loi++;
 		}
-		if (signUp.getPassword().equalsIgnoreCase(signUp.getPassword2())) {
+		if (!signUp.getPassword().equals(signUp.getPassword2())) {
 			m.addAttribute("mess4", "Vui lòng kiểm tra lại mật khẩu");
 			loi++;
 		}
