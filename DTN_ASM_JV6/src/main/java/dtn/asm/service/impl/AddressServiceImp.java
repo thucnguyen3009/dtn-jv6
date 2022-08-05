@@ -9,7 +9,7 @@ import dtn.asm.dao.AddressDAO;
 import dtn.asm.entity.Address;
 import dtn.asm.service.AddressService;
 @Service
-public class AdrressServiceImp implements AddressService {
+public class AddressServiceImp implements AddressService {
 
 	@Autowired
 	AddressDAO dao;

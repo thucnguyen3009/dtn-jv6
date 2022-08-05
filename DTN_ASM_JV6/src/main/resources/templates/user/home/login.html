@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{/user/layout::dynamic(~{::title},~{::header},~{::.content})}">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{/user/layout::dynamic(~{::title},~{::header},~{::.content})}">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DTNsBike | Đăng nhập</title>
 </head>
+
 <body>
     <header th:insert="~{/user/common/header::header}"></header>
     <div class="content">
-         <!-- Breadcrumb Start -->
-         <div class="breadcrumb-area mt-30">
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-area mt-30">
             <div class="container">
                 <div class="breadcrumb">
                     <ul class="d-flex align-items-center">
@@ -32,7 +35,8 @@
                             <div class="new-customer">
                                 <h3 class="custom-title">khách hàng mới</h3>
                                 <p class="mtb-10"><strong>Đăng ký</strong></p>
-                                <p>Bằng cách tạo tài khoản, bạn sẽ có thể mua sắm nhanh hơn, cập nhật trạng thái đơn hàng và theo dõi các đơn đặt hàng bạn đã thực hiện trước đó</p>
+                                <p>Bằng cách tạo tài khoản, bạn sẽ có thể mua sắm nhanh hơn, cập nhật trạng thái đơn
+                                    hàng và theo dõi các đơn đặt hàng bạn đã thực hiện trước đó</p>
                                 <a class="customer-btn" href="register.html">Tiếp tục</a>
                             </div>
                         </div>
@@ -43,19 +47,25 @@
                         <div class="well">
                             <div class="return-customer">
                                 <h3 class="mb-10 custom-title">đăng nhập</h3>
-                                <form th:action="@{/DTNsBike/login.html}" method="post" th:object="${loginForm}">
+                                <form th:action="@{/login.html}" method="post" th:object="${loginForm}">
                                     <div class="form-group">
-                                        <label th:text="|${#fields.hasErrors('pass')?'Mật khẩu: ':'Mật khẩu'}|">Tên đăng nhập: </label>
-										<span th:errors="*{username}"></span>
-                                        <input th:field="*{username}" placeholder="Tên đăng nhập" id="input-email" class="form-control">
+                                        <label
+                                            th:text="|${#fields.hasErrors('pass')?'Tên đăng nhập: ':'Tên đăng nhập'}|">Tên
+                                            đăng nhập: </label>
+                                        <span class="require" th:errors="*{username}"></span>
+                                        <input th:field="*{username}" placeholder="Tên đăng nhập" id="input-email"
+                                            class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label th:text="|${#fields.hasErrors('pass')?'Mật khẩu: ':'Mật khẩu'}|">Mật khẩu: </label>
-                                        <span th:errors="*{pass}"></span>
-                                        <input th:field="*{pass}" type="password" placeholder="Mật khẩu" id="input-passwords" class="form-control">
+                                        <label th:text="|${#fields.hasErrors('pass')?'Mật khẩu: ':'Mật khẩu'}|">Mật
+                                            khẩu: </label>
+                                        <span class="require" th:errors="*{pass}"></span>
+                                        <input th:field="*{pass}" type="password" placeholder="Mật khẩu"
+                                            id="input-passwords" class="form-control">
                                     </div>
                                     <p class="lost-password"><a href="forgot-password.html">Quên mật khẩu?</a></p>
-                                    <button th:formaction="@{/DTNsBike/login.html}" class="return-customer-btn">Đăng nhập</button>
+                                    <button th:formaction="@{/login.html}" class="return-customer-btn">Đăng
+                                        nhập</button>
                                     <input type="submit" value="Tài khoản Google" class="return-customer-btn">
                                 </form>
                             </div>
@@ -70,4 +80,5 @@
         <!-- LogIn Page End -->
     </div>
 </body>
+
 </html>

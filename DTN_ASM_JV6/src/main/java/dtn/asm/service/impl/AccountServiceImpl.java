@@ -38,8 +38,7 @@ public class AccountServiceImpl implements AccountsService {
 
 	@Override
 	public void update(Accounts entity) {
-		// TODO Auto-generated method stub
-
+		dao.save(entity);
 	}
 
 	@Override

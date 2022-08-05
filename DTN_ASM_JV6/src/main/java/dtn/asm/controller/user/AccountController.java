@@ -1,5 +1,6 @@
 package dtn.asm.controller.user;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -25,10 +26,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import dtn.asm.dao.AccountDAO;
 import dtn.asm.entity.Accounts;
+import dtn.asm.entity.Address;
 import dtn.asm.model.LoginForm;
 import dtn.asm.model.SignUpForm;
+import dtn.asm.model.UpdateAccountsForm;
+import dtn.asm.service.AddressService;
 import dtn.asm.service.SessionService;
 import dtn.asm.service.impl.AccountServiceImpl;
+import dtn.asm.service.impl.AddressServiceImp;
 
 @Controller
 public class AccountController {
@@ -44,6 +49,9 @@ public class AccountController {
 
 	@Autowired
 	AccountServiceImpl accountsService;
+
+	@Autowired
+	AddressServiceImp addressService;
 
 	@Autowired
 	SessionService session;
@@ -68,9 +76,9 @@ public class AccountController {
 			if (acc instanceof Accounts) {
 				if (pass.equals(acc.getPassword()) && acc.getActive()) {
 					session.set("account", acc);
-					
+
 					m.addAttribute("message", "Đăng nhập thành công.");
-					return "redirect:/DTNsBike/index.html";
+					return "redirect:/index.html";
 //				return "/user/home/index";
 				}
 			}
@@ -89,7 +97,7 @@ public class AccountController {
 	@RequestMapping("/logout.html")
 	public String logout() {
 		session.remove("account");
-		return "redirect:/DTNsBike/index.html";
+		return "redirect:/index.html";
 	}
 
 	@PostMapping("/register.html")
@@ -195,10 +203,33 @@ public class AccountController {
 	}
 
 //	Update account page
-	@RequestMapping("/update_account.html")
-	public String updateAccount() {
-
+	@GetMapping("/update_account.html")
+	public String getUpdateAccount(Model m, @ModelAttribute("updateAccount") UpdateAccountsForm form) {
+		Accounts acc = session.get("account");
+		form.setFullname(acc.getFullname());
+		form.setEmail(acc.getEmail());
+		form.setPhone(acc.getPhone());
+		form.setPhoto(acc.getPhoto());
 		return "user/home/update-account";
+	}
+
+	@PostMapping("/update_account.html")
+	public String postUpdateAccount(Model m, @Valid @ModelAttribute("updateAccount") UpdateAccountsForm form,
+			Errors error) {
+		if (!error.hasErrors()) {
+			Accounts acc = session.get("account");
+			acc.setFullname(form.getFullname());
+			acc.setEmail(form.getEmail());
+			acc.setPhone(form.getPhone());
+			accountsService.update(acc);
+			m.addAttribute("message", "Cập nhật thông tin thànhh công");
+		}
+		return "user/home/update-account";
+	}
+
+	@ModelAttribute("listAddress")
+	public List<Address> getListAddress() {
+		return addressService.findAll();
 	}
 
 }

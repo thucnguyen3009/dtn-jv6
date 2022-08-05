@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout::dynamic(~{::title},~{::header},~{::.content})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/user/layout::dynamic(~{::title},~{::header},~{::.content})}">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DTNsBike | Cập nhật tài khoản</title>
 </head>
+
 <body>
     <header th:insert="~{/user/common/header::header}"></header>
     <div class="content">
-           <!-- Breadcrumb Start -->
-           <div class="breadcrumb-area mt-30">
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-area mt-30">
             <div class="container">
                 <div class="breadcrumb">
                     <ul class="d-flex align-items-center">
@@ -25,76 +28,152 @@
         <!-- Register Account Start -->
         <div class="contact-area ptb-sm-60 mt-5 mb-3">
             <div class="container">
-                <div class="row">
-                    <div class="col-8">
-                        <h3 class="mb-20">THÔNG TIN TÀI KHOẢN</h3>
-                        <p class="text-capitalize mb-20">Lưu ý: Những trường (*) là bắt buộc.</p>
-                        <form id="contact-form" class="contact-form" action="mail.php" method="post">
-                            <div class="address-wrapper row">
-                                <div class="col-md-12">
-                                    <div class="address-fname">
-                                        <label class="control-label" for="f-name"><span class="require">*</span>Họ
-                                            tên</label>
-                                        <input class="form-control" type="text" name="name" placeholder="Họ tên...">
+                <form th:action="@{/update_account.html}" method="post" th:object="${updateAccount}">
+                    <div class="row">
+                        <div class="col-8">
+                            <h3 class="mb-20">THÔNG TIN TÀI KHOẢN</h3>
+                            <th:block th:if="${message}!=null">
+                                <div class="alert-success alert" th:text="${message}" role="alert"></div>
+                            </th:block>
+                            <p class="text-capitalize mb-20">Lưu ý: Những trường (*) là bắt buộc.</p>
+                            <div id="contact-form" class="contact-form">
+                                <div class="address-wrapper row">
+                                    <div class="col-md-12">
+                                        <div class="address-fname">
+                                            <label class="control-label" for="f-name"><span class="require">*</span>Họ
+                                                tên: <span class="require" th:errors="*{fullname}"></span></label>
+                                            <input class="form-control" th:field="*{fullname}" placeholder="Họ tên...">
+
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="address-email">
-                                        <label class="control-label" for="f-name"><span
-                                                class="require">*</span>Email</label>
-                                        <input class="form-control" type="email" name="email" placeholder="Email...">
+                                    <div class="col-md-12">
+                                        <div class="address-email">
+                                            <label class="control-label" for="f-name"><span
+                                                    class="require">*</span>Email:
+                                                <span class="require" th:errors="*{email}"></span></label>
+                                            <input class="form-control" th:field="*{email}" placeholder="Email...">
+
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="address-web">
-                                        <label class="control-label" for="f-name"><span class="require">*</span>Địa
-                                            chỉ</label>
-                                        <input class="form-control" type="text" name="diachi" placeholder="Địa chỉ...">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="address-web">
-                                        <label class="control-label" for="f-name"><span class="require">*</span>Số điện
-                                            thoại</label>
-                                        <input class="form-control" type="text" name="sdt"
-                                            placeholder="Số điện thoại...">
+                                    <div class="col-md-12">
+                                        <div class="address-web">
+                                            <label class="control-label" for="f-name"><span class="require">*</span>Số
+                                                điện
+                                                thoại: <span class="require" th:errors="*{phone}"></span></label>
+                                            <input class="form-control" th:field="*{phone}"
+                                                placeholder="Số điện thoại...">
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <p class="form-message">
-                        </form>
-                    </div>
 
-                    <div class="col-4">
-                        <br><br><br><br>
-                        <form id="contact-form" class="contact-form" action="mail.php" method="post">
-                            <div class="address-wrapper row">
-                                <div class="col-md-12 mt-3">
-                                    <label class="control-label" for="f-name"><span class="require">*</span>Ảnh đại diện</label>
-                                    <div class="address-fname d-flex">
-                                        <img th:src="@{/user/img/2.png}" style="height:300px; width: 300px">
+                        </div>
+
+                        <div class="col-4">
+                            <br><br><br><br>
+                            <div id="contact-form" class="contact-form">
+                                <div class="address-wrapper row">
+                                    <div class="col-md-12 mt-3">
+                                        <label class="control-label" for="f-name"><span class="require">*</span>Ảnh đại
+                                            diện</label>
+                                        <div class="address-fname d-flex">
+                                            <img th:src="@{'/user/img/avatar/'+${session.account.photo}}"
+                                                style="height:300px; width: 300px">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 mt-2">
-                                    <div class="address-fname d-flex">
-                                        <input type="file">
+                                    <div class="col-md-12 mt-2">
+                                        <div class="address-fname d-flex">
+                                            <input type="file">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-5"></div>
-                                <div class="col-md-7 mt-2 footer-content mail-content clearfix">
-                                    <div class="send-email">
-                                        <input value="Cập nhật" class="return-customer-btn" type="submit">
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-7 mt-2 footer-content mail-content clearfix">
+                                        <div class="send-email">
+                                            <input value="Cập nhật" class="return-customer-btn" type="submit">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        
+                        </div>
+
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-20">Danh sách địa chỉ</h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th >
+                                            <a   style="text-decoration: none;" class="text-dark d-flex">
+                                                STT
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a style="text-decoration: none;" class="text-dark">
+                                                Địa chỉ
+                                            </a>
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="list,viTri: ${listAddress}" th:object="${list}">
+                                        <td>
+                                            [[${viTri.index+1}]]
+                                        </td>
+                                        <td> [[*{address}]]</td>
+                                        <td>
+                                            <a href="#!account-form" class="text-primary"
+                                                style="font-size: 28px;text-decoration: none;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                </svg>
+                                            </a>
+                                            <a class="text-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                                style="font-size: 28px;text-decoration: none;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th>
+                                            <a href="#" style="text-decoration: none;" class="text-dark">
+                                                STT
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" style="text-decoration: none;" class="text-dark">
+                                                Địa chỉ
+                                            </a>
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                
             </div>
         </div>
         <!-- Register Account End -->
     </div>
 </body>
+
 </html>
