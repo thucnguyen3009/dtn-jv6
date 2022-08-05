@@ -1,6 +1,7 @@
 package dtn.asm.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import dtn.asm.dao.AccountDAO;
 import dtn.asm.entity.Accounts;
 import dtn.asm.service.AccountsService;
+
 @Service
 public class AccountServiceImpl implements AccountsService {
 	@Autowired
@@ -21,7 +23,11 @@ public class AccountServiceImpl implements AccountsService {
 
 	@Override
 	public Accounts findById(String id) {
-		return dao.findById(id).get();
+		Optional<Accounts> acc = dao.findById(id);
+		if (acc.isPresent()) {
+			return acc.get();
+		}
+		return null;
 	}
 
 	@Override

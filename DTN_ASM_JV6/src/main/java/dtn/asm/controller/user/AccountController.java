@@ -30,6 +30,7 @@ import dtn.asm.model.LoginForm;
 import dtn.asm.model.SignUpForm;
 import dtn.asm.service.AccountsService;
 import dtn.asm.service.SessionService;
+import dtn.asm.service.impl.AccountServiceImpl;
 
 @Controller
 @RequestMapping("/DTNsBike")
@@ -37,13 +38,15 @@ public class AccountController {
 
 	@Autowired
 	HttpServletRequest req;
+
 	@Autowired
 	HttpServletResponse resp;
+
 	@Autowired
 	AccountDAO accountdao;
 
 	@Autowired
-	AccountsService accountsService;
+	AccountServiceImpl accountsService;
 
 	@Autowired
 	SessionService session;
@@ -61,12 +64,17 @@ public class AccountController {
 		if (!errors.hasErrors()) {
 			String user = login.getUsername();
 			String pass = login.getPass();
-			Accounts acc = accountsService.findById(user);
-			if (acc != null && pass.equals(acc.getPassword())) {
-				session.set("account", acc);
-				m.addAttribute("message", "Đăng nhập thành công.");
-				return "redirect:/DTNsBike/index.html";
+			
+			Accounts acc = new Accounts();
+			acc = accountsService.findById(user);
+
+			if (acc instanceof Accounts) {
+				if (pass.equals(acc.getPassword())) {
+					session.set("account", acc);
+					m.addAttribute("message", "Đăng nhập thành công.");
+					return "redirect:/DTNsBike/index.html";
 //				return "/user/home/index";
+				}
 			}
 		}
 		m.addAttribute("message", "Đăng nhập thất bại.");
