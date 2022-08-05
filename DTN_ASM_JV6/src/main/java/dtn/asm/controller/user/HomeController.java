@@ -65,7 +65,7 @@ public class HomeController {
 		List<Products> product = productservice.findAll();
 		m.addAttribute("product", product);
 
-//		m.addAttribute("sp","active");		
+		m.addAttribute("sp","active");		
 		return "/user/home/shop";
 	}
 
