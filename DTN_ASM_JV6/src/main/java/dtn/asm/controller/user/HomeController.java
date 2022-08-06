@@ -35,6 +35,7 @@ public class HomeController {
 //	Index Page :))
 	@RequestMapping("/index.html")
 	public String index(Model m) {
+		
 		List<Categories> categories = cateDAO.listCateInProduct();
 		if (!categories.isEmpty()) {
 			m.addAttribute("cate", categories);
@@ -65,6 +66,11 @@ public class HomeController {
 		List<Products> product = productservice.findAll();
 		m.addAttribute("product", product);
 
+		List<Categories> categories = cateDAO.listCateInProduct();
+		if (!categories.isEmpty()) {
+			m.addAttribute("cate", categories);
+		}
+		
 		m.addAttribute("sp","active");		
 		return "/user/home/shop";
 	}
