@@ -22,9 +22,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import dtn.asm.dao.AccountDAO;
+import dtn.asm.dao.AddressDAO;
 import dtn.asm.entity.Accounts;
 import dtn.asm.entity.Address;
 import dtn.asm.model.LoginForm;
@@ -49,6 +53,9 @@ public class AccountController {
 
 	@Autowired
 	AccountServiceImpl accountsService;
+
+	@Autowired
+	AddressDAO addressDAO;
 
 	@Autowired
 	AddressServiceImp addressService;
@@ -83,7 +90,7 @@ public class AccountController {
 				}
 			}
 		}
-		m.addAttribute("message", "Đăng nhập thất bại.");
+		m.addAttribute("message", "123");
 		return "user/home/login";
 	}
 
@@ -204,8 +211,20 @@ public class AccountController {
 
 //	Update account page
 	@GetMapping("/update_account.html")
-	public String getUpdateAccount(Model m, @ModelAttribute("updateAccount") UpdateAccountsForm form) {
+	public String getUpdateAccount(Model m, @ModelAttribute("updateAccount") UpdateAccountsForm form,@RequestParam("tb") Optional<String> tb) {
 		Accounts acc = session.get("account");
+		if (acc == null) {
+			return "redirect:/index.html?error=NotLogin";
+		}
+		if(tb.isPresent()) {
+			if(tb.get().contains("success")) {
+				m.addAttribute("alert","alert-success");
+				m.addAttribute("message","Xóa địa chỉ thành công");
+			}else if(tb.get().contains("error")) {
+				m.addAttribute("alert","alert-danger");
+				m.addAttribute("message","Không tìm thấy địa chỉ cần xóa");
+			}
+		}
 		form.setFullname(acc.getFullname());
 		form.setEmail(acc.getEmail());
 		form.setPhone(acc.getPhone());
@@ -215,21 +234,48 @@ public class AccountController {
 
 	@PostMapping("/update_account.html")
 	public String postUpdateAccount(Model m, @Valid @ModelAttribute("updateAccount") UpdateAccountsForm form,
-			Errors error) {
+			Errors error){
 		if (!error.hasErrors()) {
 			Accounts acc = session.get("account");
 			acc.setFullname(form.getFullname());
 			acc.setEmail(form.getEmail());
 			acc.setPhone(form.getPhone());
 			accountsService.update(acc);
+			m.addAttribute("alert","alert-success");
 			m.addAttribute("message", "Cập nhật thông tin thànhh công");
 		}
 		return "user/home/update-account";
 	}
 
+	@RequestMapping("/update_account.html/delete/{id}")
+	public String getDeleteAccount(Model m, @PathVariable("id") Optional<String> id) {
+		if (id.isPresent()) {
+			try {
+				int ma = Integer.parseInt(id.get());
+				Accounts acc = session.get("account");
+				Optional<Address> adr = addressDAO.findById(ma);
+				List<Address> list = (List<Address>) m.getAttribute("listAddress");
+				if (adr.isPresent() && adr.get().getUserAr().getUsername().equals(acc.getUsername())) {
+					if (list.size() == 1) {
+						return "redirect:/update_account.html?tb=error";
+					} else {
+						addressService.delete(ma);
+						return "redirect:/update_account.html?tb=success";
+					}
+				} else {
+					return "redirect:/update_account.html?tb=error";
+				}
+			} catch (NumberFormatException e) {
+				return "redirect:/update_account.html?tb=error";
+			}
+		}
+		return "redirect:/update_account.html?tb=error";
+	}
+
 	@ModelAttribute("listAddress")
 	public List<Address> getListAddress() {
-		return addressService.findAll();
+		Accounts acc = session.get("account");
+		return addressDAO.findByUsername(acc, null);
 	}
 
 }
