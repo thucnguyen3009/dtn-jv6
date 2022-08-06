@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ProductColor", uniqueConstraints = { @UniqueConstraint(columnNames = { "productId", "colorId" }) })
+@Table(name = "Productcolor", uniqueConstraints = { @UniqueConstraint(columnNames = { "productId", "colorId" }) })
 public class ProductColor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,9 +32,11 @@ public class ProductColor implements Serializable {
 	@JoinColumn(name = "[colorid]")
 	private Color color;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "colorId")
 	List<OrderDetails> orderDetails;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "colorCart")
 	List<Cart> carts;
 }

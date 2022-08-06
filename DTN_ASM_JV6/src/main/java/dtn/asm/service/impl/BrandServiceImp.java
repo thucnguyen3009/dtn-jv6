@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dtn.asm.dao.BrandDAO;
+import dtn.asm.dao.ProductsDAO;
 import dtn.asm.entity.Brand;
 import dtn.asm.service.BrandService;
 @Service
@@ -13,6 +14,8 @@ public class BrandServiceImp implements BrandService {
 
 	@Autowired
 	BrandDAO dao;
+	@Autowired
+	ProductsDAO daoPr;
 	
 	@Override
 	public List<Brand> findAll() {
@@ -20,7 +23,7 @@ public class BrandServiceImp implements BrandService {
 	}
 	@Override
 	public Brand findById(Integer id) {
-		return dao.getById(id);
+		return dao.findById(id).get();
 	}
 	
 	@Override
@@ -37,4 +40,8 @@ public class BrandServiceImp implements BrandService {
 		dao.deleteById(id);
 	}
 
+	@Override
+	public Boolean checkProduct(Integer id) {
+		return daoPr.findByBrandPro(this.findById(id)).isEmpty();
+	}
 }

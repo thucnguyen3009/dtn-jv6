@@ -41,12 +41,12 @@
                             </div>
                             <div class="col-5 text-end">
                                 <div class="row">
-                                    <input style="width: 80%;float: left;" type="text" class="col-10 form-control"
-                                        placeholder="Nhập mã giảm giá cần tìm...." />
-                                    <a href="#" class="btn btn-danger text-white col-2"
-                                        style="background-color: orangered;">
-                                        <i class="mdi mdi-magnify"></i>
-                                    </a>
+                                     <input style="width: 70%;float: left;" type="text" class="col-9 form-control"
+                                        placeholder="Tìm kiếm theo...." ng-model="search[columns]" />
+                                        <select class="col-1 form-select text-uppercase" aria-label="Default select example" style="width:100px;" ng-options="e for e in headers" ng-model="columns" 
+                                        ng-change="changeFilterTo(columns)">
+                                          <option value="" ng-if="false"></option>
+                                        </select>
                                 </div>
                             </div>
                         </div>
@@ -55,35 +55,42 @@
                                 <thead>
                                     <tr style="background-color: orangered;">
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('id')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 ID
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('code')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 MÃ GIẢM GIÁ
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('value')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 GIẢM GIÁ
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('saleDate')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 NGÀY GIẢM GIÁ
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('amount')" href="" class="text-white" style="text-decoration: none;">
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                                SỐ LƯỢNG
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortBy('createDate')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 NGÀY TẠO
                                                 <i class="mdi mdi-swap-vertical"></i>
@@ -93,37 +100,44 @@
                                     </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr style="background-color: orangered;">
+                                     <tr style="background-color: orangered;">
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('id')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 ID
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('code')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 MÃ GIẢM GIÁ
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('value')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 GIẢM GIÁ
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('saleDate')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 NGÀY GIẢM GIÁ
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-white" style="text-decoration: none;">
+                                            <a ng-click="sortBy('amount')" href="" class="text-white" style="text-decoration: none;">
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                                SỐ LƯỢNG
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortBy('createDate')" href="" class="text-white" style="text-decoration: none;">
                                                 <i class="mdi mdi-swap-vertical"></i>
                                                 NGÀY TẠO
                                                 <i class="mdi mdi-swap-vertical"></i>
@@ -135,16 +149,17 @@
 
                                 <tbody>
                                     <!-- List item start -->
-                                    <tr>
-                                        <td class="h5">GG001</td>
+                                    <tr ng-repeat="sale in items  | filter : search | orderBy : prop |limitTo : pageSize : begin">
+                                        <td class="h5">{{sale.id}}</td>
                                         <td class="h5">
-                                            GHJF501
+                                            {{sale.code}}
                                         </td>
-                                        <td class="h5">10%.</td>
-                                        <td class="h5">20/10/2022</td>
-                                        <td class="h5">20/10/2022</td>
+                                        <td class="h5">{{sale.value}}</td>
+                                        <td class="h5">{{sale.saleDate | date:'dd-MM-yyyy'}}</td>
+                                        <td class="h5">{{sale.amount}}</td>
+                                        <td class="h5">{{sale.createDate | date:'dd-MM-yyyy'}}</td>
                                         <td>
-                                            <a href="../sale-manager/sale-form.html" class="text-primary"
+                                            <a href="#!sale-form" class="text-primary" ng-click="edit(sale.id)"
                                                 style="font-size: 28px;text-decoration: none;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -154,7 +169,7 @@
                                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                                 </svg>
                                             </a>
-                                            <a class="text-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                            <a class="text-danger"ng-click="delete(sale.id,sale.code)"
                                                 style="font-size: 28px;text-decoration: none;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -170,80 +185,45 @@
                             </table>
                         </div>
                         <!-- List content body end -->
-                        <!-- List content footer -->
-                        <div class="card-footer row mt-2 border-0" style="background-color: white;">
-                            <div class="col-4">
-                                <p>Đang xem 1 đến 10 trong tổng số 10 mục.</p>
-                            </div>
-                            <div class="col-8 text-end">
-                                <div class="row mb-2">
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-4 d-flex justify-content-end">
-                                        <p class="mt-2 me-1">Xem</p>
-                                        <select class="form-select" aria-label="Default select example"
-                                            style="width: 70px;">
-                                            <option selected>5</option>
-                                            <option value="1">10</option>
-                                            <option value="2">15</option>
-                                            <option value="3">20</option>
-                                        </select>
-                                        <p class="mt-2 ms-1">mục.</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <!-- <button class="btn btn-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                  class="bi bi-chevron-bar-left" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z" />
-                </svg>
-              </button> -->
-                                        <button class="btn btn-secondary">Trước</button>
-                                        <button class="btn btn-danger text-white">1</button>
-                                        <button class="btn btn-secondary">Tiếp</button>
-                                        <!-- <button class="btn btn-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                  class="bi bi-chevron-bar-right" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z" />
-                </svg>
-              </button> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- List content footer end -->
+                         <!-- List content footer -->
+                <div class="card-footer row mt-2 border-0" style="background-color: white;">
+                  <div class="col-4">
+                    <p>Đang xem {{index}} đến {{index2}} trong tổng số {{pageSize}} mục.</p>
+                  </div>
+                  <div class="col-8 text-end">
+                    <div class="row mb-2">
+                      <div class="col-md-4"></div>
+                      <div class="col-md-4 d-flex justify-content-end">
+                        <p class="mt-2 me-1">Xem</p>
+                         <select class="form-select" aria-label="Default select example" style="width: 70px;"  id="pageSize" ng-model="pageSize" ng-change="repaginate()" convert-to-number>
+                          <option value="5" selected>5</option>
+                          <option value="10">10</option>
+                          <option value="15">15</option>
+                          <option value="20">20</option>
+                        </select>
+                        <p class="mt-2 ms-1">mục.</p>
+                      </div>
+                      <div class="col-md-4">
+                        <!-- <button class="btn btn-dark">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-chevron-bar-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z" />
+                          </svg>
+                        </button> -->
+                        <button class="btn btn-secondary" ng-click="prev()">Trước</button>
+                        <button class="btn btn-danger text-white">{{index}}</button>
+                        <button class="btn btn-secondary" ng-click="next()">Tiếp</button>
+                        <!-- <button class="btn btn-dark">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-chevron-bar-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z" />
+                          </svg>
+                        </button> -->
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-            <!-- List end -->
-            <!-- Modal Delete -->
-            <!-- Modal -->
-            <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content text-center">
-                        <div class="modal-header border-0">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" fill="orange"
-                                class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-                                <path
-                                    d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
-                                <path
-                                    d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
-                            </svg>
-                            <p class="mt-2" style="font-size: 17px;">Bạn chắc chắn muốn xóa mã giảm giá
-                                <strong>GHJF501</strong> này !?
-                            </p>
-                        </div>
-                        <div class="text-center mb-5">
-                            <button type="button" class="btn btn-danger text-white">Yes, delete it!</button>
-                            <button type="button" class="btn btn-success text-white" data-bs-dismiss="modal">No,
-                                cancel!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal Delete End -->
+                <!-- List content footer end -->
 </body>

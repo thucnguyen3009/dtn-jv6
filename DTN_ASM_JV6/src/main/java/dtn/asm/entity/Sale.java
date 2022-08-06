@@ -1,10 +1,14 @@
 package dtn.asm.entity;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,13 +36,15 @@ public class Sale implements Serializable {
 	@Column(name = "[saledate]")
 	private Date saleDate;
 	
+	
 	@Column(name = "[amount]")
 	private Integer amount;
 	
 	@Column(name = "[createdate]")
-	private Date createDate=new Date();
-
+	private Date createDate = new Date();
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "saleId")
 	List<Orders> saleOrders;
-
+	
 }

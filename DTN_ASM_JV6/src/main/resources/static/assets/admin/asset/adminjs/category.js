@@ -1,5 +1,4 @@
-let host = "http://localhost:8080/rest";
-
+let host = "http://localhost:8080/DTNsBike/rest";
 var test = 0;
 var key = null;
 var form = {};
@@ -254,7 +253,7 @@ app.controller("category-form", function ($scope, $http) {
 
     $scope.check = function () {
         var name = $scope.form.name;
-        if (name == null) {
+        if (name == null || name.length <= 0) {
             $scope.loi = '* Vui lòng nhập tên danh mục';
             loi++;
         } else {

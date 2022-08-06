@@ -36,15 +36,17 @@
                     <div class="form-group row">
                       <label class="col-12">(<strong class="text-danger">*</strong>) Mã giảm giá:</label>
                       <div class="col-12">
-                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá...." />
+                        <input type="text" ng-model="form.code" class="form-control" placeholder="Nhập mã giảm giá...." />
+                         <h6 class="mt-2 alert alert-danger" role="alert" ng-show="loi != 0 && loi != null"style="font-size: 12px;">{{loi}}</h6>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group row">
-                      <label class="col-12">(<strong class="text-danger">*</strong>) Giảm giá:</label>
+                      <label class="col-12">(<strong class="text-danger">*</strong>) Giảm giá (%):</label>
                       <div class="col-12">
-                        <input type="text" class="form-control" placeholder="Nhập  giảm giá...." />
+                        <input ng-model="form.value" type="text" class="form-control" placeholder="Nhập  giảm giá...." />
+                        <h6 class="mt-2 alert alert-danger" role="alert" ng-show="loi1 != 0 && loi1 != null"style="font-size: 12px;">{{loi1}}</h6>
                       </div>
                     </div>
                   </div>
@@ -52,7 +54,8 @@
                     <div class="form-group row">
                       <label class="col-12">(<strong class="text-danger">*</strong>) Số lượng:</label>
                       <div class="col-12">
-                        <input type="number" class="form-control" value="0" min="0" max="99" />
+                        <input ng-model="form.amount" type="number" class="form-control" value="0" min="0" max="99" placeholder="Nhập số lượng..." />
+                        <h6 class="mt-2 alert alert-danger" role="alert" ng-show="loi2 != 0 && loi2 != null"style="font-size: 12px;">{{loi2}}</h6>
                       </div>
                     </div>
                   </div>
@@ -60,32 +63,36 @@
                     <div class="form-group row">
                       <label class="col-12">(<strong class="text-danger">*</strong>) Ngày giảm giá:</label>
                       <div class="col-12">
-                        <input type="date" class="form-control" />
+                        <label class="input-group">
+                            <input value="{{form.saleDate | date:'dd-MM-yyyy'}}" class="form-control" placeholder="dd-MM-yyyy"  disabled />
+                             <input ng-model="form.saleDate" class="form-control"  type="date" style="width:30px;" />
+                        </label>
+                        <h6 class="mt-2 alert alert-danger" role="alert" ng-show="loi3 != 0 && loi3 != null"style="font-size: 12px;">{{loi3}}</h6>
                       </div>
                     </div>
                   </div>
                 </div>
 
-               <div class="text-end">
-                <button class="btn btn-inverse-success btn-fw">
-                    <div class="d-flex">
-                      <i class="mdi mdi-plus-circle"></i>
-                      <strong class="mt-1 ms-1 h6">Thêm mới</strong>
-                    </div>
-                </button>
-                <button class="btn btn-inverse-primary btn-fw">
-                  <div class="d-flex">
-                    <i class="mdi mdi-content-save"></i>
-                    <strong class="mt-1 ms-1 h6">Cập nhật</strong>
-                  </div>
-                </button>
-                <button class="btn btn-inverse-warning btn-fw">
-                  <div class="d-flex">
-                    <i class="mdi mdi-refresh"></i>
-                    <strong class="mt-1 ms-1 h6">Làm mới</strong>
-                  </div>
-                </button>
-               </div>
+               <div class="text-end" ng-init="showButton">
+                    <button type="submit" ng-show="showButton" class="btn btn-inverse-success btn-fw" id="btnThem" ng-click="create()">
+                        <div class="d-flex">
+                          <i class="mdi mdi-plus-circle"></i>
+                          <strong class="mt-1 ms-1 h6">Thêm mới</strong>
+                        </div>
+                    </button>
+                    <button ng-hide="showButton" class="btn btn-inverse-primary btn-fw" ng-click="update()">
+                      <div class="d-flex">
+                        <i class="mdi mdi-content-save"></i>
+                        <strong class="mt-1 ms-1 h6">Cập nhật</strong>
+                      </div>
+                    </button>
+                    <button class="btn btn-inverse-warning btn-fw" ng-click="reset()">
+                      <div class="d-flex">
+                        <i class="mdi mdi-refresh"></i>
+                        <strong class="mt-1 ms-1 h6">Làm mới</strong>
+                      </div>
+                    </button>
+                   </div>
               </form>
             </div>
           </div>
