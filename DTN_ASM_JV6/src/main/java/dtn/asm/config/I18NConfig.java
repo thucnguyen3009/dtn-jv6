@@ -16,9 +16,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 public class I18NConfig implements WebMvcConfigurer {
 
 	@Bean("messageSource")
-	public MessageSource getMessageSource() {
+	MessageSource getMessageSource() {
 		ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
-		ms.setBasenames("classpath:i18n/message","classpath:i18n/global");
+		ms.setBasenames("classpath:i18n/message","classpath:i18n/global","classpath:i18n/message/login");
 		ms.setDefaultEncoding("utf-8");
 		return ms;
 	}
@@ -30,7 +30,7 @@ public class I18NConfig implements WebMvcConfigurer {
 	}
 
 	@Bean("localeResolver")
-	public LocaleResolver getLocaleResolver() {
+	LocaleResolver getLocaleResolver() {
 		CookieLocaleResolver resolver = new CookieLocaleResolver();
 		resolver.setDefaultLocale(new Locale("vi"));
 		resolver.setCookiePath("/");

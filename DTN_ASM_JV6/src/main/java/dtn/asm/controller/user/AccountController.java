@@ -56,36 +56,6 @@ public class AccountController {
 	@Autowired
 	SessionService session;
 
-//	Login Page
-	@GetMapping("/login.html")
-	public String getLogin(Model m) {
-		LoginForm login = new LoginForm();
-		m.addAttribute("loginForm", login);
-		return "user/home/login";
-	}
-
-	@PostMapping("/login.html")
-	public String postLogin(Model m, @Valid @ModelAttribute("loginForm") LoginForm login, Errors errors) {
-		if (!errors.hasErrors()) {
-			String user = login.getUsername();
-			String pass = login.getPass();
-
-			Accounts acc = new Accounts();
-			acc = accountsService.findById(user);
-
-			if (acc instanceof Accounts) {
-				if (pass.equals(acc.getPassword()) && acc.getActive()) {
-					session.set("account", acc);
-
-					m.addAttribute("message", "Đăng nhập thành công.");
-					return "redirect:/index.html";
-//				return "/user/home/index";
-				}
-			}
-		}
-		m.addAttribute("message", "Đăng nhập thất bại.");
-		return "user/home/login";
-	}
 
 //	Register page
 	@GetMapping("/register.html")
