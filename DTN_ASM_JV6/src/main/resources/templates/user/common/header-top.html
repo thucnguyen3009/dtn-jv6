@@ -58,8 +58,8 @@
 	                <th:block th:unless="${session.account == null}">
 	                    <li><a href="changepass.html" th:text="#{header.changepass}">Đổi mật khẩu</a></li>
 	                    <li><a href="forgot-password.html" th:text="#{header.forgotpass}">Quên mật khẩu</a></li>
-	                    <li><a href="update_account.html"th:text="#{header.updateaccount}">Cập nhật tài khoản</a></li>
-	                    <li><a href="logout.html" th:text="#{header.logout}">Đăng xuất</a></li>
+	                    <li><a th:href="@{/update_account.html}"th:text="#{header.updateaccount}">Cập nhật tài khoản</a></li>
+	                    <li><a th:href="@{/logout.html}" th:text="#{header.logout}">Đăng xuất</a></li>
 	                </th:block>
 	            </ul>
 	            <!-- Dropdown End -->
