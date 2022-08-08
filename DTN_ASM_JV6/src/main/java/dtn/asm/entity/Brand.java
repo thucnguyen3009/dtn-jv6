@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class Brand implements Serializable {
 	@Column(name = "[logo]")
 	private String logo;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "brandPro")
 	List<Products> products;
 

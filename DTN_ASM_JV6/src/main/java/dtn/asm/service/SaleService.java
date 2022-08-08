@@ -16,4 +16,6 @@ public interface SaleService {
 	void update(Sale entity);
 
 	void delete(Integer id);
+	
+	Boolean checkOrder(Integer id);
 }

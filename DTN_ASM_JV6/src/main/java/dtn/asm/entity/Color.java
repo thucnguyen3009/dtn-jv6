@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,7 @@ public class Color implements Serializable {
 	@Column(name = "[name]")
 	private String name;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "color")
 	List<ProductColor> productColors;
 

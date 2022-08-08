@@ -1,6 +1,7 @@
 package dtn.asm.controller.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,12 +35,20 @@ public class HomeController {
 
 //	Index Page :))
 	@RequestMapping("/index.html")
-	public String index(Model m) {
+	public String index(Model m, @RequestParam("cateid") Optional<Integer> cateid) {
+		
+		List<Products> product = productservice.findAll();
+		m.addAttribute("product", product);
+		
 		List<Categories> categories = cateDAO.listCateInProduct();
 		if (!categories.isEmpty()) {
 			m.addAttribute("cate", categories);
 		}
 
+		List<Products> pro_cate = productdao.listProduct_InCategories(cateid.orElse(1));
+		m.addAttribute("pro_cate", pro_cate);
+		m.addAttribute("cateid",cateid.orElse(1));
+		
 		return "/user/home/index";
 	}
 
@@ -65,6 +74,11 @@ public class HomeController {
 		List<Products> product = productservice.findAll();
 		m.addAttribute("product", product);
 
+		List<Categories> categories = cateDAO.listCateInProduct();
+		if (!categories.isEmpty()) {
+			m.addAttribute("cate", categories);
+		}
+		
 		m.addAttribute("sp","active");		
 		return "/user/home/shop";
 	}

@@ -47,25 +47,9 @@
                             <div class="sidebar-categorie mb-40">
                                 <h3 class="sidebar-title">Danh mục sản phẩm</h3>
                                 <ul class="sidbar-style">
-                                    <li class="form-check">
+                                    <li class="form-check" th:each="c:${cate}">
                                         <input class="form-check-input" value="#" id="camera" type="checkbox">
-                                        <label class="form-check-label" for="camera">Xe đạp trẻ em 1 (8)</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" value="#" id="camera" type="checkbox">
-                                        <label class="form-check-label" for="camera">Xe đạp trẻ em 2 (8)</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" value="#" id="camera" type="checkbox">
-                                        <label class="form-check-label" for="camera">Xe đạp trẻ em 3 (8)</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" value="#" id="camera" type="checkbox">
-                                        <label class="form-check-label" for="camera">Xe đạp trẻ em 4 (8)</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" value="#" id="camera" type="checkbox">
-                                        <label class="form-check-label" for="camera">Xe đạp trẻ em 5 (8)</label>
+                                        <label class="form-check-label" for="camera" th:text=${c.name}></label>
                                     </li>
                                 </ul>
                             </div>
@@ -243,7 +227,7 @@
                                             <div class="single-product">
                                                 <!-- Product Image Start -->
                                                 <div class="pro-img">
-                                                    <a th:href="@{|/DTNsBike/product.html?id=${p.id}|}">
+                                                    <a th:href="@{|/product.html?id=${p.id}|}">
                                                         <img class="primary-img" th:src="@{|/assets/admin/asset/images/images_xedap/${p.img}|}" alt="single-product">
                                                         <!-- <img class="secondary-img" th:src="@{/user/img/products/45.jpg}" alt="single-product"> -->
                                                     </a>

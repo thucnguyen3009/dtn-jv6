@@ -36,32 +36,33 @@
                       <div class="form-group row">
                         <label class="col-12">(<strong class="text-danger">*</strong>) Tên màu sắc:</label>
                         <div class="col-12">
-                          <input type="text" class="form-control" placeholder="Nhập tên màu sắc...." />
+                          <input ng-model="form.name" type="text" class="form-control" placeholder="Nhập tên màu sắc...." />
+                          <h6 class="mt-2 alert alert-danger" role="alert" ng-show="loi != 0 && loi != null"style="font-size: 12px;">{{loi}}</h6>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                 <div class="text-end">
-                  <button class="btn btn-inverse-success btn-fw">
+                  <div class="text-end" ng-init="showButton">
+                    <button type="submit" ng-show="showButton" class="btn btn-inverse-success btn-fw" id="btnThem" ng-click="create()">
+                        <div class="d-flex">
+                          <i class="mdi mdi-plus-circle"></i>
+                          <strong class="mt-1 ms-1 h6">Thêm mới</strong>
+                        </div>
+                    </button>
+                    <button ng-hide="showButton" class="btn btn-inverse-primary btn-fw" ng-click="update()">
                       <div class="d-flex">
-                        <i class="mdi mdi-plus-circle"></i>
-                        <strong class="mt-1 ms-1 h6">Thêm mới</strong>
+                        <i class="mdi mdi-content-save"></i>
+                        <strong class="mt-1 ms-1 h6">Cập nhật</strong>
                       </div>
-                  </button>
-                  <button class="btn btn-inverse-primary btn-fw">
-                    <div class="d-flex">
-                      <i class="mdi mdi-content-save"></i>
-                      <strong class="mt-1 ms-1 h6">Cập nhật</strong>
-                    </div>
-                  </button>
-                  <button class="btn btn-inverse-warning btn-fw">
-                    <div class="d-flex">
-                      <i class="mdi mdi-refresh"></i>
-                      <strong class="mt-1 ms-1 h6">Làm mới</strong>
-                    </div>
-                  </button>
-                 </div>
+                    </button>
+                    <button class="btn btn-inverse-warning btn-fw" ng-click="reset()">
+                      <div class="d-flex">
+                        <i class="mdi mdi-refresh"></i>
+                        <strong class="mt-1 ms-1 h6">Làm mới</strong>
+                      </div>
+                    </button>
+                   </div>
                 </form>
               </div>
             </div>

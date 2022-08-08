@@ -37,7 +37,7 @@
                           <label class="col-12">(<strong class="text-danger">*</strong>) Tên danh mục:</label>
                           <div class="col-12">
                             <input type="text" class="form-control" placeholder="Nhập tên danh mục...."  ng-model="form.name" id="myName"/>
-                            <h6 class="mt-2 text-danger" style="color: rgb(247, 55, 55);">{{loi}}</h6>
+                            <h6 class="mt-2 alert alert-danger" role="alert" ng-show="loi != 0 && loi != null"style="font-size: 12px;">{{loi}}</h6>
                           </div>
                         </div>
                       </div>

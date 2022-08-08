@@ -16,4 +16,6 @@ public interface BrandService {
 	void update(Brand entity);
 
 	void delete(Integer id);
+	
+	Boolean checkProduct(Integer id);
 }
