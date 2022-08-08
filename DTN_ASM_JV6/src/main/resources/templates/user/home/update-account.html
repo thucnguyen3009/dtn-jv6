@@ -9,9 +9,9 @@
     <title>DTNsBike | Cập nhật tài khoản</title>
 </head>
 
-<body >
+<body>
     <header th:insert="~{/user/common/header::header}"></header>
-    <div class="content" ng-app="myapp" ng-controller="myctr" >
+    <div class="content" >
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-area mt-30">
             <div class="container">
@@ -30,12 +30,16 @@
             <div class="container">
                 <form th:action="@{/update_account.html}" method="post" th:object="${updateAccount}">
                     <div class="row">
-                        <div class="col-8">
-                            <h3 class="mb-20">THÔNG TIN TÀI KHOẢN</h3>
+                        <div class="col-12">
+                            <h3 class="mb-20" id="tableAddress">THÔNG TIN TÀI KHOẢN</h3>
                             <th:block th:if="${message}!=null">
                                 <div th:class="|${alert} alert|" th:text="${message}" role="alert"></div>
                             </th:block>
                             <p class="text-capitalize mb-20">Lưu ý: Những trường (*) là bắt buộc.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
                             <div id="contact-form" class="contact-form">
                                 <div class="address-wrapper row">
                                     <div class="col-md-12">
@@ -65,6 +69,10 @@
 
                                         </div>
                                     </div>
+                                    <div class="col-md-12 mt-2 text-right" id="messageAdr">
+                                        <input value="Cập nhật" class="btn btn-primary" type="submit">
+                                        <a class="btn btn-warning" th:href="@{/update_account.html}">Làm mới</a>
+                                    </div>
                                 </div>
                             </div>
                             <p class="form-message">
@@ -72,10 +80,9 @@
                         </div>
 
                         <div class="col-4">
-                            <br><br><br><br>
                             <div id="contact-form" class="contact-form">
                                 <div class="address-wrapper row">
-                                    <div class="col-md-12 mt-3">
+                                    <div class="col-md-12">
                                         <label class="control-label" for="f-name"><span class="require">*</span>Ảnh đại
                                             diện</label>
                                         <div class="address-fname d-flex">
@@ -88,12 +95,10 @@
                                             <input type="file">
                                         </div>
                                     </div>
-                                    <div class="col-md-5"></div>
-                                    <div class="col-md-7 mt-2 footer-content mail-content clearfix">
-                                        <div class="send-email">
-                                            <input value="Cập nhật" class="return-customer-btn" type="submit">
-                                        </div>
-                                    </div>
+                                    <!-- <div class="col-md-12 mt-2 " >
+                                        <input value="Cập nhật" class="btn btn-primary" type="submit">
+                                        <a class="btn btn-warning">Làm mới</a>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -103,7 +108,10 @@
                 <div class="row" th:if="${listAddress.size}>0">
                     <div class="col-12">
                         <h3 class="mb-20">Danh sách địa chỉ</h3>
-                        <div class="table-responsive" >
+                        <th:block th:if="${messageAdr}!=null">
+                            <div th:class="|${alert} alert|" th:text="${messageAdr}" role="alert"></div>
+                        </th:block>
+                        <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -129,7 +137,7 @@
                                         <td> [[*{address}]]</td>
                                         <td>
                                             <a href="#!account-form" class="text-primary" data-toggle="modal"
-                                                data-target="#modalDelete"
+                                                data-target="#modalUpdate" th:attr="onclick=|updateAddress('*{address}','*{id}')|"
                                                 style="font-size: 28px;text-decoration: none;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -139,9 +147,10 @@
                                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                                 </svg>
                                             </a>
-                                            <a th:if="${listAddress.size}>1" class="text-danger" th:attr="onclick=|deleteAddress('*{address}','*{id}')|" data-toggle="modal"
-                                            data-target="#modalDelete"
-                                            style="font-size: 28px;text-decoration: none;" >
+                                            <a th:if="${listAddress.size}>1" class="text-danger"
+                                                th:attr="onclick=|deleteAddress('*{address}','*{id}')|"
+                                                data-toggle="modal" data-target="#modalDelete"
+                                                style="font-size: 28px;text-decoration: none;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                     <path
@@ -165,44 +174,124 @@
                                                 Địa chỉ
                                             </a>
                                         </th>
-                                        <th></th>
+                                        <th>
+                                            <a data-toggle="modal" data-target="#modalCreate" class="text-success"><i
+                                                    class="fa fa-plus-circle " aria-hidden="true"></i> Thêm địa chỉ</a>
+                                        </th>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
-                </div>
-                <!-- Modal Delete -->
-                <!-- Modal -->
-                <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content text-center">
-                            <div class="modal-header border-0">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" fill="orange"
-                                    class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-                                    <path
-                                        d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
-                                    <path
-                                        d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
-                                </svg>
-                                <p class="mt-2" style="font-size: 17px;">Bạn chắc chắn muốn xóa đại chỉ <strong class="address"></strong> ?
-                                </p>
-                            </div>
-                            <div class="text-center mb-5">
-                                <a type="button" class="btn btn-success text-white " id="deleteAddress"  >Chắc chắn! </a>
-                                <button type="button" class="btn btn-danger text-white"
-                                    data-dismiss="modal">Không!</button>
+                    <!-- Modal Delete -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content text-center">
+                                <div class="modal-header border-0">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" fill="orange"
+                                        class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                                        <path
+                                            d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+                                    </svg>
+                                    <p class="mt-2" style="font-size: 17px;">Bạn chắc chắn muốn xóa đại chỉ <strong
+                                            class="address"></strong> ?
+                                    </p>
+                                </div>
+                                <div class="text-center mb-5">
+                                    <a type="button" class="btn btn-success text-white " id="deleteAddress">Chắc chắn!
+                                    </a>
+                                    <button type="button" class="btn btn-danger text-white"
+                                        data-dismiss="modal">Không!</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Modal Create End -->
+                    <!-- Modal Create -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form th:action="@{/update_account.html/create}" th:method="post"
+                                    onsubmit="return createAdr()" >
+                                    <div class="modal-header border-0">
+                                        <h3>Thêm địa chỉ</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="contact-form" class="contact-form">
+                                            <div class="address-wrapper row">
+                                                <div class="col-md-12">
+                                                    <div class="address-fname">
+                                                        <label class="control-label" for="f-name">Địa chỉ:<span
+                                                                class="require" id="errorsAdr"></span></label>
+                                                        <textarea class="form-control" name="newAddress" id="newAddress"
+                                                            placeholder="Nhập địa chỉ..."></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-right">
+                                        <button class="btn btn-success text-white" id="CreateAddress"
+                                            onclick="createAdr()">Thêm</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Create End -->
+
+                     <!-- Modal Update Start -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true" onclick="$('.errorsAdr').text('')">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form th:action="@{/update_account.html/update}" th:method="post"
+                                    onsubmit="return updateAdr()" >
+                                    <div class="modal-header border-0">
+                                        <h3>Sửa địa chỉ</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="contact-form" class="contact-form">
+                                            <div class="address-wrapper row">
+                                                <div class="col-md-12">
+                                                    <div class="address-fname">
+                                                        <label class="control-label" for="f-name">Địa chỉ:<span
+                                                                class="require errorsAdr" ></span></label>
+                                                        <textarea class="form-control" name="editAddress" id="editAddress"
+                                                            placeholder=""></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-right">
+                                        <button class="btn btn-success text-white" id="updateAddress"
+                                            onclick="updateAdr()">Sửa</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Update End -->
                 </div>
-                <!-- Modal Delete End -->
             </div>
 
         </div>
