@@ -55,12 +55,6 @@ public class AccountController {
 	AccountServiceImpl accountsService;
 
 	@Autowired
-	AddressDAO addressDAO;
-
-	@Autowired
-	AddressServiceImp addressService;
-
-	@Autowired
 	SessionService session;
 
 //	Register page
@@ -178,105 +172,5 @@ public class AccountController {
 		return "user/home/forgot-password";
 	}
 
-//	Update account page
-	@GetMapping("/update_account.html")
-	public String getUpdateAccount(Model m, @ModelAttribute("updateAccount") UpdateAccountsForm form,
-			@RequestParam("tb") Optional<String> tb) {
-		Accounts acc = session.get("account");
-		if (acc == null) {
-			return "redirect:/index.html?error=NotLogin";
-		}
-		if (tb.isPresent()) {
-			if (tb.get().contains("success")) {
-				if (tb.get().contains("CreateAdr")) {
-					m.addAttribute("alert", "alert-success");
-					m.addAttribute("messageAdr", "Thêm địa chỉ thành công");
-				} else {
-					m.addAttribute("alert", "alert-success");
-					m.addAttribute("messageAdr", "Xóa địa chỉ thành công");
-				}
-			} else if (tb.get().contains("error")) {
-				if (tb.get().contains("Create")) {
-					m.addAttribute("alert", "alert-danger");
-					m.addAttribute("messageAdr", "Thêm địa chỉ thất bại do nhập vào sai cách !!!");
-				} else {
-					m.addAttribute("alert", "alert-danger");
-					m.addAttribute("messageAdr", "Không tìm thấy địa chỉ cần xóa");
-				}
-			}
-		}
-		form.setFullname(acc.getFullname());
-		form.setEmail(acc.getEmail());
-		form.setPhone(acc.getPhone());
-		form.setPhoto(acc.getPhoto());
-		return "user/home/update-account";
-	}
-
-	@PostMapping("/update_account.html")
-	public String postUpdateAccount(Model m, @Valid @ModelAttribute("updateAccount") UpdateAccountsForm form,
-			Errors error) {
-		
-		if (!error.hasErrors()) {
-			Accounts acc = session.get("account");
-			acc.setFullname(form.getFullname());
-			acc.setEmail(form.getEmail());
-			acc.setPhone(form.getPhone());
-			accountsService.update(acc);
-			m.addAttribute("alert", "alert-success");
-			m.addAttribute("message", "Cập nhật thông tin thànhh công");
-		}
-		return "user/home/update-account";
-	}
-
-	@RequestMapping("/update_account.html/create")
-	public String postCreateAddress(Model m, @RequestParam("newAddress") Optional<String> address,
-			@ModelAttribute("updateAccount") UpdateAccountsForm form) {
-		Accounts acc = session.get("account");
-		if (address.isPresent() && acc != null) {
-			Address adr = new Address();
-			if (!address.get().isBlank()) {
-				adr.setAddress(address.get());
-			} else {
-				return "redirect:/update_account.html?tb=errorCreateAdrNull#messageAdr";
-			}
-			adr.setUserAr(acc);
-			addressService.create(adr);
-		} else {
-			return "redirect:/update_account.html#messageAdr";
-		}
-
-		return "redirect:/update_account.html?tb=successCreateAdr#messageAdr";
-	}
-
-	@RequestMapping("/update_account.html/delete/{id}")
-	public String getDeleteAccount(Model m, @PathVariable("id") Optional<String> id) {
-		if (id.isPresent()) {
-			try {
-				int ma = Integer.parseInt(id.get());
-				Accounts acc = session.get("account");
-				Optional<Address> adr = addressDAO.findById(ma);
-				List<Address> list = (List<Address>) m.getAttribute("listAddress");
-				if (adr.isPresent() && adr.get().getUserAr().getUsername().equals(acc.getUsername())) {
-					if (list.size() == 1) {
-						return "redirect:/update_account.html?tb=errorDeleteAdr#messageAdr";
-					} else {
-						addressService.delete(ma);
-						return "redirect:/update_account.html?tb=successDelete#messageAdr";
-					}
-				} else {
-					return "redirect:/update_account.html?tb=errorDeleteAdr#messageAdr";
-				}
-			} catch (NumberFormatException e) {
-				return "redirect:/update_account.html?tb=errorDeleteAdr#messageAdr";
-			}
-		}
-		return "redirect:/update_account.html?tb=errorDeleteAdr#messageAdr";
-	}
-
-	@ModelAttribute("listAddress")
-	public List<Address> getListAddress() {
-		Accounts acc = session.get("account");
-		return addressDAO.findByUsername(acc, null);
-	}
 
 }
