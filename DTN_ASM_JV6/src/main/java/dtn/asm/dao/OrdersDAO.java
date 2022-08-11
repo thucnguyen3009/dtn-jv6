@@ -3,6 +3,8 @@ package dtn.asm.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import dtn.asm.entity.Orders;
 import dtn.asm.entity.Sale;
@@ -10,5 +12,8 @@ import dtn.asm.entity.Sale;
 public interface OrdersDAO extends JpaRepository<Orders, Integer> {
 
 	List<Orders> findBySaleId(Sale saleId);
+	
+	@Query (value="select * from Orders a where a.username=?1", nativeQuery = true)
+	List<Orders> find_LoginbyUsername(String username);
 	
 }
