@@ -11,7 +11,7 @@
 
 <body>
     <header th:insert="~{/user/common/header::header}"></header>
-    <div class="content" ng-app="gemApp">
+    <div class="content">
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-area mt-30">
             <div class="container">
@@ -84,14 +84,19 @@
                                     <div class="col-md-12">
                                         <label class="control-label" for="f-name"><span class="require">*</span>Ảnh đại
                                             diện</label>
-                                        <div class="address-fname d-flex" ng-repeat="filename in filenames">
+                                        <!-- <div class="address-fname d-flex" ng-repeat="filename in filenames">
                                             <img ng-src="{{url(filename)}}"
+                                                style="height:300px; width: 300px">
+                                        </div> -->
+                                         <div class="address-fname d-flex" >
+                                            <img th:src="@{|/uploads/avatar/*{photo}|}"
                                                 style="height:300px; width: 300px">
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-2">
                                         <div class="address-fname d-flex">
-                                            <input type="file" accept="image/*" onchange="angular.element(this).scope().upload(this.files)">
+                                            <!-- <input type="file" accept="image/*" onchange="angular.element(this).scope().upload(this.files)"> -->
+                                            <input type="file" accept="image/*" >
                                         </div>
                                     </div>
                                      <div class="col-md-12 mt-2 " >

@@ -219,7 +219,7 @@
                         <!-- Grid & List View End -->
                         <div class="main-categorie mb-all-40">
                             <!-- Grid & List Main Area End -->
-                            <div class="tab-content fix">
+                            <div class="tab-content fix" ng-controller="cartCtr">
                                 <div id="grid-view" class="tab-pane fade show active">
                                     <div class="row">
                                         <!-- Single Product Start -->
@@ -243,7 +243,8 @@
                                                     </div>
                                                     <div class="pro-actions">
                                                         <div class="actions-primary">
-                                                            <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
+                                                            <a th:attr="ng-click=|addCart(${p.id})|" title="Add to Cart"> + Thêm vào giỏ hàng</a>
+                                                            <!-- <a th:href="@{|/addToCart/${p.id}|}" title="Add to Cart"> + Thêm vào giỏ hàng</a> -->
                                                         </div>
                                                         <div class="actions-secondary">
                                                             <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>

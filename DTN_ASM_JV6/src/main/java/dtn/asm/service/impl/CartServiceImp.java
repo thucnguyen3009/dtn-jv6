@@ -1,12 +1,15 @@
 package dtn.asm.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dtn.asm.dao.CartDAO;
+import dtn.asm.entity.Accounts;
 import dtn.asm.entity.Cart;
+import dtn.asm.entity.Products;
 import dtn.asm.service.CartService;
 @Service
 public class CartServiceImp implements CartService {
@@ -37,6 +40,13 @@ public class CartServiceImp implements CartService {
 	@Override
 	public void delete(String id) {
 		dao.deleteById(id);
+	}
+	
+	public List<Cart> findByUsername(Accounts acc) {
+		return dao.findByUserCart(acc);
+	}
+	public Optional<Cart> findByProduct(Products pro) {
+		return dao.findByProCart(pro);
 	}
 
 }

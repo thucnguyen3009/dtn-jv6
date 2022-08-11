@@ -16,6 +16,7 @@ import dtn.asm.service.FileManagerService;
 
 @RestController
 public class UploadAvatarRestController {
+
 	@Autowired
 	FileManagerService fileService;
 

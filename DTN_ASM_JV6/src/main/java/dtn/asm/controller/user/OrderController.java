@@ -11,7 +11,7 @@ public class OrderController {
 	public String checkoutPage() {
 		return "user/order/checkout";
 	}
-
+	
 	// Order Manager
 	@RequestMapping("/orders.html")
 	public String ordersPage() {

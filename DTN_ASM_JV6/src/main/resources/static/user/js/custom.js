@@ -44,8 +44,9 @@ $(document).ready(function () {
 //End Create Address
 
 //Angular.js 
-//Upload Avatar
 var app = angular.module("gemApp", []);
+
+//Upload Avatar
 app.controller("myctr", function ($scope, $http) {
     var url = "http://localhost:8080/DTNsBike/update_account.html/avatar"
     $scope.url = function (filename) {
@@ -73,3 +74,30 @@ app.controller("myctr", function ($scope, $http) {
         })
     }
 })
+//End Upload Avatar
+
+//Cart Controller
+app.controller("cartCtr", function ($scope, $http) {
+    
+    $scope.addCart= function(id){
+        var url = "http://localhost:8080/DTNsBike/addToCart/"+id;
+        $http.get(url).then(resp => {
+                    
+                }).catch(error => {
+                    console.log("Errors", error);
+                });
+    }
+})
+app.controller("pushCart", function ($scope, $http) {
+    
+    $scope.addCart= function(id){
+        var url = "http://localhost:8080/DTNsBike/addToCart/"+id;
+        $http.get(url).then(resp => {
+                    
+                }).catch(error => {
+                    console.log("Errors", error);
+                });
+    }
+})
+//End Cart Controller
+
