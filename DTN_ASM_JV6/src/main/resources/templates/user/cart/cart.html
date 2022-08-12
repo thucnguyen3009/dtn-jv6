@@ -23,7 +23,7 @@
         </div>
         <!-- Breadcrumb End -->
         <!-- Cart Main Area Start -->
-        <div class="cart-main-area ptb-20 ptb-sm-60 mb-3">
+        <div class="cart-main-area ptb-20 ptb-sm-60 mb-3" ng-controller="pushCart">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9 col-sm-9">
@@ -47,24 +47,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat='listCart in Cart'>
                                             <td class="product-thumbnail">
-                                                <a href="#"><img th:src="@{/user/img/products/13.jpg}" alt="cart-image"></a>
+                                                <a href="#"><img alt="cart-image"></a>
                                             </td>
-                                            <td class="product-name"><a href="#">Xe đạp gì gì đó :))</a></td>
+                                            <td class="product-name"><a href="#">{{listCart.proCart.name}}</a></td>
                                             <td class="product-price"><span class="amount">1,265,000 đ</span></td>
                                             <td class="product-quantity"><input type="number" value="1"></td>
                                             <td class="product-subtotal">1,265,000 đ</td>
-                                            <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="product-thumbnail">
-                                                <a href="#"><img th:src="@{/user/img/products/23.jpg}" alt="cart-image"></a>
-                                            </td>
-                                            <td class="product-name"><a href="#">Không phải xe đạp âu bạn gì ơi :V</a></td>
-                                            <td class="product-price"><span class="amount">5,900,000 đ</span></td>
-                                            <td class="product-quantity"><input type="number" value="1"></td>
-                                            <td class="product-subtotal">5,900,000 đ</td>
                                             <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
                                         </tr>
                                     </tbody>

@@ -1,3 +1,4 @@
+//Start Delete Address
 function deleteAddress(adr, id) {
     $(".address").text(adr);
     $("#deleteAddress").attr("href", "/DTNsBike/update_account.html/delete/" + id);
@@ -5,17 +6,18 @@ function deleteAddress(adr, id) {
 //End Delete Address
 
 //Start Update Address
-function updateAddress(adr,id) {
+function updateAddress(adr, id) {
     $('#editAddress').val(adr);
- $("#updateAddress").attr("formaction", "/DTNsBike/update_account.html/update/" + id);
+    $("#updateAddress").attr("formaction", "/DTNsBike/update_account.html/update/" + id);
 }
 function updateAdr() {
     var adr = String($("#editAddress").val());
     if (adr.trim().length == 0) {
         $(".errorsAdr").text("Không bỏ trống ô nhập địa chỉ");
         return false;
-    } else { 
-        return true; }
+    } else {
+        return true;
+    }
 }
 //End Update Address
 //Start Create Address
@@ -24,9 +26,10 @@ function createAdr() {
     if (adr.trim().length == 0) {
         $("#errorsAdr").text("Không bỏ trống ô nhập địa chỉ");
         return false;
-    } else { 
+    } else {
         $("#errorsAdr").text("");
-        return true; }
+        return true;
+    }
 }
 
 $(document).ready(function () {
@@ -39,3 +42,62 @@ $(document).ready(function () {
     });
 });
 //End Create Address
+
+//Angular.js 
+var app = angular.module("gemApp", []);
+
+//Upload Avatar
+app.controller("myctr", function ($scope, $http) {
+    var url = "http://localhost:8080/DTNsBike/update_account.html/avatar"
+    $scope.url = function (filename) {
+        return url+'/'+filename;
+    }
+    $scope.list = function () {
+        $http.get(url).then(resp => {
+            $scope.filename = resp.data;
+        }).catch(error => {
+            console.log("Errors", error);
+        });
+    }
+    $scope.upload = function (files) {
+        var form = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            form.append("files", files[i]);
+        }
+        $http.post(url, form, {
+            transformRwquest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(resp=>{
+            $scope.filenames.push(...resp.data);
+        }).catch(error=>{
+            console.log("Errors",error);
+        })
+    }
+})
+//End Upload Avatar
+
+//Cart Controller
+app.controller("cartCtr", function ($scope, $http) {
+    
+    $scope.addCart= function(id){
+        var url = "http://localhost:8080/DTNsBike/addToCart/"+id;
+        $http.get(url).then(resp => {
+                    
+                }).catch(error => {
+                    console.log("Errors", error);
+                });
+    }
+})
+app.controller("pushCart", function ($scope, $http) {
+    
+    $scope.addCart= function(id){
+        var url = "http://localhost:8080/DTNsBike/addToCart/"+id;
+        $http.get(url).then(resp => {
+                    
+                }).catch(error => {
+                    console.log("Errors", error);
+                });
+    }
+})
+//End Cart Controller
+

@@ -13,6 +13,7 @@ import dtn.asm.entity.Products;
 
 public interface OrderDetailsDAO extends JpaRepository<OrderDetails, Integer> {
 
+<<<<<<< HEAD
 	List<OrderDetails> findByProductsId(Products productsId);
 	
 	List<OrderDetails> findByOrdersId(Orders ordersId);
@@ -27,4 +28,8 @@ public interface OrderDetailsDAO extends JpaRepository<OrderDetails, Integer> {
 	
 	@Query("SELECT o.productsId FROM OrderDetails o WHERE o.id = ?1")
 	List<Products> getAllProduct(Integer id);
+=======
+	@Query (value = "select * from OrderDetails a where a.OrderId = ?1",nativeQuery = true)
+	List<OrderDetails> find_Order_details(int orderid);
+>>>>>>> f50877d78bacce93d8a801611b489358f9cf23d0
 }
