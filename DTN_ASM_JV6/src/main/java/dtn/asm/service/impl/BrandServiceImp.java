@@ -44,4 +44,9 @@ public class BrandServiceImp implements BrandService {
 	public Boolean checkProduct(Integer id) {
 		return daoPr.findByBrandPro(this.findById(id)).isEmpty();
 	}
+	
+	@Override
+	public Integer getCount() {
+		return dao.getCount();
+	}
 }

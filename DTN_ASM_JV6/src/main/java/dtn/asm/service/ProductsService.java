@@ -17,4 +17,8 @@ public interface ProductsService {
 	void update(Products entity);
 
 	void delete(Integer id);
+	
+	Boolean check(Integer id);
+	
+	Integer getCount();
 }

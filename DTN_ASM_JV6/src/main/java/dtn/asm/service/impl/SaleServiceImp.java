@@ -43,5 +43,10 @@ public class SaleServiceImp implements SaleService {
 	public Boolean checkOrder(Integer id) {
 		return daoOrder.findBySaleId(this.findById(id)).isEmpty();
 	}
+	
+	@Override
+	public Integer getCount() {
+		return dao.getCount();
+	}
 
 }

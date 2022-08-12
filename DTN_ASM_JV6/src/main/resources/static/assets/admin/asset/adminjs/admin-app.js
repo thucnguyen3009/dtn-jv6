@@ -14,6 +14,10 @@ app.config(function($routeProvider){
         templateUrl: "page/account-manager/account-list.html",
         controller: "account-list"
     })
+    .when("/account-auth",{
+        templateUrl: "page/account-manager/account-auth.html",
+        controller: "account-auth"
+    })
     .when("/product-form",{
         templateUrl: "page/product-manager/product-form.html",
         controller: "product-form"
@@ -25,6 +29,10 @@ app.config(function($routeProvider){
     .when("/product-category",{
         templateUrl: "page/product-manager/product-category.html",
         controller: "product-category"
+    })
+    .when("/product-img",{
+        templateUrl: "page/product-manager/product-img.html",
+        controller: "product-img"
     })
     .when("/category-form",{
         templateUrl: "page/category-manager/category-form.html",
@@ -61,6 +69,10 @@ app.config(function($routeProvider){
     .when("/brand-list",{
         templateUrl: "page/brand-manager/brand-list.html",
         controller: "brand-list"
+    })
+    .when("/brand-update",{
+        templateUrl: "page/brand-manager/brand-update.html",
+        controller: "brand-update"
     })
     .when("/order-cancel",{
         templateUrl: "page/order-manager/order-cancel.html",
@@ -113,3 +125,22 @@ app.run(['$rootScope', function($rootScope) {
         $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
     });
 }]);
+
+
+// Admin Index controller
+app.controller("index",function($scope,$http){
+    let host = "http://localhost:8080/DTNsBike/rest";
+
+     $scope.load_All = function () {
+        var url = `${host}/indexCount`;
+        $http.get(url).then(resp => {
+            $scope.items = resp.data;
+            console.log("Success", resp)
+        }).catch(error => {
+            console.log("Error", error);
+        });
+
+    }
+    $scope.load_All();
+
+});

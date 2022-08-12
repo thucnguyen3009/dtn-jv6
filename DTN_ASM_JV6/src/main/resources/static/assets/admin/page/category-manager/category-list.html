@@ -40,9 +40,9 @@
                   </div>
                   <div class="col-5 text-end">
                     <div class="row">
-                      <input style="width: 70%;float: left;" type="text" class="col-9 form-control"
-                        placeholder="Tìm kiếm theo...." ng-model="search[columns]" />
-                        <select class="col-1 form-select text-uppercase" aria-label="Default select example" style="width:100px;" ng-options="e for e in headers" ng-model="columns" 
+                      <input style="width: 100%;float: left;" type="text" class="col-9 form-control"
+                        placeholder="Tìm kiếm theo tên danh mục ...." ng-model="search[columns]" />
+                        <select hidden class="col-1 form-select text-uppercase" aria-label="Default select example" style="width:100px;" ng-options="e for e in headers" ng-model="columns" 
                         ng-change="changeFilterTo(columns)">
                           <option value="" ng-if="false"></option>
                         </select>
@@ -91,8 +91,13 @@
                     </tfoot>
 
                     <tbody>
+                      <tr ng-if="items.length == 0" class="text-center">
+                            <td colspan="6">
+                                Không có dữ liệu
+                            </td>
+                        </tr>
                       <tr ng-repeat="cate in items  | filter : search | orderBy : prop |limitTo : pageSize : begin">
-                        <td class="h5">{{cate.id}}</td>
+                        <td class="h5">DM00{{cate.id}}</td>
                         <td class="h5">{{cate.name}}</td>
                         <td>
                           <a href="#!category-form" class="text-primary" style="font-size: 28px;text-decoration: none;">

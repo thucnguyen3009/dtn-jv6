@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,9 +28,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "Orders")
 public class Orders implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -60,6 +60,7 @@ public class Orders implements Serializable{
 	@JoinColumn(name="[statusid]")
 	private Status statusId;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "ordersId")
 	List<OrderDetails> orderDetails;
 }

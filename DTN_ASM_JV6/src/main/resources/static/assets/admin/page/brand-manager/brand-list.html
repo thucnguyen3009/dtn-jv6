@@ -42,9 +42,9 @@
                             </div>
                             <div class="col-5 text-end">
                                 <div class="row">
-                                    <input style="width: 70%;float: left;" type="text" class="col-9 form-control"
-                                    placeholder="Tìm kiếm theo...." ng-model="search[columns]" />
-                                    <select class="col-1 form-select text-uppercase" aria-label="Default select example" style="width:100px;" ng-options="e for e in headers" ng-model="columns" 
+                                    <input style="width: 100%;float: left;" type="text" class="col-9 form-control"
+                                    placeholder="Tìm kiếm theo tên thương hiệu...." ng-model="search[columns]" />
+                                    <select hidden class="col-1 form-select text-uppercase" aria-label="Default select example" style="width:100px;" ng-options="e for e in headers" ng-model="columns" 
                                     ng-change="changeFilterTo(columns)">
                                       <option value="" ng-if="false"></option>
                                     </select>
@@ -80,16 +80,44 @@
                                     </tr>
                                 </thead>
                                 <tfoot>
-                                  
+                                     <tr style="background-color: orangered;">
+                                        <th>
+                                            <a ng-click="sortBy('id')" href="" class="text-white" style="text-decoration: none;">
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                                ID
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortBy('logo')" href="" class="text-white" style="text-decoration: none;">
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                                HÌNH ẢNH
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortBy('nameString')" href="" class="text-white" style="text-decoration: none;">
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                                TÊN THƯƠNG HIỆU
+                                                <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-white">ACTION</th>
+                                    </tr>
                                 </tfoot>
 
                                 <tbody>
                                     <!-- List item start -->
+                                    <tr ng-if="items.length == 0" class="text-center">
+                                        <td colspan="6">
+                                            Không có dữ liệu
+                                        </td>
+                                    </tr>
                                     <tr ng-repeat="brand in items  | filter : search | orderBy : prop |limitTo : pageSize : begin">
-                                        <td class="h5">{{brand.id}}</td>
+                                        <td class="h5">TH00{{brand.id}}</td>
                                         <td>
                                             <img class="img-fluid" ng-src="{{url(brand.logo)}}"
-                                                style="width: 64px;height: 64px;">
+                                                style="width: 72px;height: 72px;">
                                         </td>
                                         <td class="h5">{{brand.nameString}}</td>
                                         <td>

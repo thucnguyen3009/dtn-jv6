@@ -42,4 +42,8 @@ public class ColorServiceImp implements ColorService {
 	public Boolean checkProduct(Integer id) {
 		return daoPrc.findByColor(this.findById(id)).isEmpty();
 	}
+	@Override
+	public Integer getCount() {
+		return dao.getCount();
+	}
 }

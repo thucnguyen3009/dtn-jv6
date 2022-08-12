@@ -262,6 +262,7 @@ app.controller("category-form", function ($scope, $http) {
         }
 
         if (loi > 0) {
+            loi = 0;
             return false;
         } else {
             return true;

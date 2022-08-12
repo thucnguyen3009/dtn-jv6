@@ -49,4 +49,9 @@ public class CategoryServiceImp implements CategoriesService {
 	public Boolean checkProduct(Integer id) {
 		return daoProduct.findByCatePro(dao.getById(id)).isEmpty();
 	}
+	
+	@Override
+	public Integer getCount() {
+		return dao.getCount();
+	}
 }

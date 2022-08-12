@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +35,7 @@ public class Products implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date = new Date();
 	
-	@Column(name = "[avaliable]")
+	@Column(name = "[available]")
 	private Boolean avaliable;
 	
 	@Column(name = "[sale]")
@@ -58,21 +61,27 @@ public class Products implements Serializable {
 	@Column(name = "[image]")
 	private String img;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	List<PriceHistory> priceHistories;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "imgPro")
 	List<ProductImg> productImgs; 
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "products")
 	List<ProductColor> productColors;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productsId")
-	List<OrderDetails> orderDetails;
+	List<OrderDetails> orderdetails;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "proCart")
 	List<Cart> carts;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productsId")
 	List<Favorites> favorites;
 	

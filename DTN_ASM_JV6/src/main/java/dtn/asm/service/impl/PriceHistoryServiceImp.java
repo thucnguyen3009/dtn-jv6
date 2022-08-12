@@ -21,7 +21,7 @@ public class PriceHistoryServiceImp implements PriceHistoryService {
 	
 	@Override
 	public PriceHistory findById(Integer id) {
-		return dao.getById(id);
+		return dao.findById(id).get();
 	}
 	
 	@Override
@@ -37,6 +37,11 @@ public class PriceHistoryServiceImp implements PriceHistoryService {
 	@Override
 	public void delete(Integer id) {
 		dao.deleteById(id);
+	}
+	
+	@Override
+	public Double getPriceNew() {
+		return this.findById(dao.getPriceNew()).getPrice();
 	}
 
 }

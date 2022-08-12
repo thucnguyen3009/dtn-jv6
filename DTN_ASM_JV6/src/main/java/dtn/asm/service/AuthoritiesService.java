@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import dtn.asm.entity.Accounts;
 import dtn.asm.entity.Authorities;
+import dtn.asm.entity.Roles;
 
 public interface AuthoritiesService {
 	List<Authorities> findAll();
@@ -16,4 +18,8 @@ public interface AuthoritiesService {
 	void update(Authorities entity);
 
 	void delete(Integer id);
+	
+	Boolean checkAuth(Integer id);
+	
+	Boolean checkAuth2(String roleid,String user);
 }

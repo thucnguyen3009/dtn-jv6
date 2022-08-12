@@ -16,4 +16,6 @@ public interface PriceHistoryService {
 	void update(PriceHistory entity);
 
 	void delete(Integer id);
+	
+	Double getPriceNew();
 }

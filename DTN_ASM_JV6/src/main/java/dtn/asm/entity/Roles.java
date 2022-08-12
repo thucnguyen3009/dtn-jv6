@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +32,7 @@ public class Roles implements Serializable{
 	@Column(name = "[name]")
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "roleId")
 	private List<Authorities> role;
 }

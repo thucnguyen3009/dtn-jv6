@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,24 +39,30 @@ public class Accounts implements Serializable {
 	@Column(name = "[phone]")
 	 String phone;
 
-	@Column(name = "[active]")
+	@Column(name = "[acitve]")
 	 Boolean active = true;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userAuthor")
 	List<Authorities> authorities;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userCart")
 	List<Cart> cart;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userFvr")
 	List<Favorites> favorites;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userAr")
 	List<Address> address;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userOrder")
 	List<Orders> order;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userOtp")
 	List<Otp> otp;
 

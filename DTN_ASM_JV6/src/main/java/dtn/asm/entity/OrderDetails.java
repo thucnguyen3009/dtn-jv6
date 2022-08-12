@@ -2,6 +2,9 @@ package dtn.asm.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "OrderDetails", uniqueConstraints = { @UniqueConstraint(columnNames = { "[orderid]","[productid]","[color]" }) })
+@Table(name = "Orderdetails", uniqueConstraints = { @UniqueConstraint(columnNames = { "[orderid]","[productid]","[color]" }) })
 public class OrderDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +26,7 @@ public class OrderDetails implements Serializable {
 	@JoinColumn(name = "[orderid]")
 	private Orders ordersId;
 
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "[productid]")
 	private Products productsId;
 
@@ -35,6 +38,6 @@ public class OrderDetails implements Serializable {
 
 	@ManyToOne()
 	@JoinColumn(name = "[color]")
-	private Color colorId;
+	private ProductColor colorId;
 
 }

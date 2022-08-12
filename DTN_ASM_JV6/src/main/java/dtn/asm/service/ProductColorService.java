@@ -16,4 +16,8 @@ public interface ProductColorService {
 	void update(ProductColor entity);
 
 	void delete(Integer id);
+	
+	Boolean checkOrder(Integer id);
+	
+	Boolean checkExitsProduct(Integer id,Integer idd);
 }

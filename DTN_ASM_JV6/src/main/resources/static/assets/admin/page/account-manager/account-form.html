@@ -38,12 +38,13 @@
         <div class="row">
           <div class="col-6">
         
-            <div class="row">
+            <div class="row" ng-show="showPass">
               <div class="col-md-12">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">(<strong class="text-danger">*</strong>) Tên đăng nhập:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Nhập tên đăng nhập..." />
+                    <input ng-model="form.username" type="text" class="form-control" placeholder="Nhập tên đăng nhập..." />
+                     <h5 class="mt-2 text-danger" ng-show="loi != 0 && loi != null"style="font-size: 12px;">{{loi}}</h5>
                   </div>
                 </div>
               </div>
@@ -54,7 +55,8 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label"> (<strong class="text-danger">*</strong>) Họ và tên:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Nhập họ tên...." />
+                    <input ng-model="form.fullname" type="text" class="form-control" placeholder="Nhập họ tên...." />
+                    <h5 class="mt-2 text-danger" ng-show="loi1 != 0 && loi1 != null"style="font-size: 12px;">{{loi1}}</h5>
                   </div>
                 </div>
               </div>
@@ -65,7 +67,8 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">(<strong class="text-danger">*</strong>) Email:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Nhập email..." />
+                    <input ng-model="form.email" type="text" class="form-control" placeholder="Nhập email..." />
+                    <h5 class="mt-2 text-danger" ng-show="loi2 != 0 && loi2 != null"style="font-size: 12px;">{{loi2}}</h5>
                   </div>
                 </div>
               </div>
@@ -76,17 +79,19 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">(<strong class="text-danger">*</strong>) Số điện thoại:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Nhập số điện thoại..." />
+                    <input ng-model="form.phone" type="text" class="form-control" placeholder="Nhập số điện thoại..." />
+                    <h5 class="mt-2 text-danger" ng-show="loi3 != 0 && loi3 != null"style="font-size: 12px;">{{loi3}}</h5>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="showPass">
               <div class="col-md-12">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">(<strong class="text-danger">*</strong>)Mật khẩu:</label>
                   <div class="col-sm-9">
-                    <input type="password" class="form-control" placeholder="Nhập mật khẩu..." />
+                    <input ng-model="form.password" type="password" class="form-control" placeholder="Nhập mật khẩu..." />
+                    <h5 class="mt-2 text-danger" ng-show="loi4 != 0 && loi4 != null"style="font-size: 12px;">{{loi4}}</h5>
                   </div>
                 </div>
               </div>
@@ -94,13 +99,37 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">(<strong class="text-danger">*</strong>)Xác nhận mật khẩu:</label>
                   <div class="col-sm-9">
-                    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu..." />
+                    <input ng-model="form.confirmPass" type="password" class="form-control" placeholder="Nhập lại mật khẩu..." />
+                    <h5 class="mt-2 text-danger" ng-show="loi5 != 0 && loi5 != null"style="font-size: 12px;">{{loi5}}</h5>
                   </div>
                 </div>
               </div>
             </div>
         
-            <div class="row">
+             <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">(<strong class="text-danger">*</strong>) Trạng thái:</label>
+                    <div class="col-9 d-flex">
+                      <div class="form-check form-check-inline">
+                        <input ng-model="form.active" class="ms-2 form-check-input" type="radio" name="available"
+                          id="inlineRadio4" ng-value="true">
+                        <label class="form-check-label" for="inlineRadio4"
+                          style="font-size: 15px;">Hoạt động</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input ng-model="form.active" class="ms-2 form-check-input" type="radio" name="available"
+                          id="inlineRadio3" ng-value="false">
+                        <label class="form-check-label" for="inlineRadio3"
+                          style="font-size: 15px;">Ngừng hoạt động</label>
+                      </div>
+                    </div>
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                         <h5 class="mt-2 text-danger" ng-show="loi6 != 0 && loi6 != null"style="font-size: 12px;">{{loi6}}</h5>
+                    </div>
+                    </div>
+            </div>
+            <!-- <div class="row">
               <div class="col-md-12">
                 <div class="form-group row">
                   <label class="col-3 col-form-label">(<strong class="text-danger">*</strong>) Vai trò:</label>
@@ -126,42 +155,40 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             
           </div>
           <div class="col-6">
             <div class="col-12 text-center">
-              <img src="asset/images/default.jpg" class="img-fluid" style="width: 80%;">
+              <img ng-src="{{url(form.photo)}}" class="img-fluid" style="width: 80%;">
               <p class="text-danger"><em>* Hình ảnh người dùng</em></p>
               <label class="btn btn-danger text-white ">
-                Chọn hình <input type="file" hidden>
+                Chọn hình<input type="file" hidden accept="image/*" multiple onchange="angular.element(this).scope().upload(this.files)">
               </label>
             </div>
           </div>
         </div>
 
-        <div class="col-12 mt-3 text-end">
-          <button class="btn btn-inverse-success btn-fw">
-              <div class="d-flex">
-                <i class="mdi mdi-plus-circle"></i>
-                <strong class="mt-1 ms-1 h6">Thêm mới</strong>
-              </div>
-          </button>
-          <button class="btn btn-inverse-primary btn-fw">
-            <div class="d-flex">
-              <i class="mdi mdi-content-save"></i>
-              <strong class="mt-1 ms-1 h6">Cập nhật</strong>
-            </div>
-          </button>
-          <button class="btn btn-inverse-warning btn-fw">
-            <div class="d-flex">
-              <i class="mdi mdi-refresh"></i>
-              <strong class="mt-1 ms-1 h6">Làm mới</strong>
-            </div>
-          </button>
-         </div>
-
-
+        <div class="text-end mt-4" ng-init="showButton">
+                    <button type="submit" ng-show="showButton" class="btn btn-inverse-success btn-fw" id="btnThem" ng-click="create()">
+                        <div class="d-flex">
+                          <i class="mdi mdi-plus-circle"></i>
+                          <strong class="mt-1 ms-1 h6">Thêm mới</strong>
+                        </div>
+                    </button>
+                    <button ng-hide="showButton" class="btn btn-inverse-primary btn-fw" ng-click="update()">
+                      <div class="d-flex">
+                        <i class="mdi mdi-content-save"></i>
+                        <strong class="mt-1 ms-1 h6">Cập nhật</strong>
+                      </div>
+                    </button>
+                    <button class="btn btn-inverse-warning btn-fw" ng-click="reset()">
+                      <div class="d-flex">
+                        <i class="mdi mdi-refresh"></i>
+                        <strong class="mt-1 ms-1 h6">Làm mới</strong>
+                      </div>
+                    </button>
+                   </div>
       </form>
     </div>
   </div>

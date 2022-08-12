@@ -18,4 +18,6 @@ public interface ProductsDAO extends JpaRepository<Products, Integer> {
 	@Query (value = "select * from Products where CategoryId = ?1",nativeQuery = true)
 	List<Products> listProduct_InCategories(int cate_id);
 	
+	@Query("SELECT count(o) FROM Products o WHERE o.avaliable = true")
+	Integer getCount();
 }
