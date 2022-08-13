@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +41,7 @@ public class CartRestController {
 	@RequestMapping("/rest/Cart/create/{id}")
 	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id) {
 		Accounts acc = session.get("account");
-		if (id.isPresent()) {
+		if (id.isPresent() ) {
 			Products pro = daoProduct.findById(id.get());
 			cart.add(1, pro, 1, acc);
 		} else {
@@ -67,6 +69,18 @@ public class CartRestController {
 	public ResponseEntity<List<Cart>> listCart() {
 		Accounts acc = session.get("account");
 		return ResponseEntity.ok(cart.getCarts(acc));
+	}
+	@PutMapping("/rest/Cart/update")
+	public ResponseEntity<Cart> updateToCart(@RequestBody Optional<Cart> cartBody) {
+		Accounts acc = session.get("account");
+		if (cartBody.isPresent() ) {
+			Cart put = cartService.findById(cartBody.get().getId());
+			put.setQty(cartBody.get().getQty());
+			cart.update(cartBody.get());
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(cartBody.get());
 	}
 
 }

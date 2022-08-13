@@ -40,8 +40,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public Cart update(Integer id, int qty) {
-		return null;
+	public void update(Cart cart) {
+		cartService.update(cart);
 	}
 
 	@Override

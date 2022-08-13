@@ -162,6 +162,23 @@ app.controller("pushCart", function ($scope, $http,$rootScope) {
         });}
         
     }
+    $scope.updateCart= function (id) {
+        var url = `${host}Cart/update`
+        var data = $scope.Cart;
+        for(var i =0 ;i < data.length; i++){
+            if(data[i].id == id){
+             $http.put(url,data[i]).then(resp=>{
+             }
+            ).catch(error => {
+                console.log(error);
+                alert("Lỗi khi cập");
+            });
+             break;  
+            }
+        }
+        
+    }
+        
 })
     // $rootScope.$emit("list", {});
    
