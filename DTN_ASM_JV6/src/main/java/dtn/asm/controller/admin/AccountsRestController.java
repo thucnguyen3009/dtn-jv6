@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import dtn.asm.entity.Accounts;
 import dtn.asm.service.AccountsService;
+import dtn.asm.service.SessionService;
 
 @CrossOrigin("*")
 @RestController
@@ -23,6 +28,8 @@ public class AccountsRestController {
 
 	@Autowired
 	AccountsService account;
+	@Autowired
+	SessionService session;
 
 	@GetMapping("/rest/accounts")
 	public ResponseEntity<List<Accounts>> getAll(Model m) {
@@ -83,6 +90,15 @@ public class AccountsRestController {
 		}
 		account.delete(id);
 		return ResponseEntity.ok().build();
+	}
+	@GetMapping("/rest/fullname")
+	public JsonNode fullname() {
+		Accounts acc = session.get("account");
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode obj = mapper.createObjectNode();
+		obj.put("fullname", acc.getFullname());
+		obj.put("photo", acc.getPhoto());
+		return obj;
 	}
 
 }
