@@ -35,25 +35,30 @@
                 <!-- Row End -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <form class="form-register" action="#">
+                        <form class="form-register" th:action="@{/changepass.html}"  th:method="post" th:object="${changePassForm}">
                             <fieldset>
                                 <legend>Mật khẩu của bạn</legend>
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Mật khẩu cũ:</label>
                                     <div class="col-md-10">
-                                        <input type="password" class="form-control" id="pwd" placeholder="Mật khẩu cũ...">
+                                        <input th:field="*{password}" type="password" class="form-control" id="pwd" placeholder="Mật khẩu cũ...">
+                                        <i class="erros_mess" th:errors="*{password}"></i>
+                                        <p class="erros_mess">[[${mess1}]]</p>
                                     </div>
                                 </div>
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Mật khẩu mới</label>
                                     <div class="col-md-10">
-                                        <input type="password" class="form-control" id="pwd-confirm" placeholder="Mật khẩu mới...">
+                                        <input th:field="*{newpassword}" type="password" class="form-control" id="pwd-confirm" placeholder="Mật khẩu mới...">
+                                        <i class="erros_mess" th:errors="*{newpassword}"></i>
                                     </div>
                                 </div>
                                 <div class="form-group d-md-flex align-items-md-center">
                                     <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Xác nhận mật khẩu mới</label>
                                     <div class="col-md-10">
-                                        <input type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu mới...">
+                                        <input th:field="*{confirmpassword}" type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu mới...">
+                                        <i class="erros_mess" th:errors="*{confirmpassword}"></i>
+                                        <p class="erros_mess">[[${mess2}]]</p>
                                     </div>
                                 </div>
                             </fieldset>
@@ -62,6 +67,7 @@
                                     <input type="submit" value="Đổi mật khẩu" class="return-customer-btn">
                                 </div>
                             </div>
+                            <p>[[${mess3}]]</p>
                         </form>
                     </div>
                 </div>

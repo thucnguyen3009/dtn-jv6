@@ -31,6 +31,7 @@ import dtn.asm.dao.AccountDAO;
 import dtn.asm.dao.AddressDAO;
 import dtn.asm.entity.Accounts;
 import dtn.asm.entity.Address;
+import dtn.asm.model.ChangePassForm;
 import dtn.asm.model.LoginForm;
 import dtn.asm.model.SignUpForm;
 import dtn.asm.model.UpdateAccountsForm;
@@ -116,8 +117,32 @@ public class AccountController {
 	}
 
 //	Change Pass page
-	@RequestMapping("/changepass.html")
-	public String changepass() {
+	@GetMapping("/changepass.html")
+	public String changepass(@ModelAttribute("changePassForm") ChangePassForm changepass) {
+		return "user/home/changepass";
+	}
+	
+	@PostMapping("/changepass.html")
+	public String changepass_Post(Model m, @Valid @ModelAttribute("changePassForm") ChangePassForm changepass, Errors errors) {
+		Accounts account=session.get("account");
+		String password = changepass.getPassword();
+		String newpassword=changepass.getNewpassword();
+		String confirmpassword=changepass.getConfirmpassword();
+		int loi=0;
+		if (!password.equals(account.getPassword())) {
+			m.addAttribute("mess1","Mật khẩu không đúng");
+			loi++;
+		}
+		if (!newpassword.equals(confirmpassword)) {
+			m.addAttribute("mess2","Vui lòng kiểm tra lại mật khẩu mới");
+			loi++;
+		}
+		if (loi==0) {
+			Accounts acc=accountdao.getById(account.getUsername());
+			acc.setPassword(confirmpassword);
+			accountdao.save(acc);
+			m.addAttribute("mess3","Đổi mật khẩu thành công");
+		}
 		return "user/home/changepass";
 	}
 
