@@ -9,11 +9,11 @@ import dtn.asm.entity.Cart;
 public interface CartService {
 	List<Cart> findAll();
 
-	Cart findById(String id);
+	Cart findById(Integer id);
 
 	void create(Cart entity);
 
 	void update(Cart entity);
 
-	void delete(String id);
+	void delete(Integer id);
 }

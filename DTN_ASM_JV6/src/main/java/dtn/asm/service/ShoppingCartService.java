@@ -10,8 +10,6 @@ import dtn.asm.entity.Products;
 public interface ShoppingCartService {
 	void add(Integer id, Products pro, int qty,Accounts acc);
 
-	void remove(Integer id);
-
 	Cart update(Integer id, int qty);
 
 	void clear();
@@ -21,5 +19,7 @@ public interface ShoppingCartService {
 	int getCount();
 
 	double getAmount();
+
+	void remove(Integer id);
 
 }

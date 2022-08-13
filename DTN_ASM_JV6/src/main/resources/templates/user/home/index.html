@@ -8,9 +8,9 @@
 </head>
 <body>
     <header th:insert="~{/user/common/headerIndex::header}"></header>
-    <div class="content">
+    <div class="content" ng-controller="cartCtr">
         <!-- Hot Deal Products Start Here -->
-    <div class="hot-deal-products off-white-bg pb-90 pb-sm-50">
+    <div class="hot-deal-products off-white-bg pb-90 pb-sm-50" >
         <div class="container">
            <!-- Product Title Start -->
            <div class="post-title pb-30">
@@ -24,7 +24,7 @@
                     <!-- Product Image Start -->
                     <div class="pro-img">
                         <a th:href="@{|/product.html?id=${p.id}|}">
-                            <img class="primary-img" th:src="@{|/assets/admin/asset/images/images_xedap/${p.img}|}" alt="single-product">
+                            <img class="primary-img" th:src="@{|/rest/uploads/productImg/${p.img}|}" alt="single-product">
                         </a>
                         <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
                     </div>
@@ -32,13 +32,14 @@
                     <!-- Product Content Start -->
                     <div class="pro-content">
                         <div class="pro-info">
-                            <h4><a th:utext="${p.name}"></a></h4>
-                            <p><span th:utext="${p.price}" class="price"></span><del class="prev-price">13.000.000</del></p>
-                            <div th:utext="${p.sale}" class="label-product l_sale">20<span class="symbol-percent">%</span></div>
+                            <h4><a th:utext="${p.name}" href="#"></a></h4>
+                            <p><span th:utext="|${#numbers.formatInteger(p.price-(p.price*p.sale/100),3,'POINT')} VNĐ|" class="price"> </span></p>
+                            <p><del th:if="${p.sale>0}" class="prev-price">[[${#numbers.formatInteger(p.price,3,'POINT')}]] VNĐ</del></p>
+                            <div class="label-product l_sale" th:if="${p.sale>0}"><span th:utext="${p.sale}"></span><span class="symbol-percent">%</span></div>
                         </div>
                         <div class="pro-actions">
                             <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
+                                <a href="" title="Add to Cart" th:attr="ng-click=|addCart(${p.id})|"> + Thêm vào giỏ hàng</a>
                             </div>
                             <div class="actions-secondary">
                                 <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào danh sách yêu thích</span></a>
@@ -108,7 +109,7 @@
 
                 <!-- Tab Contetn Start -->
                 <div class="tab-content">
-                    <div id="fshion2" class="tab-pane fade show active">
+                    <div id="fshion2" class="tab-pane fade show active" >
                         <!-- Arrivals Product Activation Start Here -->
                         <div class="best-seller-pro-active owl-carousel">
                                 <!-- Single Product Start -->
@@ -125,12 +126,13 @@
                                     <div class="pro-content">
                                         <div class="pro-info">
                                             <h4><a th:utext="${pro.name}" href="#"></a></h4>
-                                            <p><span th:utext="${pro.price}" class="price"></span></p>
-                                            <div th:utext="${pro.sale}" class="label-product l_sale"><span class="symbol-percent">%</span></div>
+                                                        <p><span th:utext="|${#numbers.formatInteger(pro.price-(pro.price*pro.sale/100),3,'POINT')} VNĐ|" class="price"> </span></p>
+                                                        <p><del th:if="${pro.sale>0}" class="prev-price">[[${#numbers.formatInteger(pro.price,3,'POINT')}]] VNĐ</del></p>
+                                                        <div class="label-product l_sale" th:if="${pro.sale>0}"><span th:utext="${pro.sale}"></span><span class="symbol-percent">%</span></div>
                                         </div>
                                         <div class="pro-actions">
                                             <div class="actions-primary">
-                                                <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
+                                                <a href="" title="Add to Cart" th:attr="ng-click=|addCart(${pro.id})|"> + Thêm vào giỏ hàng</a>
                                             </div>
                                             <div class="actions-secondary">
                                                 <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
@@ -165,7 +167,7 @@
                             <!-- Product Image Start -->
                             <div class="pro-img">
                                 <a th:href="@{|/product.html?id=${p.id}|}">
-                                    <img class="primary-img" th:src="@{|/assets/admin/asset/images/images_xedap/${p.img}|}" alt="single-product">
+                                    <img class="primary-img" th:src="@{|/rest/uploads/productImg/${p.img}|}" alt="single-product">
                                 </a>
                                 <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
                             </div>
@@ -173,13 +175,14 @@
                             <!-- Product Content Start -->
                             <div class="pro-content">
                                 <div class="pro-info">
-                                    <h4><a th:utext="${p.name}"></a></h4>
-                                    <p><span th:utext="${p.price}" class="price"></span><del class="prev-price">17.000.000 VND</del></p>
-                                    <div th:utext="${p.sale}" class="label-product l_sale"><span class="symbol-percent">%</span></div>
+                                    <h4><a th:utext="${p.name}" href="#"></a></h4>
+                                    <p><span th:utext="|${#numbers.formatInteger(p.price-(p.price*p.sale/100),3,'POINT')} VNĐ|" class="price"> </span></p>
+                                    <p><del th:if="${p.sale>0}" class="prev-price">[[${#numbers.formatInteger(p.price,3,'POINT')}]] VNĐ</del></p>
+                                    <div class="label-product l_sale" th:if="${p.sale>0}"><span th:utext="${p.sale}"></span><span class="symbol-percent">%</span></div>
                                 </div>
                                 <div class="pro-actions">
                                     <div class="actions-primary">
-                                        <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
+                                        <a href="" th:attr="ng-click=|addCart(${p.id})|" title="Add to Cart" > + Thêm vào giỏ hàng</a>
                                     </div>
                                     <div class="actions-secondary">
                                         <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào danh sách yêu thích</span></a>

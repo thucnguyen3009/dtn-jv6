@@ -9,7 +9,7 @@ import dtn.asm.entity.Accounts;
 import dtn.asm.entity.Cart;
 import dtn.asm.entity.Products;
 
-public interface CartDAO extends JpaRepository<Cart, String> {
+public interface CartDAO extends JpaRepository<Cart, Integer> {
+	Optional<Cart> findByUserCartAndProCart(Accounts userCart,Products pro);
 	List<Cart> findByUserCart(Accounts userCart);
-	Optional<Cart> findByProCart(Products proCart);
 }

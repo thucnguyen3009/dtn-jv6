@@ -30,7 +30,7 @@ public class Cart implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "[id]")
-	private String id;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "[username]")
@@ -48,5 +48,5 @@ public class Cart implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "[color]")
-	private Color colorCart;
+	private ProductColor colorCart;
 }

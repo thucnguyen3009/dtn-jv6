@@ -35,20 +35,20 @@
                             <!-- Thumbnail Large Image start -->
                             <div class="tab-content">
                                 <div id="thumb1" class="tab-pane fade show active">
-                                    <a data-fancybox="images" th:href="@{|/assets/admin/asset/images/images_xedap/*{img}|}">
-                                    <img th:src="@{|/assets/admin/asset/images/images_xedap/*{img}|}" alt="product-view"></a>
+                                    <a data-fancybox="images" th:href="@{|/rest/uploads/productImg/*{img}|}">
+                                        <img th:src="@{|/rest/uploads/productImg/*{img}|}" alt="product-view"></a>
                                 </div>
                             </div>
                             <!-- Thumbnail Large Image End -->
                             <!-- Thumbnail Image End -->
-                            <div class="product-thumbnail mt-15" >
+                            <div class="product-thumbnail mt-15">
                                 <div class="thumb-menu owl-carousel nav tabs-area" role="tablist">
                                     <a class="active" data-toggle="tab" href="#thumb1"> <img
                                             th:src="@{|/user/img/images_xedap/*{img}|}"></a>
-                                    <a class="active" data-toggle="tab" href="#thumb1"> 
+                                    <a class="active" data-toggle="tab" href="#thumb1">
                                         <img th:src="@{|/user/img/images_xedap/*{img}|}"></a>
                                     <a data-toggle="tab" href="#thumb2">
-                                        <img th:src="@{|/user/img/images_xedap/*{img}|}"></a>                  
+                                        <img th:src="@{|/user/img/images_xedap/*{img}|}"></a>
                                 </div>
                             </div>
                             <!-- Thumbnail image end -->
@@ -71,9 +71,14 @@
                                     </div>
                                 </div>
                                 <div class="pro-price mtb-30">
-                                    <p class="d-flex align-items-center"><span class="prev-price">16.51</span><span
-                                            class="price" th:text="*{price}"> </span>
-                                            <span class="saving-price">save <strong th:text="*{sale}"></strong>%</span></p>
+                                    <p class="d-flex align-items-center" th:if="*{sale>0}"><span
+                                            class="prev-price">[[*{#numbers.formatInteger(price,3,'POINT')}]] VNĐ</span><span
+                                            class="price"
+                                            th:utext="|*{#numbers.formatInteger(price-(price*sale/100),3,'POINT')} VNĐ|">
+                                        </span>
+                                        <span class="saving-price" th:if="*{sale>0}">sale <strong
+                                                th:text="*{sale}"></strong>%</span>
+                                    </p>
                                 </div>
                                 <p class="mb-20 pro-desc-details" th:text="*{description}">Mô tả sương sương</p>
                                 <div class="color clearfix mb-20">
@@ -129,7 +134,7 @@
                         <li><a data-toggle="tab" href="#review">Thông tin chi tiết sản phẩm</a></li>
                     </ul>
                     <!-- Product Thumbnail Tab Content Start -->
-                    <div class="tab-content thumb-content border-default" >
+                    <div class="tab-content thumb-content border-default">
                         <div id="review" class="tab-pane fade">
                             <!-- Reviews Start -->
                             <div class="review border-default universal-padding">

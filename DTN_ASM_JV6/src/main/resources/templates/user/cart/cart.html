@@ -49,13 +49,13 @@
                                     <tbody>
                                         <tr ng-repeat='listCart in Cart'>
                                             <td class="product-thumbnail">
-                                                <a href="#"><img alt="cart-image"></a>
+                                                <a ><img  src="{{url(listCart.proCart.img)}}" alt="cart-image"></a>
                                             </td>
                                             <td class="product-name"><a href="#">{{listCart.proCart.name}}</a></td>
-                                            <td class="product-price"><span class="amount">1,265,000 đ</span></td>
-                                            <td class="product-quantity"><input type="number" value="1"></td>
-                                            <td class="product-subtotal">1,265,000 đ</td>
-                                            <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                            <td class="product-price"><span class="amount">{{listCart.proCart.price | currency : '' :0 |replace: ',':'.'}} VNĐ</span></td>
+                                            <td class="product-quantity"><input type="number" ng-value="listCart.qty"></td>
+                                            <td class="product-subtotal">{{listCart.proCart.price*listCart.qty | currency : '' :0 |replace: ',':'.'}} VNĐ</td>
+                                            <td class="product-remove"> <a href="" ng-click="deleteCart(listCart.id,listCart.proCart.name)"><i class="fa fa-times" aria-hidden="true"></i></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -66,7 +66,7 @@
                                 <div class="col-md-8 col-sm-12">
                                     <div class="buttons-cart">
                                         <input type="submit" value="Cập nhật giỏ hàng">
-                                        <a href="#">Tiếp tục mua hàng</a>
+                                        <a th:href="@{/shop.html}">Tiếp tục mua hàng</a>
                                     </div>
                                 </div>
                                 <!-- Cart Button Start -->
@@ -84,14 +84,13 @@
                                             </div>
                                             <div class="col-12 border-bottom">
                                                <div class="row p-2">
-                                                    <h6>Tạm tính:</h6> 
-                                                    <div class="col-3"></div>
-                                                    <strong class="col-6">5,000,000 đ</strong>
+                                                    <h6 class="col-5">Tạm tính:</h6> 
+                                                    <strong class="col-7" >{{getTotalTempoary()| currency : '' :0 |replace: ',':'.'}} VNĐ</strong>
                                                </div>
                                             </div>
                                             <div class="col-12 mt-2">
                                                 <div class="row border-bottom p-2">
-                                                    <h6>Tổng tiền:</h6> <div class="col-3"></div> <strong class="col-6">5,000,000 đ</strong>
+                                                    <h6 class="col-5">Tổng tiền:</h6> <strong class="col-7"></strong>
                                                </div>
                                             </div>
                                             <div class="col-12 wc-proceed-to-checkout text-center">

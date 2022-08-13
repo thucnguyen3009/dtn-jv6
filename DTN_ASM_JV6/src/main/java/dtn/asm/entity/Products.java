@@ -35,7 +35,7 @@ public class Products implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date = new Date();
 	
-	@Column(name = "[available]")
+	@Column(name = "[avaliable]")
 	private Boolean avaliable;
 	
 	@Column(name = "[sale]")

@@ -39,7 +39,7 @@ public class Accounts implements Serializable {
 	@Column(name = "[phone]")
 	 String phone;
 
-	@Column(name = "[acitve]")
+	@Column(name = "[active]")
 	 Boolean active = true;
 
 	@JsonIgnore

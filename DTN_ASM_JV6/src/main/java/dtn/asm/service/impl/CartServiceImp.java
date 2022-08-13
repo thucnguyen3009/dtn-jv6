@@ -23,7 +23,7 @@ public class CartServiceImp implements CartService {
 	}
 	
 	@Override
-	public Cart findById(String id) {
+	public Cart findById(Integer id) {
 		return dao.getById(id);
 	}
 	
@@ -38,15 +38,14 @@ public class CartServiceImp implements CartService {
 	}
 	
 	@Override
-	public void delete(String id) {
+	public void delete(Integer id) {
 		dao.deleteById(id);
 	}
 	
+	public Optional<Cart> findByUsernameAndProduct(Accounts acc,Products pro) {
+		return dao.findByUserCartAndProCart(acc,pro);
+	}
 	public List<Cart> findByUsername(Accounts acc) {
 		return dao.findByUserCart(acc);
 	}
-	public Optional<Cart> findByProduct(Products pro) {
-		return dao.findByProCart(pro);
-	}
-
 }
