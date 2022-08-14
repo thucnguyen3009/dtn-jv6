@@ -38,10 +38,10 @@ public class CartRestController {
 
 	RestTemplate resp = new RestTemplate();
 
-	@RequestMapping("/rest/Cart/create/{id}")
+	@GetMapping("/rest/Cart/create/{id}")
 	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id) {
 		Accounts acc = session.get("account");
-		if (id.isPresent() ) {
+		if (id.isPresent()) {
 			Products pro = daoProduct.findById(id.get());
 			cart.add(1, pro, 1, acc);
 		} else {
@@ -49,14 +49,29 @@ public class CartRestController {
 		}
 		return ResponseEntity.ok(cart.getCarts(acc));
 	}
+	@PostMapping("/rest/Cart/create/{id}")
+	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id,@RequestBody() Optional<Integer> qty) {
+		Accounts acc = session.get("account");
+		if (id.isPresent()) {
+			Products pro = daoProduct.findById(id.get());
+			if(qty.isPresent()) {
+			cart.add(1, pro, qty.get(), acc);}else {
+				return ResponseEntity.noContent().build();
+			}
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(cart.getCarts(acc));
+	}
+
 	@GetMapping("/rest/Cart/delete/{id}")
 	public ResponseEntity<List<Cart>> deleteToCart(@PathVariable("id") Optional<Integer> id) {
 		Accounts acc = session.get("account");
 		if (id.isPresent()) {
 			Cart cartF = cartService.findById(id.get());
-			if(cartF.getUserCart().getUsername().equals(acc.getUsername())) {
+			if (cartF.getUserCart().getUsername().equals(acc.getUsername())) {
 				cart.remove(id.get());
-			}else {
+			} else {
 				return ResponseEntity.notFound().build();
 			}
 		} else {
@@ -70,17 +85,23 @@ public class CartRestController {
 		Accounts acc = session.get("account");
 		return ResponseEntity.ok(cart.getCarts(acc));
 	}
+
 	@PutMapping("/rest/Cart/update")
 	public ResponseEntity<Cart> updateToCart(@RequestBody Optional<Cart> cartBody) {
 		Accounts acc = session.get("account");
-		if (cartBody.isPresent() ) {
+		if (cartBody.isPresent()) {
 			Cart put = cartService.findById(cartBody.get().getId());
-			put.setQty(cartBody.get().getQty());
-			cart.update(cartBody.get());
+			if (put.getUserCart().getUsername().equals(acc.getUsername())) {
+				put.setQty(cartBody.get().getQty());
+				cart.update(cartBody.get());
+				return ResponseEntity.ok(cartBody.get());
+			} else {
+				return ResponseEntity.noContent().build();
+			}
 		} else {
 			return ResponseEntity.noContent().build();
 		}
-		return ResponseEntity.ok(cartBody.get());
+
 	}
 
 }

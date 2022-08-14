@@ -105,6 +105,19 @@ app.controller("cartCtr", function ($scope, $http,$rootScope) {
         });
         
     }
+    $scope.quantity=1;
+    $scope.addCartQty= function (id) {
+        var url = `${host}Cart/create/${id}`
+        var data = $scope.Cart;
+             $http.post(url,$scope.quantity).then(resp => {
+                    alert("Thêm vào giỏ hàng thành công");
+                    $rootScope.$emit("list", {});
+                }
+            ).catch(error => {
+                console.log(error);
+                alert("Lỗi khi thêm vào giỏ hàng");
+            });
+    }
 })
 
 app.controller("pushCart", function ($scope, $http,$rootScope) {
@@ -167,11 +180,10 @@ app.controller("pushCart", function ($scope, $http,$rootScope) {
         var data = $scope.Cart;
         for(var i =0 ;i < data.length; i++){
             if(data[i].id == id){
-             $http.put(url,data[i]).then(resp=>{
-             }
+             $http.put(url,data[i]).then(
             ).catch(error => {
                 console.log(error);
-                alert("Lỗi khi cập");
+                alert("Lỗi khi cập nhật");
             });
              break;  
             }
