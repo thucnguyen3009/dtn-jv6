@@ -15,35 +15,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Accounts",
-uniqueConstraints = { @UniqueConstraint(columnNames = { "[email]" }),@UniqueConstraint(columnNames = { "[phone]" }) })
+@Table(name = "Accounts", uniqueConstraints = { @UniqueConstraint(columnNames = { "[email]" }),
+		@UniqueConstraint(columnNames = { "[phone]" }) })
 public class Accounts implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "[username]")
-	 String username;
+	String username;
 
 	@Column(name = "[password]")
-	 String password;
+	String password;
 
 	@Column(name = "[fullname]")
-	 String Fullname;
+	String Fullname;
 
 	@Column(name = "[email]")
-	 String email;
+	String email;
 
 	@Column(name = "[photo]")
-	 String photo;
+	String photo;
 
 	@Column(name = "[phone]")
-	 String phone;
+	String phone;
 
 	@Column(name = "[active]")
-	 Boolean active = true;
+	Boolean active = true;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "userAuthor")
+	@OneToMany(mappedBy = "userAuthor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	List<Authorities> authorities;
 
 	@JsonIgnore

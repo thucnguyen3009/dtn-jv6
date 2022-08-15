@@ -48,7 +48,7 @@ public class LoginController {
 		return "user/home/login";
 	}
 
-	@PostMapping("/login.html")
+//	@PostMapping("/login.html")
 	public String postLogin(Model m, @Valid @ModelAttribute("loginForm") LoginForm login, Errors errors) {
 		if (!errors.hasErrors()) {
 			String user = login.getUsername();

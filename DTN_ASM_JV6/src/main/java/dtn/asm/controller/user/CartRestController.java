@@ -49,13 +49,16 @@ public class CartRestController {
 		}
 		return ResponseEntity.ok(cart.getCarts(acc));
 	}
+
 	@PostMapping("/rest/Cart/create/{id}")
-	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id,@RequestBody() Optional<Integer> qty) {
+	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id,
+			@RequestBody() Optional<Integer> qty) {
 		Accounts acc = session.get("account");
 		if (id.isPresent()) {
 			Products pro = daoProduct.findById(id.get());
-			if(qty.isPresent()) {
-			cart.add(1, pro, qty.get(), acc);}else {
+			if (qty.isPresent()) {
+				cart.add(1, pro, qty.get(), acc);
+			} else {
 				return ResponseEntity.noContent().build();
 			}
 		} else {

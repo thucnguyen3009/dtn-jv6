@@ -2,8 +2,11 @@ package dtn.asm.entity;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "Roles")
-public class Roles implements Serializable{
+public class Roles implements Serializable {
 	/**
 	 * 
 	 */
@@ -28,11 +31,11 @@ public class Roles implements Serializable{
 	@Id
 	@Column(name = "[id]")
 	private String id;
-	
+
 	@Column(name = "[name]")
 	private String name;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "roleId")
+	@OneToMany(mappedBy = "roleId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Authorities> role;
 }
