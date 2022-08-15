@@ -32,6 +32,10 @@ public class ProductsServiceImp implements ProductsService {
 	public List<Products> findAll() {
 		return dao.findAll();
 	}
+	@Override
+	public List<Products> findByCateId(Integer id) {
+		return dao.listProduct_InCategories(id);
+	}
 
 	@Override
 	public Products findById(Integer id) {

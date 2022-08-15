@@ -203,287 +203,29 @@
                 <!-- Hot Deal Product Activation Start -->
                 <div class="hot-deal-active owl-carousel">
                     <!-- Single Product Start -->
-                    <div class="single-product">
+                    <div class="single-product" th:each="p:${product}">
                         <!-- Product Image Start -->
                         <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
+                            <a th:href="@{|/product.html?id=${p.id}|}">
+                                <img class="primary-img" th:src="@{|/rest/uploads/productImg/${p.img}|}" alt="single-product">
                             </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
+                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
                         </div>
                         <!-- Product Image End -->
                         <!-- Product Content Start -->
                         <div class="pro-content">
                             <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
+                                <h4><a th:utext="${p.name}" href="#"></a></h4>
+                                <p><span th:utext="|${#numbers.formatInteger(p.price-(p.price*p.sale/100),3,'POINT')} VNĐ|" class="price"> </span></p>
+                                <p><del th:if="${p.sale>0}" class="prev-price">[[${#numbers.formatInteger(p.price,3,'POINT')}]] VNĐ</del></p>
+                                <div class="label-product l_sale" th:if="${p.sale>0}"><span th:utext="${p.sale}"></span><span class="symbol-percent">%</span></div>
                             </div>
                             <div class="pro-actions">
                                 <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
+                                    <a href="" th:attr="ng-click=|addCart(${p.id})|" title="Add to Cart" > + Thêm vào giỏ hàng</a>
                                 </div>
                                 <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Content End -->
-                    </div>
-                    <!-- Single Product End -->
-                    <!-- Single Product Start -->
-                    <div class="single-product">
-                        <!-- Product Image Start -->
-                        <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                            </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                        </div>
-                        <!-- Product Image End -->
-                        <!-- Product Content Start -->
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
-                            </div>
-                            <div class="pro-actions">
-                                <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                </div>
-                                <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Content End -->
-                    </div>
-                    <!-- Single Product End -->
-                    <!-- Single Product Start -->
-                    <div class="single-product">
-                        <!-- Product Image Start -->
-                        <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                            </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                        </div>
-                        <!-- Product Image End -->
-                        <!-- Product Content Start -->
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
-                            </div>
-                            <div class="pro-actions">
-                                <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                </div>
-                                <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Content End -->
-                    </div>
-                    <!-- Single Product End -->
-                    <!-- Single Product Start -->
-                    <div class="single-product">
-                        <!-- Product Image Start -->
-                        <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                            </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                        </div>
-                        <!-- Product Image End -->
-                        <!-- Product Content Start -->
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
-                            </div>
-                            <div class="pro-actions">
-                                <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                </div>
-                                <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Content End -->
-                    </div>
-                    <!-- Single Product End -->
-                    <!-- Single Product Start -->
-                    <div class="single-product">
-                        <!-- Product Image Start -->
-                        <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                            </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                        </div>
-                        <!-- Product Image End -->
-                        <!-- Product Content Start -->
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
-                            </div>
-                            <div class="pro-actions">
-                                <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                </div>
-                                <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Content End -->
-                    </div>
-                    <!-- Single Product End -->
-                    <!-- Single Product Start -->
-                    <div class="single-product">
-                        <!-- Product Image Start -->
-                        <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                            </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                        </div>
-                        <!-- Product Image End -->
-                        <!-- Product Content Start -->
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
-                            </div>
-                            <div class="pro-actions">
-                                <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                </div>
-                                <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Content End -->
-                    </div>
-                    <!-- Single Product End -->
-                    <!-- Single Product Start -->
-                    <div class="single-product">
-                        <!-- Product Image Start -->
-                        <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                            </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                        </div>
-                        <!-- Product Image End -->
-                        <!-- Product Content Start -->
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
-                            </div>
-                            <div class="pro-actions">
-                                <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                </div>
-                                <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Content End -->
-                    </div>
-                    <!-- Single Product End -->
-                    <!-- Single Product Start -->
-                    <div class="single-product">
-                        <!-- Product Image Start -->
-                        <div class="pro-img">
-                            <a href="product.html">
-                                <img class="primary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                                <img class="secondary-img"
-                                    th:src="@{/user/img/images_xedap/Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C – 2022.jpg}"
-                                    alt="single-product">
-                            </a>
-                            <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal"
-                                title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                        </div>
-                        <!-- Product Image End -->
-                        <!-- Product Content Start -->
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4><a href="product.html">Xe Đạp Địa Hình MTB GIANT Roam 2 Disc – Phanh Đĩa, Bánh 700C
-                                        – 2022</a></h4>
-                                <p><span class="price">17.250.000đ</span></p>
-                            </div>
-                            <div class="pro-actions">
-                                <div class="actions-primary">
-                                    <a href="cart.html" title="Add to Cart"> + Thêm vào giỏ hàng</a>
-                                </div>
-                                <div class="actions-secondary">
-                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm
-                                            vào danh sách yêu thích</span></a>
+                                    <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào danh sách yêu thích</span></a>
                                 </div>
                             </div>
                         </div>

@@ -47,6 +47,7 @@ public class HomeController {
 
 		List<Products> pro_cate = productdao.listProduct_InCategories(cateid.orElse(1));
 		m.addAttribute("pro_cate", pro_cate);
+		
 		m.addAttribute("cateid",cateid.orElse(1));
 		
 		return "/user/home/index";
@@ -70,14 +71,21 @@ public class HomeController {
 
 //	Product page
 	@RequestMapping("/shop.html")
-	public String shopPage(Model m) {
-		List<Products> product = productservice.findAll();
-		m.addAttribute("product", product);
+	public String shopPage(Model m, @RequestParam ("cateid") Optional<Integer> cateid) {
+		List<Products> product = null;
+		
 
 		List<Categories> categories = cateDAO.listCateInProduct();
 		if (!categories.isEmpty()) {
 			m.addAttribute("cate", categories);
 		}
+		
+		if (cateid.isPresent()) {
+			product=productservice.findByCateId(cateid.get());
+		}else {
+			product=productservice.findAll();
+		}
+		m.addAttribute("product", product);
 		
 		m.addAttribute("sp","active");		
 		return "/user/home/shop";
@@ -88,7 +96,10 @@ public class HomeController {
 	public String product(Model m, @RequestParam("id") Integer id) {
 		Products product = productservice.findById(id);
 		m.addAttribute("item", product);
-
+		
+		List<Products> pro=productservice.findByCateId(product.getCatePro().getId());
+		m.addAttribute("product", pro);
+		
 		return "/user/home/product";
 	}
 

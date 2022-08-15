@@ -28,11 +28,8 @@
                                 <form action="#">
                                     <div class="form-group">
                                         <select class="bootstrap-select" name="poscats">
-                                            <option value="0"> <span class="text-dark" th:text="#{menu.catego}"></span><i class="lnr lnr-chevron-down"></i></option>
-                                            <option value="2">Xe đạp bánh to</option>
-                                            <option value="3">Xe đạp đua</option>
-                                            <option value="4">Xe đạp đường phố</option>
-                                            <option value="5">Xe đạp thể thao</option>
+                                            <option> <span class="text-dark" th:text="#{menu.catego}"></span><i class="lnr lnr-chevron-down"></i></option>
+                                            <option th:each="c:${cate}" th:utext="${c.name}"></option>
                                         </select>
                                     </div>
                                     <input type="text" name="search" th:placeholder="#{menu.search}">

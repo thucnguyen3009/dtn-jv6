@@ -51,11 +51,12 @@
                         <div id="order1" class="tab-pane fade show active">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h2 th:hidden="${!or.isEmpty()}">Bạn chưa có đơn hàng nào</h2>
                                     <!-- Form Start -->
                                     <form action="#">
                                         <!-- Table Content Start -->
                                         <div class="table-content table-responsive" >
-                                            <table class="table table-hover">
+                                            <table class="table table-hover" th:hidden="${or.isEmpty()}">
                                                 <thead style="background-color:orangered;">
                                                     <tr class="text-white">
                                                         <th>Mã đơn hàng</th>
@@ -67,21 +68,41 @@
                                                          <th>Hủy đơn</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody th:each="list:${or}">
+                                                <tbody th:each="list, lo:${or}">
                                                     <tr> 
                                                         <td class="h6">
                                                             <strong th:utext="${list.id}"></strong>
                                                         </td>
-                                                        <td><a href="#" class="text-dark"><strong th:utext="${list.date}"></strong></a></td>
+                                                        <td><a href="#" class="text-dark"><strong th:utext="${#dates.format(list.date,'dd-MM-yyyy')}"  ></strong></a></td>
                                                         <td class="text-primary" th:utext="${list.statusId.name}"></td>
                                                         <td><a th:href="@{|/order_details.html?id=${list.id}|}" class="btn btn-danger w-50">Xem</a></td>
                                                          <td> 
-                                                            <a href="" class="btn btn-warning w-100">
+                                                            <button  class="btn btn-warning w-100"  data-toggle="modal" 
+                                                            th:attr="data-target='#exampleModal'+${list.id}">
                                                                 Hủy
-                                                            </a>
+                                                            </button>
                                                         </td>
                                                     </tr>
-
+                                                <!-- Modal -->
+                                                <div class="modal fade" th:attr="id='exampleModal'+${list.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        Nhấn Hủy hàng để xác nhận hủy đơn hàng
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a th:href="@{|/orders.html/huy/${list.id}|}" class="btn btn-primary">Hủy hàng</a>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -99,11 +120,12 @@
                          <div id="order3" class="tab-pane fade">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h2 th:hidden="${!huy.isEmpty()}">Bạn chưa có đơn hàng nào</h2>
                                     <!-- Form Start -->
                                     <form action="#">
                                         <!-- Table Content Start -->
                                         <div class="table-content table-responsive">
-                                            <table class="table table-hover">
+                                            <table class="table table-hover" th:hidden="${huy.isEmpty()}">
                                                 <thead style="background-color:orangered;">
                                                     <tr class="text-white">
                                                         <th>Mã đơn hàng</th>
@@ -114,33 +136,14 @@
                                                         <th>Chi tiết đơn hàng</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                       
+                                                <tbody th:each="h:${huy}">
+                                                    <tr>  
                                                         <td class="h6">
-                                                            <strong>DH001</strong>
+                                                            <strong th:utext="${h.id}"></strong>
                                                         </td>
-                                                        <td><a href="#" class="text-dark"><strong>24/05/2022</strong></a></td>
-                                                        <td class="text-danger">Đã hủy</td>
-                                                        <td><a href="order_details.html" class="btn btn-danger w-50">Xem</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                       
-                                                        <td class="h6">
-                                                            <strong>DH002</strong>
-                                                        </td>
-                                                        <td><a href="#" class="text-dark"><strong>24/05/2022</strong></a></td>
-                                                        <td class="text-danger">Đã hủy</td>
-                                                        <td><a href="order_details.html" class="btn btn-danger w-50">Xem</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                       
-                                                        <td class="h6">
-                                                            <strong>DH003</strong>
-                                                        </td>
-                                                        <td><a href="#" class="text-dark"><strong>24/05/2022</strong></a></td>
-                                                        <td class="text-danger">Đã hủy</td>
-                                                        <td><a href="order_details.html" class="btn btn-danger w-50">Xem</a></td>
+                                                        <td><a href="#" class="text-dark" th:utext="${#dates.format(h.date,'dd-mm-yyyy')}"><strong></strong></a></td>
+                                                        <td class="text-danger" th:utext="${h.statusId.name}"></td>
+                                                        <td><a th:href="@{|/order_details.html?id=${h.id}|}" class="btn btn-danger w-50">Xem</a></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -9,6 +9,8 @@ import dtn.asm.entity.Products;
 @Service
 public interface ProductsService {
 	List<Products> findAll();
+	
+	List<Products> findByCateId(Integer id);
 
 	Products findById(Integer id);
 

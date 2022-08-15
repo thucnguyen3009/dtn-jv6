@@ -141,7 +141,7 @@ public class AccountController {
 			Accounts acc=accountdao.getById(account.getUsername());
 			acc.setPassword(confirmpassword);
 			accountdao.save(acc);
-			m.addAttribute("mess3","Đổi mật khẩu thành công");
+			m.addAttribute("mess","Đổi mật khẩu thành công");
 		}
 		return "user/home/changepass";
 	}

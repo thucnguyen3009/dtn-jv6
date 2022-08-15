@@ -67,7 +67,10 @@
                                     <input type="submit" value="Đổi mật khẩu" class="return-customer-btn">
                                 </div>
                             </div>
-                            <p>[[${mess3}]]</p>
+                            <div th:hidden="${mess == null}">
+                                 <p class="alert alert-success" role="alert" >[[${mess}]]</p>
+                            </div>
+                           
                         </form>
                     </div>
                 </div>

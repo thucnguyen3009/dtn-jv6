@@ -20,4 +20,6 @@ public interface ProductsDAO extends JpaRepository<Products, Integer> {
 	
 	@Query("SELECT count(o) FROM Products o WHERE o.avaliable = true")
 	Integer getCount();
+	
+	
 }
