@@ -1,5 +1,6 @@
 package dtn.asm.controller.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ import dtn.asm.service.SessionService;
 
 @Controller
 public class OrderController {
-	
+
 	@Autowired
 	OrdersDAO orderdao;
-	@Autowired 
+	@Autowired
 	SessionService session;
 	@Autowired
 	OrdersService orderservice;
@@ -43,7 +44,7 @@ public class OrderController {
 	public String checkoutPage() {
 		return "user/order/checkout";
 	}
-	
+
 	// Order Manager
 //	@RequestMapping("/orders.html")
 //	public String ordersPage() {
@@ -54,37 +55,38 @@ public class OrderController {
 	@GetMapping("/order_details.html")
 	public String orderDetailsPage(Model m, @RequestParam("id") Integer id) {
 		Accounts account = session.get("account");
-		List<OrderDetails> details=orderdetaildao.find_Order_details(id);
-		m.addAttribute("details",details);	
-		
-		//thông tin khách hàng
-		List<Orders> order_all=orderdao.find_LoginbyUsername(account.getUsername());
+		List<OrderDetails> details = orderdetaildao.find_Order_details(id);
+		m.addAttribute("details", details);
+
+		// thông tin khách hàng
+		List<Orders> order_all = orderdao.find_LoginbyUsername(account.getUsername());
 		m.addAttribute("or", order_all);
 		return "user/order/order-details";
 	}
-	
-	//Order page
+
+	// Order page
 	@GetMapping("/orders.html")
 	public String order_Get(Model m) {
 		Accounts account = session.get("account");
-		List<Orders> order_all=orderdao.find_LoginbyUsername(account.getUsername());
+		List<Orders> order_all = new ArrayList<>();
+		List<Orders> order_huy = new ArrayList<>();
+		if (account != null) {
+			order_all = orderdao.find_LoginbyUsername(account.getUsername());
+			order_huy = orderdao.find_ByHuy(account.getUsername());
+		}
+		m.addAttribute("huy", order_huy);
 		m.addAttribute("or", order_all);
-		
-		List<Orders> order_huy=orderdao.find_ByHuy(account.getUsername());
-		m.addAttribute("huy",order_huy);
-		
 		return "user/order/orders";
 	}
-	
+
 	@GetMapping("/orders.html/huy/{id}")
-	public String order_Post(Model m,@PathVariable ("id") Integer id) {
+	public String order_Post(Model m, @PathVariable("id") Integer id) {
 		Accounts account = session.get("account");
-		
-		Orders order=orderdao.findById(id).get();
-		order.setStatusId(statusdao.findById(4).get());		
+
+		Orders order = orderdao.findById(id).get();
+		order.setStatusId(statusdao.findById(4).get());
 		orderdao.save(order);
 		return "redirect:/orders.html";
 	}
-	
-	
+
 }
