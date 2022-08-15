@@ -36,12 +36,10 @@ public class UserService implements UserDetailsService {
 //			List<String> list = authoritiesDAO.findRoleByUsername(username);
 			String[] roles = accounts.getAuthorities().stream().map(map -> map.getRoleId().getId())
 					.collect(Collectors.toList()).toArray(new String[0]);
-			System.out.println(roles[0]);
 			UserDetails userDetails = User.withUsername(username).password(pe.encode(pass)).roles(roles).build();
-			sessionService.set("account", accounts);
 			return userDetails;
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 			throw new UsernameNotFoundException(username + " not found!");
 		}
 	}

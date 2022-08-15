@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import dtn.asm.interceptor.BlockLogin;
+import dtn.asm.interceptor.DeleteSessionLogin;
 
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
@@ -13,9 +14,14 @@ public class InterceptorConfig implements WebMvcConfigurer {
 	@Autowired
 	BlockLogin blockLogin;
 
+	@Autowired
+	DeleteSessionLogin deleteSessionLogin;
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(blockLogin).addPathPatterns("/login.html","/register.html").excludePathPatterns("");
+		registry.addInterceptor(blockLogin).addPathPatterns("/login.html", "/register.html").excludePathPatterns("");
+
+		registry.addInterceptor(deleteSessionLogin).addPathPatterns("/*").excludePathPatterns("");
 	}
 
 }
