@@ -19,7 +19,6 @@ public class BlockLogin implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Accounts accounts = session.get("account");
-		System.out.println(accounts.getUsername());
 		if (accounts != null) {
 			response.sendRedirect("/DTNsBike/index.html");
 		}
