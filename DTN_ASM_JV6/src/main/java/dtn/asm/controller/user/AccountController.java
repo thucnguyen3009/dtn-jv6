@@ -65,7 +65,7 @@ public class AccountController {
 		return "user/home/register";
 	}
 
-	@RequestMapping("/logout.html")
+//	@RequestMapping("/logout.html")
 	public String logout() {
 		session.remove("account");
 		return "redirect:/index.html";

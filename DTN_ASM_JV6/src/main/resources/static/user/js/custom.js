@@ -93,7 +93,7 @@ app.filter('replace', [function () {
 }]);
 
 //Cart Controller
-app.controller("cartCtr", function ($scope, $http,$rootScope) {
+app.controller("cartCtr", function ($scope, $http,$rootScope,$window) {
     $scope.addCart = function (id) {
         var url = `${host}Cart/create/${id}`
         $http.get(url).then(resp => {
@@ -108,14 +108,20 @@ app.controller("cartCtr", function ($scope, $http,$rootScope) {
     $scope.quantity=1;
     $scope.addCartQty= function (id) {
         var url = `${host}Cart/create/${id}`
+        var urlLogin = "http://" + $window.location.host + "/DTNsBike/login.html";
+        console.log(urlLogin);
         var data = $scope.Cart;
              $http.post(url,$scope.quantity).then(resp => {
-                    alert("Thêm vào giỏ hàng thành công");
+					if(data.status==200){
+						alert("Thêm vào giỏ hàng thành công");
+					}else if(data.status==404){
+						alert("Vui lòng đăng nhập");
+						//$window.location.href = urlLogin;
+					}
                     $rootScope.$emit("list", {});
                 }
             ).catch(error => {
                 console.log(error);
-                alert("Lỗi khi thêm vào giỏ hàng");
             });
     }
 })

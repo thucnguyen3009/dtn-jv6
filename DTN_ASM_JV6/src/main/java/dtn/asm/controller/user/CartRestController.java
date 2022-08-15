@@ -1,7 +1,10 @@
 package dtn.asm.controller.user;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +42,12 @@ public class CartRestController {
 	RestTemplate resp = new RestTemplate();
 
 	@GetMapping("/rest/Cart/create/{id}")
-	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id) {
+	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id, HttpServletResponse resp)
+			throws IOException {
 		Accounts acc = session.get("account");
+		if (acc == null) {
+			resp.sendRedirect("/DTNsBike/login.html");
+		}
 		if (id.isPresent()) {
 			Products pro = daoProduct.findById(id.get());
 			cart.add(1, pro, 1, acc);
@@ -52,7 +59,7 @@ public class CartRestController {
 
 	@PostMapping("/rest/Cart/create/{id}")
 	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id,
-			@RequestBody() Optional<Integer> qty) {
+			@RequestBody() Optional<Integer> qty, HttpServletResponse resp) throws IOException {
 		Accounts acc = session.get("account");
 		if (id.isPresent()) {
 			Products pro = daoProduct.findById(id.get());

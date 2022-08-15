@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+
 import dtn.asm.service.UserService;
 
 @Configuration
@@ -44,9 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		http.authorizeRequests().antMatchers("/login.html").permitAll().antMatchers("/index.html").authenticated();
 		http.authorizeRequests()
 				.antMatchers("/index.html", "/login.html", "/register.html", "/logout.html", "/forgot-password.html")
-				.permitAll().antMatchers("/admin/**", "/rest/**").hasAnyRole("DIRE", "STAF")
+				.permitAll().antMatchers("/admin/**").hasAnyRole("DIRE", "STAF")
 				.antMatchers("/cart.html", "/changepass.html", "/update_account.html", "/update_account.html/**",
-						"/checkout.html", "/orders.html")
+						"/checkout.html", "/orders.html", "/rest/Cart/create/**")
 				.authenticated();
 		;
 		// Điều khiển lỗi truy cập không đúng vai trò.
@@ -56,5 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin().loginPage("/login.html").loginProcessingUrl("/login.html")
 				.defaultSuccessUrl("/index.html", false).failureUrl("/login.html?err=123").usernameParameter("username")
 				.passwordParameter("pass");
+
+		// Đăng xuất
+		http.logout().logoutUrl("/logout.html").logoutSuccessUrl("/index.html")
+				.addLogoutHandler(new SecurityContextLogoutHandler());
 	}
 }
