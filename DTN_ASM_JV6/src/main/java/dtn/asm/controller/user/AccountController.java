@@ -178,7 +178,7 @@ public class AccountController {
 			try {
 				Multipart multipart = new MimeMultipart();
 				MimeBodyPart bodytext = new MimeBodyPart();
-				bodytext.setText("Mật khẩu của bạn là: " + pass, "utf-8");
+				bodytext.setContent(getHTMLT(pass, "Mật khẩu của bạn là !"), "text/html; charset=utf-8");
 				multipart.addBodyPart(bodytext);
 
 				MimeMessage mess = new MimeMessage(session);
@@ -197,5 +197,65 @@ public class AccountController {
 		return "user/home/forgot-password";
 	}
 
+	public String getHTMLT(String code, String message) {
+		String html = "<!DOCTYPE html\r\n"
+				+ "    PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n"
+				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n" + "\r\n" + "<head>\r\n"
+				+ "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n"
+				+ "    <title>DTNsBike</title>\r\n"
+				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n" + "</head>\r\n"
+				+ "\r\n" + "<body style=\"margin: 0; padding: 0;\">\r\n"
+				+ "    <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"800\" style=\"border: 1px solid #cccccc;\">\r\n"
+				+ "        <tr>\r\n" + "            <td align=\"center\"\r\n"
+				+ "                style=\"padding: 10px 0 30px 0;background: url('https://lh3.googleusercontent.com/kwFhfKq_9afZ8_tGqSNozfp_DrYyzLikHy9xtC4kiiqylGWv7n_5UJA7yQ3W18xTmw=h500');background-size: cover;\">\r\n"
+				+ "                <h3 style=\"color: #ffffff; font-family: Arial, sans-serif; font-size:50px;\">\r\n"
+				+ "                    DTNsBike\r\n" + "                </h3>\r\n" + "            </td>\r\n"
+				+ "        </tr>\r\n" + "        <tr>\r\n"
+				+ "            <td bgcolor=\"#ffffff\" style=\"padding: 40px 30px 40px 30px;\">\r\n"
+				+ "                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n"
+				+ "                    <tr align=\"center\">\r\n"
+				+ "                        <td style=\"color: #153643; font-family: Arial, sans-serif; font-size:18px;\">\r\n"
+				+ "                            <b> " + message + "</b>\r\n" + "                        </td>\r\n"
+				+ "                    </tr>\r\n" + "                    <tr>\r\n"
+				+ "                        <td style=\"padding: 20px 0 30px 0;\">\r\n"
+				+ "                        </td>\r\n" + "                    </tr>\r\n" + "                    <tr>\r\n"
+				+ "                        <td>\r\n"
+				+ "                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n"
+				+ "                                <tr>\r\n"
+				+ "                                    <td width=\"100%\" valign=\"top\">\r\n"
+				+ "                                        <table border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n"
+				+ "                                            <tr align=\"center\">\r\n"
+				+ "                                                <td\r\n"
+				+ "                                                    style=\"color: #153643; font-family: Arial, sans-serif; font-size: 30px;\">\r\n"
+				+ "                                                    <h1>" + code + "</h1>\r\n"
+				+ "                                                </td>\r\n"
+				+ "                                            </tr>\r\n"
+				+ "                                        </table>\r\n"
+				+ "                                    </td>\r\n" + "                                </tr>\r\n"
+				+ "                            </table>\r\n" + "                        </td>\r\n"
+				+ "                    </tr>\r\n" + "                    <tr align=\"center\">\r\n"
+				+ "                        <td style=\"padding: 40px 0 30px 0;\">\r\n"
+				+ "                            <a href=\"http://localhost:8080/DTNsBike/login.html"
+				+ "\" style=\"background-color: rgb(241, 75, 75);color:white;\r\n"
+				+ "                                text-decoration: none;padding: 15px 50px 15px 50px;border-radius: 30px;\r\n"
+				+ "                                box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;                                \r\n"
+				+ "                                \" class=\"dtn\">\r\n"
+				+ "                                Đăng nhập ngay\r\n" + "                            </a>\r\n"
+				+ "                        </td>\r\n" + "                    </tr>\r\n" + "                </table>\r\n"
+				+ "            </td>\r\n" + "        </tr>\r\n" + "        <tr>\r\n"
+				+ "            <td bgcolor=\"crimson\" style=\"padding: 30px 30px 30px 30px;\">\r\n"
+				+ "                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n"
+				+ "                    <tr>\r\n"
+				+ "                        <td style=\"color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;\">\r\n"
+				+ "                            &reg; DTNsShop, @LinhButoka 2022<br />\r\n"
+				+ "                            <a href=\"http://localhost:8080/DTNsBike/register.html\" style=\"color: #ffffff;\">\r\n"
+				+ "                                <font color=\"#ffffff\">Đăng ký</font>\r\n"
+				+ "                            </a> để nhận nhiều ưu đãi hấp dẫn từ DTNsBike. :))\r\n"
+				+ "                        </td>\r\n" + "                        <td align=\"right\">\r\n" + "\r\n"
+				+ "                        </td>\r\n" + "                    </tr>\r\n" + "                </table>\r\n"
+				+ "            </td>\r\n" + "        </tr>\r\n" + "    </table>\r\n" + "</body>\r\n" + "\r\n"
+				+ "</html>";
+		return html;
+	}
 
 }
