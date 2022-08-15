@@ -41,13 +41,13 @@
                         <!-- Cart Box Start Here -->
                         <div class="col-lg-4 col-md-12">
                             <div class="cart-box mt-all-30 sss" ng-controller="pushCart">
-                                <ul class="d-flex justify-content-lg-end justify-content-center align-items-center">
+                                <ul class="d-flex justify-content-lg-end justify-content-center align-items-center" >
                                     <li><a href="cart.html"><i class="lnr lnr-cart"></i><span class="my-cart"><span class="total-pro">{{total}}</span>
                                         <span th:text="#{menu.cart}">Giỏ hàng</span>
                                     </span>
                                     </a>
-                                        <ul class="ht-dropdown cart-box-width">
-                                            <li>
+                                        <ul class="ht-dropdown cart-box-width" >
+                                            <li ng-if="Cart.length>0">
                                                 <!-- Cart Box Start -->
                                                 <div class="single-cart-box" ng-repeat='listCart in Cart'>
                                                     <div class="cart-img">
@@ -73,6 +73,10 @@
                                                     </div>
                                                 </div>
                                                 <!-- Cart Footer Inner End -->
+                                            </li>
+                                            <li ng-if="Cart.length == 0">
+                                                <div class="text-center mt-4 mb-4">Giỏ hàng trống</div>
+
                                             </li>
                                         </ul>
                                     </li>

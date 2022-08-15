@@ -8,9 +8,9 @@ import dtn.asm.entity.Products;
 
 
 public interface ShoppingCartService {
-	void add(Integer id, Products pro, int qty,Accounts acc);
+	void add(Integer id, Products pro, Integer qty,Accounts acc);
 
-	Cart update(Integer id, int qty);
+	void update(Cart cart);
 
 	void clear();
 

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +38,7 @@ public class CartRestController {
 
 	RestTemplate resp = new RestTemplate();
 
-	@RequestMapping("/rest/Cart/create/{id}")
+	@GetMapping("/rest/Cart/create/{id}")
 	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id) {
 		Accounts acc = session.get("account");
 		if (id.isPresent()) {
@@ -47,14 +49,29 @@ public class CartRestController {
 		}
 		return ResponseEntity.ok(cart.getCarts(acc));
 	}
+	@PostMapping("/rest/Cart/create/{id}")
+	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id,@RequestBody() Optional<Integer> qty) {
+		Accounts acc = session.get("account");
+		if (id.isPresent()) {
+			Products pro = daoProduct.findById(id.get());
+			if(qty.isPresent()) {
+			cart.add(1, pro, qty.get(), acc);}else {
+				return ResponseEntity.noContent().build();
+			}
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(cart.getCarts(acc));
+	}
+
 	@GetMapping("/rest/Cart/delete/{id}")
 	public ResponseEntity<List<Cart>> deleteToCart(@PathVariable("id") Optional<Integer> id) {
 		Accounts acc = session.get("account");
 		if (id.isPresent()) {
 			Cart cartF = cartService.findById(id.get());
-			if(cartF.getUserCart().getUsername().equals(acc.getUsername())) {
+			if (cartF.getUserCart().getUsername().equals(acc.getUsername())) {
 				cart.remove(id.get());
-			}else {
+			} else {
 				return ResponseEntity.notFound().build();
 			}
 		} else {
@@ -67,6 +84,24 @@ public class CartRestController {
 	public ResponseEntity<List<Cart>> listCart() {
 		Accounts acc = session.get("account");
 		return ResponseEntity.ok(cart.getCarts(acc));
+	}
+
+	@PutMapping("/rest/Cart/update")
+	public ResponseEntity<Cart> updateToCart(@RequestBody Optional<Cart> cartBody) {
+		Accounts acc = session.get("account");
+		if (cartBody.isPresent()) {
+			Cart put = cartService.findById(cartBody.get().getId());
+			if (put.getUserCart().getUsername().equals(acc.getUsername())) {
+				put.setQty(cartBody.get().getQty());
+				cart.update(cartBody.get());
+				return ResponseEntity.ok(cartBody.get());
+			} else {
+				return ResponseEntity.noContent().build();
+			}
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+
 	}
 
 }

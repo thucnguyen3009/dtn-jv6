@@ -118,11 +118,13 @@ app.run(['$rootScope', function($rootScope) {
     $rootScope.page = {
         setTitle: function(title) {
             this.title =  'DTNsBike |' + title;
+          
         }
     }
-
+   
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
+        
     });
 }]);
 
@@ -130,7 +132,6 @@ app.run(['$rootScope', function($rootScope) {
 // Admin Index controller
 app.controller("index",function($scope,$http){
     let host = "http://localhost:8080/DTNsBike/rest";
-
      $scope.load_All = function () {
         var url = `${host}/indexCount`;
         $http.get(url).then(resp => {
@@ -139,8 +140,19 @@ app.controller("index",function($scope,$http){
         }).catch(error => {
             console.log("Error", error);
         });
-
-    }
+       
+     }
     $scope.load_All();
 
+});
+app.controller("account",function($scope,$http){
+    let host = "http://localhost:8080/DTNsBike/rest";
+    var url = `${host}/fullname`;
+        $http.get(url).then(resp => {
+            $scope.name = resp.data.fullname;
+            $scope.photo = `${host}/uploads/accountImg/${resp.data.photo}`
+            console.log("Success", resp)
+        }).catch(error => {
+            console.log("Error", error);
+        });
 });

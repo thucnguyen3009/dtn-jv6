@@ -18,14 +18,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	CartServiceImp cartService;
 
 	@Override
-	public void add(Integer id, Products pro, int qty, Accounts acc) {
-		Optional<Cart> cart = cartService.findByUsernameAndProduct(acc,pro);
+	public void add(Integer id, Products pro, Integer qty, Accounts acc) {
+		Optional<Cart> cart = cartService.findByUsernameAndProduct(acc, pro);
 		Cart cart1 = new Cart();
 		if (cart.isPresent()) {
-			cart1 =cart.get();
-			cart1.setQty(cart1.getQty()+qty);	
+			cart1 = cart.get();
+			cart1.setQty(cart1.getQty() + qty);
 			cartService.update(cart1);
 		} else {
+			if (qty > 1) {
+				cart1.setQty(qty);
+			}
 			cart1.setProCart(pro);
 			cart1.setColorCart(pro.getProductColors().get(0));
 			cart1.setPrice(pro.getPrice() - (pro.getPrice() * pro.getSale() / 100));
@@ -40,8 +43,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public Cart update(Integer id, int qty) {
-		return null;
+	public void update(Cart cart) {
+		cartService.update(cart);
 	}
 
 	@Override
