@@ -31,16 +31,17 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		try {
-//			Accounts accounts = accountDAO.findById(username).get();
-			Accounts accounts = accountDAO.findByIdAndActiveTrue(username, true).get();
+			Accounts accounts = accountDAO.findById(username).get();
 			String pass = accounts.getPassword();
-//			List<String> list = authoritiesDAO.findRoleByUsername(username);
 			String[] roles = accounts.getAuthorities().stream().map(map -> map.getRoleId().getId())
 					.collect(Collectors.toList()).toArray(new String[0]);
 			UserDetails userDetails = User.withUsername(username).password(pe.encode(pass)).roles(roles).build();
 			return userDetails;
+		} catch (UsernameNotFoundException e) {
+			System.out.println("Username: " + username + " not found!");
+			throw new UsernameNotFoundException(username + " not found!");
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Username: " + username + " not found!");
 			throw new UsernameNotFoundException(username + " not found!");
 		}
 	}
