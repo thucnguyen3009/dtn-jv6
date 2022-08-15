@@ -31,7 +31,8 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		try {
-			Accounts accounts = accountDAO.findById(username).get();
+//			Accounts accounts = accountDAO.findById(username).get();
+			Accounts accounts = accountDAO.findByIdAndActiveTrue(username, true).get();
 			String pass = accounts.getPassword();
 //			List<String> list = authoritiesDAO.findRoleByUsername(username);
 			String[] roles = accounts.getAuthorities().stream().map(map -> map.getRoleId().getId())
