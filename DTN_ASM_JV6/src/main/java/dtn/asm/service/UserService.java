@@ -30,19 +30,27 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		Accounts accounts = null;
+		String pass = null;
+		String[] roles = null;
 		try {
-			Accounts accounts = accountDAO.findById(username).get();
-			String pass = accounts.getPassword();
-			String[] roles = accounts.getAuthorities().stream().map(map -> map.getRoleId().getId())
-					.collect(Collectors.toList()).toArray(new String[0]);
+			accounts = accountDAO.findByIdAndActiveTrue(username, true).get();
+			pass = accounts.getPassword();
+			roles = accounts.getAuthorities().stream().map(map -> map.getRoleId().getId()).collect(Collectors.toList())
+					.toArray(new String[0]);
 			UserDetails userDetails = User.withUsername(username).password(pe.encode(pass)).roles(roles).build();
 			return userDetails;
-		} catch (UsernameNotFoundException e) {
-			System.out.println("Username: " + username + " not found!");
-			throw new UsernameNotFoundException(username + " not found!");
 		} catch (Exception e) {
-			System.out.println("Username: " + username + " not found!");
-			throw new UsernameNotFoundException(username + " not found!");
+			if (accounts == null) {
+				System.out.println("Username: " + username + " not found in database!");
+			}
+			if (pass == null) {
+				System.out.println("Passwords: Value is null!");
+			}
+			if (roles == null) {
+				System.out.println("Roles: Value is null!");
+			}
+			throw new UsernameNotFoundException(null);
 		}
 	}
 
