@@ -24,10 +24,10 @@ public class DeleteSessionLogin implements HandlerInterceptor {
 
 		if (request.getRemoteUser() == null) {
 			session.remove("acount");
-			System.out.println("Notification: No session login.");
+			System.out.println("[==========| Notification: No session login. |==========]");
 		} else {
 			session.set("account", accountDAO.findById(request.getUserPrincipal().getName()).get());
-			System.out.println("Notification: Login by " + request.getUserPrincipal().getName() + ".");
+			System.out.println("[==========| Notification: Login by " + request.getUserPrincipal().getName() + ". |==========]");
 		}
 		return true;
 	}

@@ -42,13 +42,13 @@ public class UserService implements UserDetailsService {
 			return userDetails;
 		} catch (Exception e) {
 			if (accounts == null) {
-				System.out.println("Username: " + username + " not found in database!");
+				System.out.println("[==========| Username: " + username + " not found in database! |==========]");
 			}
 			if (pass == null) {
-				System.out.println("Passwords: Value is null!");
+				System.out.println("[==========| Passwords: Value is null! |==========]");
 			}
 			if (roles == null) {
-				System.out.println("Roles: Value is null!");
+				System.out.println("[==========| Roles: Value is null! |==========]");
 			}
 			throw new UsernameNotFoundException(null);
 		}

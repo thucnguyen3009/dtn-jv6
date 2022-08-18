@@ -93,37 +93,60 @@ app.filter('replace', [function () {
 }]);
 
 //Cart Controller
-app.controller("cartCtr", function ($scope, $http,$rootScope,$window) {
+app.controller("cartCtr", function ($scope, $http,$rootScope, $window) {
     $scope.addCart = function (id) {
-        var url = `${host}Cart/create/${id}`
+        var url = `${host}Cart/create/${id}`;
+        var urlLogin = "http://" + $window.location.host + "/DTNsBike/login.html";
         $http.get(url).then(resp => {
+			console.log(resp);
             alert("Thêm vào giỏ hàng thành công");
             $rootScope.$emit("list", {});
         }
         ).catch(error => {
-            alert("Lỗi khi thêm vào giỏ hàng");
+            if(error.status == 500){
+				$window.location.href = urlLogin;
+			}
+		    console.log(error);
         });
         
     }
     $scope.quantity=1;
-    $scope.addCartQty= function (id) {
-        var url = `${host}Cart/create/${id}`
-        var urlLogin = "http://" + $window.location.host + "/DTNsBike/login.html";
-        console.log(urlLogin);
-        var data = $scope.Cart;
-             $http.post(url,$scope.quantity).then(resp => {
-					if(data.status==200){
-						alert("Thêm vào giỏ hàng thành công");
-					}else if(data.status==404){
-						alert("Vui lòng đăng nhập");
-						//$window.location.href = urlLogin;
-					}
-                    $rootScope.$emit("list", {});
-                }
-            ).catch(error => {
-                console.log(error);
-            });
+    $scope.addCartQty = function (id) {
+    	 var url = `${host}Cart/create/${id}`
+         var urlLogin = "http://" + $window.location.host + "/DTNsBike/login.html";
+         var data = $scope.Cart;
+		 $http.post(url,$scope.quantity).then(resp => {
+				console.log(resp);
+				if(data.status==200){
+					alert("Thêm vào giỏ hàng thành công");
+				}
+		        $rootScope.$emit("list", {});
+		    }
+		).catch(error => {
+			if(error.status == 500){
+				$window.location.href = urlLogin;
+			}
+		    console.log(error);
+		});
     }
+    
+    
+    //Favorites
+    $scope.like = function(id){
+		var urlLike = `http://localhost:8080/DTNsBike/rest/favorites/like/${id}`;//${id}
+		var urlLogin = "http://" + $window.location.host + "/DTNsBike/login.html";
+		$http.post(urlLike).then(resp => {
+			console.log("Data form server: ",resp);
+			alert(resp.data);
+		}).catch(err => {
+			console.log("Error code: ", err.status);
+			if(err.status == 424){
+				alert("Mã sản phẩm không hợp lệ.");
+			}else if(err.status == 500){
+				$window.location.href = urlLogin;
+			}
+		});
+	}
 })
 
 app.controller("pushCart", function ($scope, $http,$rootScope) {

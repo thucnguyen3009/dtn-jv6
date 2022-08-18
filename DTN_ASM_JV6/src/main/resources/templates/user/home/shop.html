@@ -248,7 +248,7 @@
                                                             <!-- <a th:href="@{|/addToCart/${p.id}|}" title="Add to Cart"> + Thêm vào giỏ hàng</a> -->
                                                         </div>
                                                         <div class="actions-secondary">
-                                                            <a href="#" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
+                                                        	<a th:attr="ng-click=|like(${p.id})|" title="Thêm vào mặt hàng yêu thích"><i class="lnr lnr-heart"></i> <span>(+) Yêu thích</span></a>
                                                         </div>
                                                     </div>
                                                 </div>

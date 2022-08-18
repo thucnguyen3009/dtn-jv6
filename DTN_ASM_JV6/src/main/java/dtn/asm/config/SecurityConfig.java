@@ -48,9 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/index.html", "/login.html", "/register.html", "/logout.html", "/forgot-password.html")
 				.permitAll().antMatchers("/admin/**").hasAnyRole("DIRE", "STAF")
 				.antMatchers("/cart.html", "/changepass.html", "/update_account.html", "/update_account.html/**",
-						"/checkout.html", "/orders.html", "/rest/Cart/create/**")
+						"/checkout.html", "/orders.html")
 				.authenticated();
-		;
 		// Điều khiển lỗi truy cập không đúng vai trò.
 		http.exceptionHandling().accessDeniedPage("/login.html");
 

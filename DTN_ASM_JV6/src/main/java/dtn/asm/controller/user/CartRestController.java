@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +47,7 @@ public class CartRestController {
 			throws IOException {
 		Accounts acc = session.get("account");
 		if (acc == null) {
-			resp.sendRedirect("/DTNsBike/login.html");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();// 500
 		}
 		if (id.isPresent()) {
 			Products pro = daoProduct.findById(id.get());
@@ -61,6 +62,9 @@ public class CartRestController {
 	public ResponseEntity<List<Cart>> addToCart(@PathVariable("id") Optional<Integer> id,
 			@RequestBody() Optional<Integer> qty, HttpServletResponse resp) throws IOException {
 		Accounts acc = session.get("account");
+		if (acc == null) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();// 500
+		}
 		if (id.isPresent()) {
 			Products pro = daoProduct.findById(id.get());
 			if (qty.isPresent()) {

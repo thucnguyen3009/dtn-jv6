@@ -82,7 +82,7 @@ public class Products implements Serializable {
 	List<Cart> carts;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "productsId")
-	List<Favorites> favorites;
+	@OneToMany(mappedBy = "productsId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Favorites> favorites;
 	
 }

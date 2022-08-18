@@ -2,6 +2,8 @@ package dtn.asm.controller.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import dtn.asm.dao.AccountDAO;
 import dtn.asm.entity.Accounts;
 import dtn.asm.service.AccountsService;
 import dtn.asm.service.SessionService;
@@ -30,6 +33,10 @@ public class AccountsRestController {
 	AccountsService account;
 	@Autowired
 	SessionService session;
+	@Autowired
+	AccountDAO accountDAO;
+	@Autowired
+	HttpServletRequest request;
 
 	@GetMapping("/rest/accounts")
 	public ResponseEntity<List<Accounts>> getAll(Model m) {
@@ -48,15 +55,17 @@ public class AccountsRestController {
 	public Boolean check(@PathVariable("id") String id) {
 		return account.check(id);
 	}
+
 	@GetMapping("/rest/accounts/checkUser/{id}")
 	public Boolean checkUser(@PathVariable("id") String id) {
 		return account.checkUsername(id);
 	}
-	
+
 	@GetMapping("/rest/accounts/checkEmail/{email}")
 	public Boolean checkEmail(@PathVariable("email") String email) {
 		return account.checkEmail(email);
 	}
+
 	@GetMapping("/rest/accounts/checkPhone/{phone}")
 	public Boolean checkPhone(@PathVariable("phone") String phone) {
 		return account.checkPhone(phone);
@@ -67,7 +76,7 @@ public class AccountsRestController {
 //		if(account.findById(data.getId()) != null) {
 //			return ResponseEntity.badRequest().build();
 //		}
-		if(data.getPhoto() == null) {
+		if (data.getPhoto() == null) {
 			data.setPhoto("default.jpg");
 		}
 		account.create(data);
@@ -91,9 +100,10 @@ public class AccountsRestController {
 		account.delete(id);
 		return ResponseEntity.ok().build();
 	}
+
 	@GetMapping("/rest/fullname")
 	public JsonNode fullname() {
-		Accounts acc = session.get("account");
+		Accounts acc = accountDAO.findById(request.getUserPrincipal().getName()).get();
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode obj = mapper.createObjectNode();
 		obj.put("fullname", acc.getFullname());
