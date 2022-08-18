@@ -36,6 +36,13 @@
                 <!-- Row End -->
                 <div class="row">
                     <div class="col-sm-12">
+
+
+                        <div th:hidden="${mess6 == null}">
+                            <p class="alert alert-success" role="alert" >[[${mess6}]]</p>
+                       </div>
+
+
                         <form class="form-register" th:action="@{/register.html}" th:object="${signUpForm}" th:method="post">
                             <fieldset>
                                 <legend>Thông tin cá nhân của bạn</legend>
@@ -98,7 +105,7 @@
                                 </div>
                             </div>
                         </form>
-                        <p>[[${mess6}]]</p>
+                        <!-- <p>[[${mess6}]]</p> -->
                     </div>
                 </div>
                 <!-- Row End -->
