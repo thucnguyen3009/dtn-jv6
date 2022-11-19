@@ -90,7 +90,6 @@ public class UpdateAccountController {
 	@PostMapping("/update_account.html")
 	public String postUpdateAccount(Model m, @Valid @ModelAttribute("updateAccount") UpdateAccountsForm form,
 			Errors error) {
-
 		if (!error.hasErrors()) {
 			Accounts acc = session.get("account");
 			acc.setFullname(form.getFullname());
